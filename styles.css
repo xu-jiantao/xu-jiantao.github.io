@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+/* 导航栏样式 */
+.nav {
+    background-color: white;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    margin-right: auto;
+    padding-left: 340px;
+}
+
+.nav a {
+    color: #666;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: color 0.3s;
+}
+
+.nav a:hover {
+    color: #000;
+}
+
+/* 语言切换按钮 */
+.lang-switch {
+    padding: 5px 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+/* 主要内容区布局 */
+.main-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+/* 侧边栏样式 */
+.sidebar {
+    width: 300px;
+    padding: 20px;
+    position: fixed;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+/* 个人信息样式 */
+.profile-info {
+    text-align: center;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.info-item {
+    margin: 10px 0;
+    color: #666;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 主要内容区域样式 */
+#content {
+    margin-left: 340px;
+    padding: 20px;
+    max-width: 800px;
+    flex-grow: 1;
+}
+
+/* Markdown 内容样式 */
+#content h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+#content h2 {
+    color: #34495e;
+    margin-top: 25px;
+}
+
+#content ul {
+    padding-left: 20px;
+}
+
+#content li {
+    margin: 8px 0;
+} 

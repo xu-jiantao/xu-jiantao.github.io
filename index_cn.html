@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <div class="nav">
+        <div class="nav-links">
+            <a href="#" onclick="showContent('about')" id="nav-about">关于</a>
+            <a href="#" onclick="showContent('education')" id="nav-education">教育经历</a>
+            <a href="#" onclick="showContent('experience')" id="nav-experience">工作经验</a>
+            <a href="#" onclick="showContent('contact')" id="nav-contact">联系方式</a>
+        </div>
+        <a href="index.html" class="lang-switch">English</a>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <div class="main-container">
+        <!-- 左侧个人信息 -->
+        <div class="sidebar">
+            <div class="profile-info">
+                <img src="img.jpeg" alt="Profile" class="profile-img">
+                <h2 id="name">徐建涛</h2>
+            </div>
+            <div class="info-item">📍 日本福岛</div>
+            <div class="info-item">🏛 会津大学</div>
+            <div class="info-item" >📧 xujiantao9510@gmail.com</div>
+        </div>
+
+        <!-- 右侧内容区域 -->
+        <div id="content"></div>
+    </div>
+
+    <script>
+        const contents = {
+            about: `# 关于我
+
+我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括位置隐私保护和群智感知。
+
+## 研究方向
+- 位置隐私保护
+- 群智感知
+- 网络安全
+- 物联网
+
+## 专业技能
+- 编程语言：HTML、Java、Python
+- 数据库：MySQL
+- 系统：Linux服务器`,
+            
+            education: `# 教育经历
+
+## 博士：计算机信息系统
+- 日本会津大学
+- 2023年10月至今
+
+## 硕士：计算机信息系统
+- 日本会津大学
+- 2021年10月-2023年10月
+
+## 学士：计算机科学与技术
+- 郑州大学
+- 2017年-2021年`,
+            
+            experience: `# 工作经历
+
+## EyesJapan（兼职）
+*2023年10月至今*
+- 网页开发
+- 前后端开发
+- 数据库设计
+
+## 太平洋保险数据中心，上海
+*2021年4月-2022年8月*
+职位：系统工程师
+- 负责在线服务器故障排查
+- 维护数据传输系统
+- 定期更新公司系统软件
+- 协助处理其他公司事务
+
+## 所获证书
+- 大学英语四级证书
+- 中国驾照`,
+
+            contact: `# 联系方式
+
+- 邮箱：xujiantao9510@gmail.com
+- 个人网站：https://xu-jiantao.github.io`
+        };
+
+        function showContent(page) {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = marked.parse(contents[page] || '内容不可用');
+            
+            // 更新活动链接样式
+            document.querySelectorAll('.nav a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('onclick')?.includes(page)) {
+                    a.classList.add('active');
+                }
+            });
+        }
+
+        // 页面加载时显示 about 内容
+        window.onload = () => showContent('about');
+    </script>
+</body>
+</html> 
