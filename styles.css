@@ -82,6 +82,16 @@ body {
     gap: 10px;
 }
 
+.info-item a {
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.info-item a:hover {
+    color: #000;
+}
+
 /* 主要内容区域样式 */
 #content {
     margin-left: 340px;
@@ -108,4 +118,48 @@ body {
 
 #content li {
     margin: 8px 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .nav-links {
+        padding-left: 20px;
+        gap: 15px;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 10px;
+    }
+
+    .main-container {
+        flex-direction: column;
+    }
+
+    #content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .nav {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .lang-switch {
+        margin: 10px 0;
+    }
 } 
