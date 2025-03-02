@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const contactContent = `
         <p><strong>姓名:</strong> 徐建涛</p>
         <p><strong>邮箱:</strong> <a href="mailto:xujiantao9510@gmail.com">xujiantao9510@gmail.com</a></p>
-        <p><strong>个人网站:</strong> <a href="https://xujiantao9510.github.io/" target="_blank">https://xujiantao9510.github.io/</a></p>
+        <p><strong>个人网站:</strong> <a href="https://xujiantao9510.github.io/" target="_blank">https://xujiantao.github.io/</a></p>
     `;
     contactSection.innerHTML += contactContent;
     container.appendChild(contactSection);

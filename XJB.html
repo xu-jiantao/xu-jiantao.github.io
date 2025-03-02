@@ -1,10 +1,980 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><span data-lang="zh">徐建波 - 个人学术主页</span><span data-lang="en" style="display: none;">Jianbo Xu - Academic Homepage</span></title>
+    <style>
+        /* 重置样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2a52be;
+        }
+
+        /* 修改：标签栏样式 */
+        .tab-container {
+            display: flex; /* 水平排列标签 */
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin-left: 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .tab-button:hover, .tab-button.active {
+            color: #2a52be;
+        }
+
+        .tab-button.active {
+            border-bottom: 2px solid #2a52be; /* 激活标签底部边框 */
+            font-weight: bold;
+        }
+
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .lang-toggle {
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 2rem;
+        }
+
+        /* 首页 */
+        .hero {
+            background: linear-gradient(135deg, #2a52be 0%, #6a82fb 100%);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: #2a52be;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 关于我 */
+        .about {
+            padding: 5rem 0;
+            background-color: #fff;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            color: #2a52be;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #2a52be;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* 研究方向 */
+        .research {
+            padding: 5rem 0;
+            background-color: #f9f9f9;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .research-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .research-card-content {
+            padding: 1.5rem;
+        }
+
+        .research-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: #2a52be;
+        }
+
+        /* 出版物 */
+        .publications {
+            padding: 5rem 0;
+            background-color: #fff;
+        }
+
+        .pub-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s;
+            color: #555;
+        }
+
+        .filter-btn.active {
+            background-color: #2a52be;
+            color: white;
+        }
+
+        .pub-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pub-item {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: transform 0.3s;
+        }
+
+        .pub-item:hover {
+            transform: translateX(5px);
+            background-color: #f0f4ff;
+        }
+
+        .pub-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #2a52be;
+        }
+
+        .pub-item .authors {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .pub-item .journal {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .pub-item .pub-links {
+            margin-top: 0.8rem;
+        }
+
+        .pub-item .pub-links a {
+            display: inline-block;
+            margin-right: 1rem;
+            color: #2a52be;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .pub-item .pub-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* 教育经历 */
+        .education {
+            padding: 5rem 0;
+            background-color: #f9f9f9;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #ddd;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #2a52be;
+            border: 4px solid #f9f9f9;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -14px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -14px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2a52be;
+        }
+
+        .timeline-content .date {
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+
+        /* 联系方式 */
+        .contact {
+            padding: 5rem 0;
+            background-color: #fff;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: #2a52be;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #eef2ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: #2a52be;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #2a52be;
+            outline: none;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .btn-submit {
+            background-color: #2a52be;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #1e3d99;
+            transform: translateY(-3px);
+        }
+
+        /* 底部 */
+        footer {
+            background-color: #222;
+            color: #aaa;
+            padding: 3rem 0;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-col p {
+            margin-bottom: 1rem;
+        }
+
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .tab-container {
+                display: none; /* 在小屏幕上隐藏标签栏，你也可以选择保留并调整样式 */
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: #fff;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 0 0 1.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: 17px;
+            }
+        }
+
+        /* 初始隐藏所有内容区域，除了首页 */
+        section:not(#home) {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-$END$
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><span data-lang="zh">徐建波</span><span data-lang="en" style="display: none;">Jianbo Xu</span></div>
+                <div class="tab-container">
+                    <button class="tab-button active" data-tab="home"><span data-lang="zh">首页</span><span data-lang="en" style="display: none;">Home</span></button>
+                    <button class="tab-button" data-tab="about"><span data-lang="zh">关于我</span><span data-lang="en" style="display: none;">关于我</span></button>
+                    <button class="tab-button" data-tab="education"><span data-lang="zh">教育经历</span><span data-lang="en" style="display: none;">教育经历</span></button>
+                    <button class="tab-button" data-tab="research"><span data-lang="zh">研究方向</span><span data-lang="en" style="display: none;">研究方向</span></button>
+                    <button class="tab-button" data-tab="publications"><span data-lang="zh">发表论文</span><span data-lang="en" style="display: none;">发表论文</span></button>
+                    <button class="tab-button" data-tab="contact"><span data-lang="zh">联系方式</span><span data-lang="en" style="display: none;">联系方式</span></button>
+                </div>
+                <div class="menu-toggle">☰</div>
+                <div class="lang-toggle"><span data-lang="zh" style="display: inline;">中文</span> | <span data-lang="en" style="display: none;">EN</span></div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><span data-lang="zh">徐建波 | 机器学习与信号处理</span><span data-lang="en" style="display: none;">Jianbo Xu | Machine Learning & Signal Processing</span></h1>
+                <p><span data-lang="zh">专注于机器学习、信号处理和生理信号的无缝监测研究的副研究员</span><span data-lang="en" style="display: none;">Associate Researcher focusing on Machine Learning, Signal Processing, and Seamless Physiological Signal Monitoring</span></p>
+                <a href="#contact" class="btn"><span data-lang="zh">联系我</span><span data-lang="en" style="display: none;">Contact Me</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title"><span data-lang="zh">关于我</span><span data-lang="en" style="display: none;">About Me</span></h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="/api/placeholder/400/400" alt="徐建波照片">
+                </div>
+                <div class="about-text">
+                    <h3><span data-lang="zh">学术背景</span><span data-lang="en" style="display: none;">Academic Background</span></h3>
+                    <p><span data-lang="zh">徐建波，男，博士，现任海南大学计算机科学与技术学院副研究员。于2022年3月获得日本会津大学计算机与信息系统学博士学位，研究方向主要包括机器学习、信号处理和生理信号的无缝监测等领域。</span><span data-lang="en" style="display: none;">Jianbo Xu, male, PhD, currently an Associate Researcher at the School of Computer Science and Technology, Hainan University. He received his Ph.D. degree in Computer and Information Systems from the University of Aizu, Japan in March 2022. His research interests include Machine Learning, Signal Processing, and Seamless Physiological Signal Monitoring.</span></p>
+
+                    <p><span data-lang="zh">在国际会议和期刊上发表多篇论文，研究工作主要聚焦于利用深度学习方法进行ECG信号处理和个人身份识别，特别关注不同环境下（如洗浴时不同水温）的ECG信号特征及其在身份验证中的应用。</span><span data-lang="en" style="display: none;">He has published multiple papers in international conferences and journals. His research work primarily focuses on using deep learning methods for ECG signal processing and personal identification, particularly focusing on the ECG signal characteristics in different environments (such as different water temperatures during bathing) and their application in identity verification.</span></p>
+
+                    <p><span data-lang="zh">目前在海南大学开展教学与研究工作，致力于将理论研究成果应用于实际生活场景，推动生理信号监测技术的发展与应用。</span><span data-lang="en" style="display: none;">Currently, he is engaged in teaching and research at Hainan University, dedicated to applying theoretical research results to real-life scenarios, and promoting the development and application of physiological signal monitoring technology.</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title"><span data-lang="zh">教育与工作经历</span><span data-lang="en" style="display: none;">Education and Work Experience</span></h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3><span data-lang="zh">海南大学</span><span data-lang="en" style="display: none;">Hainan University</span></h3>
+                        <div class="date">2022年4月至今<span data-lang="en" style="display: none;">- Present</span></div>
+                        <p><span data-lang="zh">计算机科学与技术学院，副研究员</span><span data-lang="en" style="display: none;">School of Computer Science and Technology, Associate Researcher</span></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3><span data-lang="zh">日本会津大学</span><span data-lang="en" style="display: none;">University of Aizu, Japan</span></h3>
+                        <div class="date">2019年4月至2022年3月</div>
+                        <p><span data-lang="zh">计算机与信息系统学，博士</span><span data-lang="en" style="display: none;">Computer and Information Systems, Ph.D.</span></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3><span data-lang="zh">日本会津大学</span><span data-lang="en" style="display: none;">University of Aizu, Japan</span></h3>
+                        <div class="date">2017年10月至2019年3月</div>
+                        <p><span data-lang="zh">计算机与信息系统学，硕士</span><span data-lang="en" style="display: none;">Computer and Information Systems, Master</span></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3><span data-lang="zh">河南大学</span><span data-lang="en" style="display: none;">Henan University</span></h3>
+                        <div class="date">2010年9月至2014年7月</div>
+                        <p><span data-lang="zh">网络工程，学士</span><span data-lang="en" style="display: none;">Network Engineering, Bachelor</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="research" class="research">
+        <div class="container">
+            <h2 class="section-title"><span data-lang="zh">研究方向</span><span data-lang="en" style="display: none;">Research Interests</span></h2>
+            <div class="research-grid">
+                <div class="research-card">
+                    <img src="/api/placeholder/500/300" alt="机器学习">
+                    <div class="research-card-content">
+                        <h3><span data-lang="zh">机器学习</span><span data-lang="en" style="display: none;">Machine Learning</span></h3>
+                        <p><span data-lang="zh">应用深度学习算法处理和分析复杂数据，特别是在卷积神经网络(CNN)在生理信号处理中的应用研究。</span><span data-lang="en" style="display: none;">Applying deep learning algorithms to process and analyze complex data, especially research on the application of Convolutional Neural Networks (CNN) in physiological signal processing.</span></p>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <img src="/api/placeholder/500/300" alt="信号处理">
+                    <div class="research-card-content">
+                        <h3><span data-lang="zh">信号处理</span><span data-lang="en" style="display: none;">Signal Processing</span></h3>
+                        <p><span data-lang="zh">研究生理信号（如心电图ECG）的特征提取与分析技术，开发高效的信号处理算法。</span><span data-lang="en" style="display: none;">Researching feature extraction and analysis techniques for physiological signals (such as ECG), and developing efficient signal processing algorithms.</span></p>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <img src="/api/placeholder/500/300" alt="生理信号监测">
+                    <div class="research-card-content">
+                        <h3><span data-lang="zh">生理信号的无缝监测</span><span data-lang="en" style="display: none;">Seamless Physiological Signal Monitoring</span></h3>
+                        <p><span data-lang="zh">探索在各种生活场景（如沐浴）下实现生理信号的无缝监测技术，研究环境因素对生理信号监测的影响。</span><span data-lang="en" style="display: none;">Exploring seamless physiological signal monitoring technology in various life scenarios (such as bathing), and studying the impact of environmental factors on physiological signal monitoring.</span></p>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <img src="/api/placeholder/500/300" alt="身份识别">
+                    <div class="research-card-content">
+                        <h3><span data-lang="zh">基于生理信号的身份识别</span><span data-lang="en" style="display: none;">Physiological Signal-based Identity Recognition</span></h3>
+                        <p><span data-lang="zh">探索利用ECG等生理信号进行个人身份识别的方法，提高不同环境条件下的识别准确率。</span><span data-lang="en" style="display: none;">Exploring methods for personal identification using physiological signals such as ECG, and improving recognition accuracy under different environmental conditions.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="publications" class="publications">
+        <div class="container">
+            <h2 class="section-title"><span data-lang="zh">发表论文</span><span data-lang="en" style="display: none;">Publications</span></h2>
+            <div class="pub-filter">
+                <button class="filter-btn active" data-filter="all"><span data-lang="zh">全部</span><span data-lang="en" style="display: none;">All</span></button>
+                <button class="filter-btn" data-filter="2021">2021</button>
+                <button class="filter-btn" data-filter="2020">2020</button>
+                <button class="filter-btn" data-filter="2019">2019</button>
+                <button class="filter-btn" data-filter="2018">2018</button>
+            </div>
+            <div class="pub-list">
+                <div class="pub-item" data-year="2021">
+                    <h3>Convolutional neural network-based identity recognition using ECG at different water temperatures during bathing</h3>
+                    <div class="authors">Jianbo Xu and Wenxi Chen</div>
+                    <div class="journal">Computers, Materials & Continua, 2021</div>
+                    <div class="pub-links">
+                        <a href="#">PDF</a>
+                        <a href="#">DOI</a>
+                    </div>
+                </div>
+
+                <div class="pub-item" data-year="2021">
+                    <h3>Impact of water temperature on heart rate variability during bathing</h3>
+                    <div class="authors">Jianbo Xu and Wenxi Chen</div>
+                    <div class="journal">MDPI: Life, 11(5):378, 2021</div>
+                    <div class="pub-links">
+                        <a href="#">PDF</a>
+                        <a href="#">DOI</a>
+                    </div>
+                </div>
+
+                <div class="pub-item" data-year="2020">
+                    <h3>ECG-based identity validation during bathing in different water temperature</h3>
+                    <div class="authors">Jianbo Xu, Peng Cui, and Wenxi Chen</div>
+                    <div class="journal">2020 42nd Annual International Conference of the IEEE Engineering in Medicine & Biology Society (EMBC), Montreal, QC, Canada, pages 5276–5279. IEEE, 2020</div>
+                    <div class="pub-links">
+                        <a href="#">PDF</a>
+                        <a href="#">DOI</a>
+                    </div>
+                </div>
+
+                <div class="pub-item" data-year="2019">
+                    <h3>Improvement of ECG based personal identification performance in different bathtub water temperature by CNN</h3>
+                    <div class="authors">Jianbo Xu, Tianhui Li, Peng Cui, and Wenxi Chen</div>
+                    <div class="journal">2019 IEEE 10th International Conference on Awareness Science and Technology (iCAST), Morioka, Japan, pages 1–5. IEEE, 2019</div>
+                    <div class="pub-links">
+                        <a href="#">PDF</a>
+                        <a href="#">DOI</a>
+                    </div>
+                </div>
+
+                <div class="pub-item" data-year="2018">
+                    <h3>The impact of bathtub water temperature on personal identification with ECG signal based on convolutional neural network</h3>
+                    <div class="authors">Jianbo Xu, Tianhui Li, Ying Chen, and Wenxi Chen</div>
+                    <div class="journal">2018 IEEE 4th International Conference on Computer and Communications (ICCC), Chengdu, China, pages 1341–1345. IEEE, 2018</div>
+                    <div class="pub-links">
+                        <a href="#">PDF</a>
+                        <a href="#">DOI</a>
+                    </div>
+                </div>
+
+                <div class="pub-item" data-year="2018">
+                    <h3>Personal identification by convolutional neural network with ECG signal</h3>
+                    <div class="authors">Jianbo Xu, Tianhui Li, Ying Chen, and Wenxi Chen</div>
+                    <div class="journal">2018 International Conference on Information and Communication Technology Convergence (ICTC), Jeju, Korea (South), pages 559–563. IEEE, 2018</div>
+                    <div class="pub-links">
+                        <a href="#">PDF</a>
+                        <a href="#">DOI</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title"><span data-lang="zh">联系方式</span><span data-lang="en" style="display: none;">Contact</span></h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3><span data-lang="zh">联系信息</span><span data-lang="en" style="display: none;">Contact Information</span></h3>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4><span data-lang="zh">地址</span><span data-lang="en" style="display: none;">Address</span></h4>
+                            <p><span data-lang="zh">中国海南省海口市美兰区海南大学计算机科学与技术学院</span><span data-lang="en" style="display: none;">School of Computer Science and Technology, Hainan University, Meilan District, Haikou City, Hainan Province, China</span></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4><span data-lang="zh">邮箱</span><span data-lang="en" style="display: none;">Email</span></h4>
+                            <p>jianbo.xu@hainanu.edu.cn</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <h4><span data-lang="zh">学术主页</span><span data-lang="en" style="display: none;">Academic Homepage</span></h4>
+                            <p>https://www.researchgate.net/profile/Jianbo-Xu</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name"><span data-lang="zh">姓名</span><span data-lang="en" style="display: none;">Name</span></label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email"><span data-lang="zh">邮箱</span><span data-lang="en" style="display: none;">Email</span></label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject"><span data-lang="zh">主题</span><span data-lang="en" style="display: none;">Subject</span></label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message"><span data-lang="zh">消息</span><span data-lang="en" style="display: none;">Message</span></label>
+                            <textarea id="message" class="form-control" rows="5" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit"><span data-lang="zh">发送消息</span><span data-lang="en" style="display: none;">Send Message</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4><span data-lang="zh">徐建波</span><span data-lang="en" style="display: none;">Jianbo Xu</span></h4>
+                    <p><span data-lang="zh">副研究员，海南大学计算机科学与技术学院</span><span data-lang="en" style="display: none;">Associate Researcher, School of Computer Science and Technology, Hainan University</span></p>
+                    <p><span data-lang="zh">专注于机器学习、信号处理和生理信号无缝监测研究</span><span data-lang="en" style="display: none;">Focusing on Machine Learning, Signal Processing and Seamless Physiological Signal Monitoring Research</span></p>
+                </div>
+
+                <div class="footer-col">
+                    <h4><span data-lang="zh">快速链接</span><span data-lang="en" style="display: none;">Quick Links</span></h4>
+                    <ul class="footer-links">
+                        <li><a href="#home"><span data-lang="zh">首页</span><span data-lang="en" style="display: none;">Home</span></a></li>
+                        <li><a href="#about"><span data-lang="zh">关于我</span><span data-lang="en" style="display: none;">About Me</span></a></li>
+                        <li><a href="#education"><span data-lang="zh">教育经历</span><span data-lang="en" style="display: none;">Education</span></a></li>
+                        <li><a href="#research"><span data-lang="zh">研究方向</span><span data-lang="en" style="display: none;">Research</span></a></li>
+                        <li><a href="#publications"><span data-lang="zh">发表论文</span><span data-lang="en" style="display: none;">Publications</span></a></li>
+                        <li><a href="#contact"><span data-lang="zh">联系方式</span><span data-lang="en" style="display: none;">Contact</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4><span data-lang="zh">相关资源</span><span data-lang="en" style="display: none;">Related Resources</span></h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.hainanu.edu.cn/">海南大学<span data-lang="en" style="display: none;">(Hainan University)</span></a></li>
+                        <li><a href="https://cs.hainanu.edu.cn/">计算机科学与技术学院<span data-lang="en" style="display: none;">(School of Computer Science and Technology)</span></a></li>
+                        <li><a href="https://www.researchgate.net/profile/Jianbo-Xu">ResearchGate</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 <span data-lang="zh">徐建波 个人学术主页</span><span data-lang="en" style="display: none;">Jianbo Xu - Academic Homepage</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links'); // 注意: 即使移除了导航链接，menuToggle可能仍用于其他目的，例如移动端菜单
+            const langToggle = document.querySelector('.lang-toggle');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const pubItems = document.querySelectorAll('.pub-item');
+            let currentLang = 'zh'; // 默认中文
+
+            const tabContainer = document.querySelector('.tab-container'); // 获取标签容器
+            const tabButtons = document.querySelectorAll('.tab-button'); // 获取所有标签按钮
+            const sections = document.querySelectorAll('section'); // 获取所有的内容区域
+
+            // 菜单切换 - 如果 menuToggle 仍然需要
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active'); // 如果你还有其他移动端导航需要切换，保留此行，否则可以删除
+            });
+
+            // 语言切换 (保持不变)
+            langToggle.addEventListener('click', () => {
+                currentLang = currentLang === 'zh' ? 'en' : 'zh';
+                document.querySelectorAll('[data-lang]').forEach(el => {
+                    if (el.dataset.lang === currentLang) {
+                        el.style.display = 'inline';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+                 // 更新语言切换按钮的显示
+                langToggle.innerHTML = `<span data-lang="zh" style="display: ${currentLang === 'zh' ? 'inline' : 'none'}">中文</span> | <span data-lang="en" style="display: ${currentLang === 'en' ? 'inline' : 'none'}">EN</span>`;
+
+                // 更新页面 lang 属性
+                document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+            });
+
+            // 出版物年份筛选 (保持不变)
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filterValue = button.dataset.filter;
+
+                    pubItems.forEach(item => {
+                        if (filterValue === 'all' || item.dataset.year === filterValue) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 修改：标签页切换功能 - 添加了 try...catch 和更精确的目标判断
+            tabContainer.addEventListener('click', function(event) {
+                try {
+                    // 更加精确地检查点击目标是否为 tab-button 或其子元素
+                    let targetTabButton = event.target.closest('.tab-button');
+                    if (targetTabButton) {
+                        console.log('Clicked tab button:', targetTabButton); // 输出点击的标签按钮，用于调试
+
+                        const tabId = targetTabButton.dataset.tab;
+                        console.log('Tab ID:', tabId); // 输出标签页 ID
+
+                        // 移除所有标签的 active 类
+                        tabButtons.forEach(button => button.classList.remove('active'));
+                        // 给当前点击的标签添加 active 类
+                        targetTabButton.classList.add('active');
+
+                        // 隐藏所有内容区域
+                        sections.forEach(section => section.style.display = 'none');
+                        // 显示当前标签对应的内容区域
+                        const targetSection = document.getElementById(tabId);
+                        if (targetSection) {
+                            targetSection.style.display = 'block';
+                        }
+                    } else {
+                        console.log('Clicked outside a tab button'); // 点击在标签容器但不是按钮上
+                    }
+                } catch (error) {
+                    console.error('Error during tab switch:', error); // 捕获并输出错误信息
+                }
+            });
+        });
+    </script>
 </body>
 </html>
