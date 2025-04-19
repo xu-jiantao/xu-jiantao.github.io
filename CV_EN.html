@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jiantao Xu - Curriculum Vitae</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e67e22;
+            --light-gray: #f5f5f5;
+            --text-color: #333;
+            --light-text: #666;
+            /* A4 Paper Size - 210mm × 297mm, converted at 96dpi */
+            --a4-width: 210mm;
+            --a4-height: 297mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #e0e0e0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page-container {
+            width: var(--a4-width);
+            min-height: var(--a4-height);
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .resume-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .resume-header {
+            display: flex;
+            padding: 25px 30px;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .profile-img-container {
+            flex: 0 0 120px;
+            margin-right: 25px;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        .header-info {
+            flex-grow: 1;
+        }
+
+        .name {
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .headline {
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-right: 12px;
+        }
+
+        .contact-icon {
+            margin-right: 5px;
+        }
+
+        .resume-body {
+            display: flex;
+            min-height: calc(var(--a4-height) - 170px); /* Approximate header height subtraction */
+        }
+
+        .left-column {
+            flex: 3;
+            padding: 25px;
+            border-right: 1px solid #eee;
+        }
+
+        .right-column {
+            flex: 2;
+            padding: 25px;
+            background-color: var(--light-gray);
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--secondary-color);
+            font-weight: 500;
+        }
+
+        .education-item, .experience-item {
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .education-header, .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .school-name, .company-name {
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .degree-name, .job-title {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+
+        .education-date, .experience-date {
+            color: var(--light-text);
+            font-size: 13px;
+        }
+
+        .skills-list {
+            list-style-type: none;
+            font-size: 14px;
+        }
+
+        .skill-category {
+            margin-bottom: 10px;
+        }
+
+        .skill-category-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-item {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        .certificate-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        p, ul li {
+            font-size: 14px;
+        }
+
+        .print-button-container {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .print-button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .print-button:hover {
+            background-color: #2980b9;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                margin: 0;
+                background: white;
+            }
+
+            .page-container {
+                width: 100%;
+                height: 100%;
+                box-shadow: none;
+                margin: 0;
+            }
+
+            .print-button-container {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-container {
+                width: 100%;
+            }
+
+            .resume-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-img-container {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+
+            .resume-body {
+                flex-direction: column;
+            }
+
+            .left-column {
+                border-right: none;
+                border-bottom: 1px solid #eee;
+            }
+
+            .contact-info {
+                justify-content: center;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="page-container">
+        <div class="resume-container" id="resume">
+            <div class="resume-header">
+                <div class="profile-img-container">
+                    <img src="img.jpeg" alt="Jiantao Xu" class="profile-img">
+                </div>
+                <div class="header-info">
+                    <h1 class="name">Jiantao Xu</h1>
+                    <p class="headline">Ph.D. Candidate in Computer Information Systems</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Fukushima, Japan</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🏛</span>
+                            <span>The University of Aizu</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <span>xujiantao9510@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🌐</span>
+                            <span>https://xu-jiantao.github.io</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">💬</span>
+                            <span>WeChat: dylanethan9510</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-body">
+                <div class="left-column">
+                    <div class="section">
+                        <h2 class="section-title">About Me</h2>
+                        <p>I am currently pursuing a Ph.D. degree in Computer Information Systems at the University of Aizu in Japan. My research interests include federated learning and machine learning.</p>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Work Experience</h2>
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <span class="company-name">EyesJapan (Part-time)</span>
+                                <span class="experience-date">October 2023 - Present</span>
+                            </div>
+                            <ul>
+                                <li>Web Development</li>
+                                <li>Frontend and Backend Development</li>
+                                <li>Database Development</li>
+                            </ul>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <span class="company-name">Data Center of an Insurance Company in Shanghai</span>
+                                <span class="experience-date">April 2021 - August 2022</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Education</h2>
+                        <div class="education-item">
+                            <div class="education-header">
+                                <span class="school-name">The University of Aizu, Japan</span>
+                                <span class="education-date">October 2023 - Present</span>
+                            </div>
+                            <div class="degree-name">Ph.D.: Computer Information Systems</div>
+                        </div>
+
+                        <div class="education-item">
+                            <div class="education-header">
+                                <span class="school-name">The University of Aizu, Japan</span>
+                                <span class="education-date">October 2021 - October 2023</span>
+                            </div>
+                            <div class="degree-name">Master's: Computer Information Systems</div>
+                        </div>
+
+                        <div class="education-item">
+                            <div class="education-header">
+                                <span class="school-name">Zhengzhou University, China</span>
+                                <span class="education-date">2017 - 2021</span>
+                            </div>
+                            <div class="degree-name">Bachelor's: Computer Information Management</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right-column">
+                    <div class="section">
+                        <h2 class="section-title">Research Interests</h2>
+                        <ul>
+                            <li>Federated Learning</li>
+                            <li>Machine Learning</li>
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Skills</h2>
+                        <div class="skills-list">
+                            <div class="skill-category">
+                                <div class="skill-category-name">Programming Languages</div>
+                                <div class="skill-items">
+                                    <span class="skill-item">HTML</span>
+                                    <span class="skill-item">Java</span>
+                                    <span class="skill-item">Python</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <div class="skill-category-name">Databases</div>
+                                <div class="skill-items">
+                                    <span class="skill-item">MySQL</span>
+                                </div>
+                            </div>
+
+                            <div class="skill-category">
+                                <div class="skill-category-name">Systems</div>
+                                <div class="skill-items">
+                                    <span class="skill-item">Linux Server</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Certificates</h2>
+                        <div class="certificate-item">
+                            <div>College English Test Band 4 (CET-4)</div>
+                        </div>
+                        <div class="certificate-item">
+                            <div>Chinese Driver's License</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">Contact</h2>
+                        <div>
+                            <p>📧 Email: xujiantao9510@gmail.com</p>
+                            <p>🌐 Website: https://xu-jiantao.github.io</p>
+                            <p>💬 WeChat: dylanethan9510</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="print-button-container">
+        <button class="print-button" id="downloadPdf">Download PDF CV</button>
+    </div>
+
+    <script>
+        document.getElementById('downloadPdf').addEventListener('click', function() {
+            const element = document.getElementById('resume');
+
+            // PDF generation options
+            const opt = {
+                margin: 0,
+                filename: 'Jiantao_Xu_CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    scrollY: 0
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+
+            // Use html2pdf library to generate PDF
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
+</body>
+</html>
