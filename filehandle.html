@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>文件内容提取工具</title>
     <style>
+        #target-dir {
+            width: 300px;
+            padding: 5px;
+            margin: 10px 0;
+        }
+        .filter-section {
+            margin: 15px 0;
+        }
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -65,9 +73,16 @@
         <div id="error-message" class="error-message"></div>
     </div>
 
-    <div>
-        <label>需要提取的文件类型（用逗号分隔，例如: txt,js,html）：</label>
-        <input type="text" id="file-types" placeholder="txt,js,html">
+    <div class="filter-section">
+        <div>
+            <label>需要提取的文件类型（用逗号分隔）：</label>
+            <input type="text" id="file-types" placeholder="例如: txt,js,html">
+        </div>
+        <div>
+            <label>提取目录（可选）：</label>
+            <input type="text" id="target-dir" placeholder="例如: src/utils">
+            <small style="color:#666">留空则提取全部目录</small>
+        </div>
     </div>
 
     <button onclick="processFiles()">开始处理</button>
@@ -79,53 +94,45 @@
         let currentFiles = [];
         let isDirectoryUpload = false;
 
-        // 处理文件选择
+        // 文件选择处理
         document.getElementById('file-input').addEventListener('change', function(e) {
             handleFileInput(this.files);
         });
 
-        // 处理拖放
+        // 拖放处理
         const dropZone = document.querySelector('.upload-box');
-        dropZone.ondragover = (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = '#4CAF50';
-        };
-
-        dropZone.ondragleave = () => {
-            dropZone.style.borderColor = '#ccc';
-        };
-
+        dropZone.ondragover = (e) => e.preventDefault();
+        dropZone.ondragleave = () => dropZone.style.borderColor = '#ccc';
         dropZone.ondrop = async (e) => {
             e.preventDefault();
             dropZone.style.borderColor = '#ccc';
-            
+
             const items = e.dataTransfer.items;
             currentFiles = [];
             isDirectoryUpload = false;
 
             if (items.length > 0) {
                 const entry = items[0].webkitGetAsEntry();
-                if (entry.isDirectory) {
+                if (entry?.isDirectory) {
                     isDirectoryUpload = true;
                     await traverseDirectory(entry);
                     showUploadInfo();
                     return;
                 }
             }
-
             handleFileInput(e.dataTransfer.files);
         };
 
-        // 处理目录遍历
+        // 目录遍历
         async function traverseDirectory(entry, path = '') {
             const reader = entry.createReader();
-            const newEntries = await new Promise((resolve) => reader.readEntries(resolve));
-            
+            const newEntries = await new Promise(resolve => reader.readEntries(resolve));
+
             for (const entry of newEntries) {
                 if (entry.isDirectory) {
                     await traverseDirectory(entry, path + entry.name + '/');
                 } else {
-                    const file = await new Promise((resolve) => entry.file(resolve));
+                    const file = await new Promise(resolve => entry.file(resolve));
                     file.filepath = path + file.name;
                     currentFiles.push(file);
                 }
@@ -135,7 +142,7 @@
         // 显示上传信息
         function showUploadInfo() {
             const fileEl = document.getElementById('uploaded-file');
-            if (currentFiles.length === 0) return;
+            if (!currentFiles.length) return;
 
             const totalSize = currentFiles.reduce((sum, file) => sum + file.size, 0);
             fileEl.innerHTML = `
@@ -153,72 +160,143 @@
             showUploadInfo();
         }
 
-        // 显示上传状态
+        // 上传状态显示
         function showUploadStatus() {
             const statusEl = document.getElementById('upload-status');
             statusEl.textContent = '✓ 上传成功';
             statusEl.style.color = '#4CAF50';
-            
-            setTimeout(() => {
-                statusEl.style.opacity = '0.5';
-                setTimeout(() => {
-                    statusEl.textContent = '';
-                    statusEl.style.opacity = '1';
-                }, 1000);
-            }, 2000);
+            setTimeout(() => statusEl.textContent = '', 2000);
         }
 
         // 主处理函数
         async function processFiles() {
-            const fileTypes = document.getElementById('file-types').value
-                .toLowerCase()
-                .split(',')
-                .map(t => t.trim().replace(/^\./, ''));
-            
-            if (!fileTypes.length) {
-                showError('请输入需要提取的文件类型');
-                return;
-            }
+            const fileTypes = getFileTypes();
+            const targetDir = getTargetDir();
 
-            let outputContent = '';
-            
+            // 修改验证逻辑
+            if (!validateInput(fileTypes)) return;
+
             try {
-                if (currentFiles.some(file => file.name.endsWith('.zip'))) {
+                let outputContent = '';
+
+                if (isZipFile()) {
                     const zip = await JSZip.loadAsync(currentFiles[0]);
-                    await processZip(zip, fileTypes, outputContent);
+                    outputContent = await processZip(zip, fileTypes, targetDir); // 添加目录参数
                 } else {
-                    await processDirectory(currentFiles, fileTypes, outputContent);
+                    outputContent = await processDirectory(currentFiles, fileTypes, targetDir); // 添加目录参数
                 }
 
-                downloadResult(outputContent);
+                handleOutput(outputContent);
             } catch (error) {
                 showError('处理失败: ' + error.message);
             }
         }
 
-        // 处理ZIP文件
-        async function processZip(zip, fileTypes, outputContent) {
-            zip.forEach(async (relativePath, file) => {
-                const extension = relativePath.split('.').pop().toLowerCase();
-                if (fileTypes.includes(extension) && !file.dir) {
-                    const content = await file.async('text');
-                    outputContent += formatContent(relativePath, content);
-                }
-            });
+        // 新增目录处理逻辑
+        function getTargetDir() {
+            return document.getElementById('target-dir').value
+                .trim()
+                .replace(/\\/g, '/')       // 统一路径分隔符
+                .replace(/^\/+/, '')       // 移除开头斜杠
+                .replace(/\/+$/, '');     // 移除结尾斜杠
         }
 
-        // 处理目录文件
-        async function processDirectory(files, fileTypes, outputContent) {
-            for (const file of files) {
-                const extension = file.name.split('.').pop().toLowerCase();
-                if (fileTypes.includes(extension)) {
-                    const content = await readFileAsText(file);
-                    outputContent += formatContent(file.filepath || file.name, content);
+        // 处理ZIP文件
+        async function processZip(zip, fileTypes, targetDir) {
+            const promises = [];
+
+            zip.forEach((relativePath, file) => {
+                const filePath = relativePath.replace(/\\/g, '/');
+                if (shouldProcessFile(file, filePath, fileTypes, targetDir)) { // 传递目录参数
+                    promises.push(processZipEntry(file, filePath));
                 }
+            });
+
+            const results = await Promise.all(promises);
+            return results.join('\n');
+        }
+
+        // 处理ZIP条目
+        async function processZipEntry(file, path) {
+            try {
+                const content = await file.async('text');
+                return formatContent(path, content);
+            } catch {
+                return formatContent(path, '[无法读取二进制文件内容]');
             }
         }
 
-        // 文件读取帮助函数
+        // 处理目录文件
+        async function processDirectory(files, fileTypes, targetDir) {
+            let content = '';
+
+            for (const file of files) {
+                const path = (file.filepath || file.name).replace(/\\/g, '/');
+                if (shouldProcessFile(file, path, fileTypes, targetDir)) { // 传递目录参数
+                    try {
+                        const fileContent = await readFileAsText(file);
+                        content += formatContent(path, fileContent);
+                    } catch {
+                        content += formatContent(path, '[无法读取二进制文件内容]');
+                    }
+                }
+            }
+            return content;
+        }
+
+        // 文件类型验证
+        function shouldProcessFile(file, path, fileTypes, targetDir) {
+            if (file.dir) return false;
+
+            // 类型匹配（必选）
+            const typeMatch = fileTypes.some(type => {
+                const parts = path.split('.');
+                const extension = parts.length > 1 ? parts.pop().toLowerCase() : '';
+                const baseName = path.split('/').pop().toLowerCase();
+
+                return extension === type ||
+                       baseName === type ||
+                       path.includes('.' + type + '/') ||
+                       path.endsWith('.' + type);
+            });
+
+            // 目录匹配（可选）
+            let dirMatch = true;
+            if (targetDir) {
+                const normalizedPath = path.toLowerCase();
+                const normalizedTarget = targetDir.toLowerCase();
+                dirMatch = normalizedPath.startsWith(normalizedTarget + '/') ||
+                          normalizedPath === normalizedTarget;
+            }
+
+            return typeMatch && dirMatch;
+        }
+
+        // 辅助函数
+        function getFileTypes() {
+            return document.getElementById('file-types').value
+                .toLowerCase()
+                .split(',')
+                .map(t => t.trim().replace(/^\./, ''))
+                .filter(Boolean);
+        }
+
+        function validateInput(fileTypes) {
+            if (!fileTypes.length) {
+                showError('必须输入需要提取的文件类型');
+                return false;
+            }
+            if (!currentFiles.length) {
+                showError('请先上传文件');
+                return false;
+            }
+            return true;
+        }
+
+        function isZipFile() {
+            return currentFiles[0]?.name?.toLowerCase().endsWith('.zip');
+        }
+
         function readFileAsText(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -228,13 +306,16 @@
             });
         }
 
-        // 格式化内容
         function formatContent(path, content) {
             return `文件路径: ${path}\n文件内容:\n${content}\n────────────────────────\n\n`;
         }
 
-        // 下载结果
-        function downloadResult(content) {
+        function handleOutput(content) {
+            if (!content.trim()) {
+                showError('没有找到匹配的文件，请检查：\n1. 文件类型是否正确\n2. 目录路径是否有效');
+                return;
+            }
+
             const blob = new Blob([content], { type: 'text/plain' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -242,17 +323,15 @@
             a.download = '提取结果.txt';
             a.click();
             URL.revokeObjectURL(url);
-            
-            document.getElementById('result').textContent = 
+
+            document.getElementById('result').textContent =
                 `处理完成！已找到 ${content.split('────────────────────────').length - 1} 个匹配文件`;
         }
 
-        // 错误显示
         function showError(message) {
-            document.getElementById('error-message').textContent = message;
-            setTimeout(() => {
-                document.getElementById('error-message').textContent = '';
-            }, 3000);
+            const errorEl = document.getElementById('error-message');
+            errorEl.textContent = message;
+            setTimeout(() => errorEl.textContent = '', 3000);
         }
     </script>
 </body>
