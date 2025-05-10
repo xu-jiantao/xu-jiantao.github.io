@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Homepage</title>
+    <title>Jiantao Xu - Personal Homepage</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <!-- 导航栏 -->
     <div class="nav">
         <div class="nav-links">
-            <a href="#" onclick="showContent('about')" id="nav-about">About</a>
-            <a href="#" onclick="showContent('education')" id="nav-education">Education</a>
-            <a href="#" onclick="showContent('experience')" id="nav-experience">Experience</a>
-            <a href="#" onclick="showContent('contact')" id="nav-contact">Contact</a>
+            <a href="#" class="nav-link active" data-section="about">
+                <i class="fas fa-user"></i> About
+            </a>
+            <a href="#" class="nav-link" data-section="education">
+                <i class="fas fa-graduation-cap"></i> Education
+            </a>
+            <a href="#" class="nav-link" data-section="experience">
+                <i class="fas fa-briefcase"></i> Experience
+            </a>
+            <a href="#" class="nav-link" data-section="contact">
+                <i class="fas fa-envelope"></i> Contact
+            </a>
+            <a href="login.html" class="nav-link">
+                <i class="fas fa-tools"></i> Tools
+            </a>
         </div>
-        <a href="index_cn.html" class="lang-switch">中文</a><a href="CV_EN.html" class="lang-switch"> CV_EN</a>
+        <div class="nav-buttons">
+            <a href="index_cn.html" class="lang-switch"><i class="fas fa-globe"></i> 中文</a>
+            <a href="CV_EN.html" class="lang-switch"><i class="fas fa-file-alt"></i> CV_EN</a>
+            <a href="admin-login.html" class="admin-link"><i class="fas fa-cog"></i> Admin</a>
+        </div>
     </div>
 
     <!-- 主要内容区域 -->
@@ -26,10 +43,28 @@
             <div class="profile-info">
                 <img src="img.jpeg" alt="Profile" class="profile-img">
                 <h2 id="name">Jiantao Xu</h2>
+                <p class="title">Ph.D. Student</p>
             </div>
-            <div class="info-item">📍 Fukushima, Japan</div>
-            <div class="info-item">🏛 University of Aizu</div>
-            <div class="info-item">📧 xujiantao9510@gmail.com</div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Fukushima, Japan</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-university"></i>
+                <span>University of Aizu</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:xujiantao9510@gmail.com">xujiantao9510@gmail.com</a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/xu-jiantao" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/your-profile" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
 
         <!-- 右侧内容区域 -->
@@ -38,53 +73,54 @@
 
     <script>
         const contents = {
-            about: `# About Me
+            about: localStorage.getItem('aboutContent') || `# About Me
 
 I am currently pursuing a Ph.D. degree in Computer Information Systems at the University of Aizu, Japan. My research interests include Federated Learning and Machine Learning.
 
 ## Research Interests
-- Federated Learning
-- Machine Learning
+- 🤖 Federated Learning
+- 🧠 Machine Learning
+- 📊 Data Analysis
 
 ## Technical Skills
-- Programming Languages: HTML, Java, Python
-- Database: MySQL
-- System: Linux Server`,
+- 💻 Programming Languages: HTML, Java, Python
+- 🗄️ Database: MySQL
+- 🖥️ System: Linux Server`,
             
-            education: `# Education
+            education: localStorage.getItem('educationContent') || `# Education
 
 ## Ph.D. in Computer Information Systems
-- University of Aizu, Japan
-- October 2023 - Present
+- 🏫 University of Aizu, Japan
+- 📅 October 2023 - Present
 
 ## Master's in Computer Information Systems
-- University of Aizu, Japan
-- October 2021 - October 2023
+- 🏫 University of Aizu, Japan
+- 📅 October 2021 - October 2023
 
 ## Bachelor's in Computer Information Management
-- Zhengzhou University, China
-- 2017 - 2021`,
+- 🏫 Zhengzhou University, China
+- 📅 2017 - 2021`,
             
-            experience: `# Professional Experience
+            experience: localStorage.getItem('experienceContent') || `# Professional Experience
 
 ## EyesJapan (Part-time)
 *October 2023 - Present*
-- Web development
-- Frontend and Backend development
-- Database development
+- 💻 Web development
+- 🔧 Frontend and Backend development
+- 📊 Database development
 
 ## A company of Insurance Data Center, Shanghai
 *April 2021 - August 2022*
 
 ## Certifications
-- CET-4 (College English Test Band 4)
-- Chinese Driver's License`,
+- 📜 CET-4 (College English Test Band 4)
+- 🚗 Chinese Driver's License`,
 
-            contact: `# Contact Information
+            contact: localStorage.getItem('contactContent') || `# Contact Information
 
-- Email: xujiantao9510@gmail.com
-- 个人网站：https://xu-jiantao.github.io
-- Wechat：dylanethan9510`
+- 📧 Email: xujiantao9510@gmail.com
+- 🌐 个人网站：https://xu-jiantao.github.io
+- 💬 Wechat：dylanethan9510`
         };
 
         function showContent(page) {
@@ -92,9 +128,9 @@ I am currently pursuing a Ph.D. degree in Computer Information Systems at the Un
             contentDiv.innerHTML = marked.parse(contents[page] || 'Content not available');
             
             // 更新活动链接样式
-            document.querySelectorAll('.nav a').forEach(a => {
+            document.querySelectorAll('.nav-link').forEach(a => {
                 a.classList.remove('active');
-                if (a.getAttribute('onclick')?.includes(page)) {
+                if (a.dataset.section === page) {
                     a.classList.add('active');
                 }
             });
@@ -102,6 +138,16 @@ I am currently pursuing a Ph.D. degree in Computer Information Systems at the Un
 
         // 页面加载时显示 about 内容
         window.onload = () => showContent('about');
+
+        // 添加导航链接点击事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.dataset.section) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showContent(link.dataset.section);
+                });
+            }
+        });
     </script>
 </body>
 </html> 

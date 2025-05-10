@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人主页</title>
+    <title>徐建涛 - 个人主页</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <!-- 导航栏 -->
     <div class="nav">
         <div class="nav-links">
-            <a href="#" onclick="showContent('about')" id="nav-about">关于</a>
-            <a href="#" onclick="showContent('education')" id="nav-education">教育经历</a>
-            <a href="#" onclick="showContent('experience')" id="nav-experience">工作经验</a>
-            <a href="#" onclick="showContent('contact')" id="nav-contact">联系方式</a>
+            <a href="#" class="nav-link active" data-section="about">
+                <i class="fas fa-user"></i> 关于
+            </a>
+            <a href="#" class="nav-link" data-section="education">
+                <i class="fas fa-graduation-cap"></i> 教育经历
+            </a>
+            <a href="#" class="nav-link" data-section="experience">
+                <i class="fas fa-briefcase"></i> 工作经验
+            </a>
+            <a href="#" class="nav-link" data-section="contact">
+                <i class="fas fa-envelope"></i> 联系方式
+            </a>
+            <a href="login.html" class="nav-link">
+                <i class="fas fa-tools"></i> 工具
+            </a>
         </div>
-        <a href="index.html" class="lang-switch">English</a><a href="CV_CN.html" class="lang-switch">CV_CN</a>
+        <div class="nav-buttons">
+            <a href="index.html" class="lang-switch"><i class="fas fa-globe"></i> English</a>
+            <a href="CV_CN.html" class="lang-switch"><i class="fas fa-file-alt"></i> CV_CN</a>
+            <a href="admin-login.html" class="admin-link"><i class="fas fa-cog"></i> 管理</a>
+        </div>
     </div>
 
     <!-- 主要内容区域 -->
@@ -26,10 +43,28 @@
             <div class="profile-info">
                 <img src="img.jpeg" alt="Profile" class="profile-img">
                 <h2 id="name">徐建涛</h2>
+                <p class="title">博士研究生</p>
             </div>
-            <div class="info-item">📍 日本福岛</div>
-            <div class="info-item">🏛 会津大学</div>
-            <div class="info-item">📧 xujiantao9510@gmail.com</div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>日本福岛</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-university"></i>
+                <span>会津大学</span>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:xujiantao9510@gmail.com">xujiantao9510@gmail.com</a>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/xu-jiantao" target="_blank" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/your-profile" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
         </div>
 
         <!-- 右侧内容区域 -->
@@ -38,53 +73,54 @@
 
     <script>
         const contents = {
-            about: `# 关于我
+            about: localStorage.getItem('aboutContent') || `# 关于我
 
-我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习，机器学习。
+我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习和机器学习。
 
 ## 研究方向
-- 联邦学习
-- 机器学习
+- 🤖 联邦学习
+- 🧠 机器学习
+- 📊 数据分析
 
 ## 专业技能
-- 编程语言：HTML、Java、Python
-- 数据库：MySQL
-- 系统：Linux服务器`,
+- 💻 编程语言：HTML、Java、Python
+- 🗄️ 数据库：MySQL
+- 🖥️ 系统：Linux服务器`,
             
-            education: `# 教育经历
+            education: localStorage.getItem('educationContent') || `# 教育经历
 
 ## 博士：计算机信息系统
-- 会津大学，日本
-- 2023年10月至今
+- 🏫 会津大学，日本
+- 📅 2023年10月至今
 
 ## 硕士：计算机信息系统
-- 会津大学，日本
-- 2021年10月-2023年10月
+- 🏫 会津大学，日本
+- 📅 2021年10月-2023年10月
 
 ## 学士：计算机信息管理
-- 郑州大学，中国
-- 2017年-2021年`,
+- 🏫 郑州大学，中国
+- 📅 2017年-2021年`,
             
-            experience: `# 工作经历
+            experience: localStorage.getItem('experienceContent') || `# 工作经历
 
 ## EyesJapan（兼职）
 *2023年10月至今*
-- 网页开发
-- 前后端开发
-- 数据库开发
+- 💻 网页开发
+- 🔧 前后端开发
+- 📊 数据库开发
 
 ## 上海某保险公司数据中心
 *2021年4月-2022年8月*
 
 ## 所获证书
-- 大学英语四级证书
-- 中国驾照`,
+- 📜 大学英语四级证书
+- 🚗 中国驾照`,
 
-            contact: `# 联系方式
+            contact: localStorage.getItem('contactContent') || `# 联系方式
 
-- 邮箱：xujiantao9510@gmail.com
-- 个人网站：https://xu-jiantao.github.io
-- Wechat：dylanethan9510`
+- 📧 邮箱：xujiantao9510@gmail.com
+- 🌐 个人网站：https://xu-jiantao.github.io
+- 💬 Wechat：dylanethan9510`
         };
 
         function showContent(page) {
@@ -92,9 +128,9 @@
             contentDiv.innerHTML = marked.parse(contents[page] || '内容不可用');
             
             // 更新活动链接样式
-            document.querySelectorAll('.nav a').forEach(a => {
+            document.querySelectorAll('.nav-link').forEach(a => {
                 a.classList.remove('active');
-                if (a.getAttribute('onclick')?.includes(page)) {
+                if (a.dataset.section === page) {
                     a.classList.add('active');
                 }
             });
@@ -102,6 +138,16 @@
 
         // 页面加载时显示 about 内容
         window.onload = () => showContent('about');
+
+        // 添加导航链接点击事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.dataset.section) {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showContent(link.dataset.section);
+                });
+            }
+        });
     </script>
 </body>
 </html> 

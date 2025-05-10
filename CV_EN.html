@@ -4,306 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jiantao Xu - Curriculum Vitae</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
-
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e67e22;
-            --light-gray: #f5f5f5;
-            --text-color: #333;
-            --light-text: #666;
-            /* A4 Paper Size - 210mm × 297mm, converted at 96dpi */
-            --a4-width: 210mm;
-            --a4-height: 297mm;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans SC', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: #e0e0e0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .page-container {
-            width: var(--a4-width);
-            min-height: var(--a4-height);
-            background: white;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-            margin: 0 auto;
-            overflow: hidden;
-        }
-
-        .resume-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        .resume-header {
-            display: flex;
-            padding: 25px 30px;
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .profile-img-container {
-            flex: 0 0 120px;
-            margin-right: 25px;
-        }
-
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-        }
-
-        .header-info {
-            flex-grow: 1;
-        }
-
-        .name {
-            font-size: 28px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .headline {
-            font-size: 16px;
-            margin-bottom: 12px;
-            font-weight: 300;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 14px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-right: 12px;
-        }
-
-        .contact-icon {
-            margin-right: 5px;
-        }
-
-        .resume-body {
-            display: flex;
-            min-height: calc(var(--a4-height) - 170px); /* Approximate header height subtraction */
-        }
-
-        .left-column {
-            flex: 3;
-            padding: 25px;
-            border-right: 1px solid #eee;
-        }
-
-        .right-column {
-            flex: 2;
-            padding: 25px;
-            background-color: var(--light-gray);
-        }
-
-        .section {
-            margin-bottom: 25px;
-        }
-
-        .section:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-title {
-            font-size: 18px;
-            color: var(--secondary-color);
-            margin-bottom: 12px;
-            padding-bottom: 6px;
-            border-bottom: 2px solid var(--secondary-color);
-            font-weight: 500;
-        }
-
-        .education-item, .experience-item {
-            margin-bottom: 16px;
-            font-size: 14px;
-        }
-
-        .education-header, .experience-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
-        }
-
-        .school-name, .company-name {
-            font-weight: 500;
-            font-size: 15px;
-        }
-
-        .degree-name, .job-title {
-            color: var(--accent-color);
-            font-weight: 500;
-            margin-bottom: 3px;
-        }
-
-        .education-date, .experience-date {
-            color: var(--light-text);
-            font-size: 13px;
-        }
-
-        .skills-list {
-            list-style-type: none;
-            font-size: 14px;
-        }
-
-        .skill-category {
-            margin-bottom: 10px;
-        }
-
-        .skill-category-name {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .skill-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .skill-item {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 13px;
-        }
-
-        .certificate-item {
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        p, ul li {
-            font-size: 14px;
-        }
-
-        .print-button-container {
-            text-align: center;
-            padding: 20px;
-            width: 100%;
-        }
-
-        .print-button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .print-button:hover {
-            background-color: #2980b9;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-                margin: 0;
-                background: white;
-            }
-
-            .page-container {
-                width: 100%;
-                height: 100%;
-                box-shadow: none;
-                margin: 0;
-            }
-
-            .print-button-container {
-                display: none;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .page-container {
-                width: 100%;
-            }
-
-            .resume-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .profile-img-container {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-
-            .resume-body {
-                flex-direction: column;
-            }
-
-            .left-column {
-                border-right: none;
-                border-bottom: 1px solid #eee;
-            }
-
-            .contact-info {
-                justify-content: center;
-            }
-        }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="cv-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
 </head>
 <body>
     <div class="page-container">
-        <div class="resume-container" id="resume">
+        <div class="resume-container">
             <div class="resume-header">
                 <div class="profile-img-container">
                     <img src="img.jpeg" alt="Jiantao Xu" class="profile-img">
                 </div>
                 <div class="header-info">
                     <h1 class="name">Jiantao Xu</h1>
-                    <p class="headline">Ph.D. Candidate in Computer Information Systems</p>
+                    <p class="headline">Ph.D. Student in Computer Information Systems</p>
                     <div class="contact-info">
                         <div class="contact-item">
-                            <span class="contact-icon">📍</span>
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
                             <span>Fukushima, Japan</span>
                         </div>
                         <div class="contact-item">
-                            <span class="contact-icon">🏛</span>
-                            <span>The University of Aizu</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📧</span>
+                            <i class="fas fa-envelope contact-icon"></i>
                             <span>xujiantao9510@gmail.com</span>
                         </div>
                         <div class="contact-item">
-                            <span class="contact-icon">🌐</span>
-                            <span>https://xu-jiantao.github.io</span>
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>+81 XX-XXXX-XXXX</span>
                         </div>
                         <div class="contact-item">
-                            <span class="contact-icon">💬</span>
-                            <span>WeChat: dylanethan9510</span>
+                            <i class="fas fa-globe contact-icon"></i>
+                            <span>https://xu-jiantao.github.io</span>
                         </div>
                     </div>
                 </div>
@@ -312,113 +43,109 @@
             <div class="resume-body">
                 <div class="left-column">
                     <div class="section">
-                        <h2 class="section-title">About Me</h2>
-                        <p>I am currently pursuing a Ph.D. degree in Computer Information Systems at the University of Aizu in Japan. My research interests include federated learning and machine learning.</p>
-                    </div>
-
-                    <div class="section">
-                        <h2 class="section-title">Work Experience</h2>
-                        <div class="experience-item">
-                            <div class="experience-header">
-                                <span class="company-name">EyesJapan (Part-time)</span>
-                                <span class="experience-date">October 2023 - Present</span>
-                            </div>
-                            <ul>
-                                <li>Web Development</li>
-                                <li>Frontend and Backend Development</li>
-                                <li>Database Development</li>
-                            </ul>
-                        </div>
-
-                        <div class="experience-item">
-                            <div class="experience-header">
-                                <span class="company-name">Data Center of an Insurance Company in Shanghai</span>
-                                <span class="experience-date">April 2021 - August 2022</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <h2 class="section-title">Education</h2>
+                        <h2 class="section-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            Education
+                        </h2>
                         <div class="education-item">
                             <div class="education-header">
-                                <span class="school-name">The University of Aizu, Japan</span>
-                                <span class="education-date">October 2023 - Present</span>
+                                <div>
+                                    <h3 class="school-name">University of Aizu</h3>
+                                    <p class="degree-name">Ph.D. in Computer Information Systems</p>
+                                </div>
+                                <span class="education-date">Oct 2023 - Present</span>
                             </div>
-                            <div class="degree-name">Ph.D.: Computer Information Systems</div>
+                            <p>Research focus on Federated Learning and Machine Learning</p>
                         </div>
-
                         <div class="education-item">
                             <div class="education-header">
-                                <span class="school-name">The University of Aizu, Japan</span>
-                                <span class="education-date">October 2021 - October 2023</span>
+                                <div>
+                                    <h3 class="school-name">University of Aizu</h3>
+                                    <p class="degree-name">Master's in Computer Information Systems</p>
+                                </div>
+                                <span class="education-date">Oct 2021 - Oct 2023</span>
                             </div>
-                            <div class="degree-name">Master's: Computer Information Systems</div>
                         </div>
-
                         <div class="education-item">
                             <div class="education-header">
-                                <span class="school-name">Zhengzhou University, China</span>
+                                <div>
+                                    <h3 class="school-name">Zhengzhou University</h3>
+                                    <p class="degree-name">Bachelor's in Computer Information Management</p>
+                                </div>
                                 <span class="education-date">2017 - 2021</span>
                             </div>
-                            <div class="degree-name">Bachelor's: Computer Information Management</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h2 class="section-title">
+                            <i class="fas fa-briefcase"></i>
+                            Experience
+                        </h2>
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <div>
+                                    <h3 class="company-name">EyesJapan</h3>
+                                    <p class="job-title">Part-time Web Developer</p>
+                                </div>
+                                <span class="experience-date">Oct 2023 - Present</span>
+                            </div>
+                            <ul>
+                                <li>Web development and maintenance</li>
+                                <li>Frontend and Backend development</li>
+                                <li>Database development and optimization</li>
+                            </ul>
+                        </div>
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <div>
+                                    <h3 class="company-name">Insurance Data Center, Shanghai</h3>
+                                    <p class="job-title">Software Developer</p>
+                                </div>
+                                <span class="experience-date">Apr 2021 - Aug 2022</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="right-column">
                     <div class="section">
-                        <h2 class="section-title">Research Interests</h2>
-                        <ul>
-                            <li>Federated Learning</li>
-                            <li>Machine Learning</li>
-                        </ul>
-                    </div>
-
-                    <div class="section">
-                        <h2 class="section-title">Skills</h2>
-                        <div class="skills-list">
-                            <div class="skill-category">
-                                <div class="skill-category-name">Programming Languages</div>
-                                <div class="skill-items">
-                                    <span class="skill-item">HTML</span>
-                                    <span class="skill-item">Java</span>
-                                    <span class="skill-item">Python</span>
-                                </div>
+                        <h2 class="section-title">
+                            <i class="fas fa-code"></i>
+                            Skills
+                        </h2>
+                        <div class="skill-category">
+                            <h3 class="skill-category-name">Programming Languages</h3>
+                            <div class="skill-items">
+                                <span class="skill-item">HTML</span>
+                                <span class="skill-item">Java</span>
+                                <span class="skill-item">Python</span>
                             </div>
-
-                            <div class="skill-category">
-                                <div class="skill-category-name">Databases</div>
-                                <div class="skill-items">
-                                    <span class="skill-item">MySQL</span>
-                                </div>
+                        </div>
+                        <div class="skill-category">
+                            <h3 class="skill-category-name">Database</h3>
+                            <div class="skill-items">
+                                <span class="skill-item">MySQL</span>
                             </div>
-
-                            <div class="skill-category">
-                                <div class="skill-category-name">Systems</div>
-                                <div class="skill-items">
-                                    <span class="skill-item">Linux Server</span>
-                                </div>
+                        </div>
+                        <div class="skill-category">
+                            <h3 class="skill-category-name">Systems</h3>
+                            <div class="skill-items">
+                                <span class="skill-item">Linux</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="section">
-                        <h2 class="section-title">Certificates</h2>
+                        <h2 class="section-title">
+                            <i class="fas fa-certificate"></i>
+                            Certifications
+                        </h2>
                         <div class="certificate-item">
-                            <div>College English Test Band 4 (CET-4)</div>
+                            <h3>CET-4 (College English Test Band 4)</h3>
                         </div>
                         <div class="certificate-item">
-                            <div>Chinese Driver's License</div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <h2 class="section-title">Contact</h2>
-                        <div>
-                            <p>📧 Email: xujiantao9510@gmail.com</p>
-                            <p>🌐 Website: https://xu-jiantao.github.io</p>
-                            <p>💬 WeChat: dylanethan9510</p>
+                            <h3>Chinese Driver's License</h3>
                         </div>
                     </div>
                 </div>
@@ -427,32 +154,69 @@
     </div>
 
     <div class="print-button-container">
-        <button class="print-button" id="downloadPdf">Download PDF CV</button>
+        <button class="print-button" id="downloadBtn">
+            <i class="fas fa-download"></i>
+            Download PDF
+        </button>
     </div>
 
     <script>
-        document.getElementById('downloadPdf').addEventListener('click', function() {
-            const element = document.getElementById('resume');
+        document.addEventListener('DOMContentLoaded', function() {
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            downloadBtn.addEventListener('click', function() {
+                // 显示加载提示
+                downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+                downloadBtn.disabled = true;
 
-            // PDF generation options
-            const opt = {
-                margin: 0,
-                filename: 'Jiantao_Xu_CV.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    scrollY: 0
-                },
-                jsPDF: {
-                    unit: 'mm',
-                    format: 'a4',
-                    orientation: 'portrait'
-                }
-            };
-
-            // Use html2pdf library to generate PDF
-            html2pdf().set(opt).from(element).save();
+                const element = document.querySelector('.resume-container');
+                
+                // 使用 dom-to-image 将内容转换为图片
+                domtoimage.toPng(element, {
+                    quality: 1.0,
+                    bgcolor: '#ffffff',
+                    style: {
+                        'transform': 'scale(1)',
+                        'transform-origin': 'top left'
+                    }
+                }).then(function(dataUrl) {
+                    try {
+                        // 创建 PDF
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF('p', 'mm', 'a4');
+                        
+                        // 创建图片对象
+                        const img = new Image();
+                        img.src = dataUrl;
+                        
+                        img.onload = function() {
+                            // 计算尺寸以适应 A4
+                            const pdfWidth = pdf.internal.pageSize.getWidth();
+                            const pdfHeight = (img.height * pdfWidth) / img.width;
+                            
+                            // 添加图片到 PDF
+                            pdf.addImage(img, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                            
+                            // 保存 PDF
+                            pdf.save('Jiantao_Xu_CV.pdf');
+                            
+                            // 恢复按钮状态
+                            downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
+                            downloadBtn.disabled = false;
+                        };
+                    } catch (err) {
+                        console.error('PDF generation failed:', err);
+                        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
+                        downloadBtn.disabled = false;
+                        alert('Failed to generate PDF. Please try again.');
+                    }
+                }).catch(function(error) {
+                    console.error('Image generation failed:', error);
+                    downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download PDF';
+                    downloadBtn.disabled = false;
+                    alert('Failed to generate PDF. Please try again.');
+                });
+            });
         });
     </script>
 </body>
