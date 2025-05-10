@@ -208,6 +208,47 @@
             background: var(--danger-color);
             color: white;
         }
+
+        .lang-switch {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .lang-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .preview-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .preview-tab {
+            padding: 8px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .preview-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -225,8 +266,12 @@
             </div>
         </div>
 
-        <div class="content-wrapper">
-            <div class="content-section" id="aboutSection">
+        <div class="content-wrapper" id="aboutSection">
+            <div class="content-section">
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="zh">中文</button>
+                    <button class="lang-btn" data-lang="en">English</button>
+                </div>
                 <h2>编辑"关于我"内容</h2>
                 <form class="edit-form" id="aboutForm">
                     <div class="form-group">
@@ -242,7 +287,10 @@
             </div>
 
             <div class="preview-section">
-                <h2>实时预览</h2>
+                <div class="preview-tabs">
+                    <button class="preview-tab active" data-lang="zh">中文预览</button>
+                    <button class="preview-tab" data-lang="en">English Preview</button>
+                </div>
                 <div class="preview-content" id="previewContent"></div>
             </div>
         </div>
@@ -331,7 +379,8 @@
 
         // 默认内容
         const defaultContents = {
-            about: `# 关于我
+            zh: {
+                about: `# 关于我
 
 我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习和机器学习。
 
@@ -344,8 +393,8 @@
 - 💻 编程语言：HTML、Java、Python
 - 🗄️ 数据库：MySQL
 - 🖥️ 系统：Linux服务器`,
-            
-            education: `# 教育经历
+                
+                education: `# 教育经历
 
 ## 博士：计算机信息系统
 - 🏫 会津大学，日本
@@ -358,8 +407,8 @@
 ## 学士：计算机信息管理
 - 🏫 郑州大学，中国
 - 📅 2017年-2021年`,
-            
-            experience: `# 工作经历
+                
+                experience: `# 工作经历
 
 ## EyesJapan（兼职）
 *2023年10月至今*
@@ -374,27 +423,83 @@
 - 📜 大学英语四级证书
 - 🚗 中国驾照`,
 
-            contact: `# 联系方式
+                contact: `# 联系方式
 
 - 📧 邮箱：xujiantao9510@gmail.com
 - 🌐 个人网站：https://xu-jiantao.github.io
 - 💬 Wechat：dylanethan9510`
+            },
+            en: {
+                about: `# About Me
+
+I am currently pursuing a Ph.D. degree in Computer Information Systems at the University of Aizu, Japan. My research interests include Federated Learning and Machine Learning.
+
+## Research Interests
+- 🤖 Federated Learning
+- 🧠 Machine Learning
+- 📊 Data Analysis
+
+## Technical Skills
+- 💻 Programming Languages: HTML, Java, Python
+- 🗄️ Database: MySQL
+- 🖥️ System: Linux Server`,
+                
+                education: `# Education
+
+## Ph.D. in Computer Information Systems
+- 🏫 University of Aizu, Japan
+- 📅 October 2023 - Present
+
+## Master's in Computer Information Systems
+- 🏫 University of Aizu, Japan
+- 📅 October 2021 - October 2023
+
+## Bachelor's in Computer Information Management
+- 🏫 Zhengzhou University, China
+- 📅 2017 - 2021`,
+                
+                experience: `# Professional Experience
+
+## EyesJapan (Part-time)
+*October 2023 - Present*
+- 💻 Web development
+- 🔧 Frontend and Backend development
+- 📊 Database development
+
+## A company of Insurance Data Center, Shanghai
+*April 2021 - August 2022*
+
+## Certifications
+- 📜 CET-4 (College English Test Band 4)
+- 🚗 Chinese Driver's License`,
+
+                contact: `# Contact Information
+
+- 📧 Email: xujiantao9510@gmail.com
+- 🌐 Website: https://xu-jiantao.github.io
+- 💬 Wechat: dylanethan9510`
+            }
         };
+
+        let currentLang = 'zh';
+        let currentSection = 'about';
 
         // 加载内容
         function loadContent() {
             const sections = ['about', 'education', 'experience', 'contact'];
             sections.forEach(section => {
                 // 优先从 localStorage 读取保存的内容，如果没有则使用默认内容
-                const content = localStorage.getItem(section + 'Content') || defaultContents[section];
-                document.getElementById(section + 'Content').value = content;
+                const zhContent = localStorage.getItem(`${section}Content_zh`) || defaultContents.zh[section];
+                const enContent = localStorage.getItem(`${section}Content_en`) || defaultContents.en[section];
+                
+                document.getElementById(`${section}Content`).value = zhContent;
                 updatePreview(section);
             });
         }
 
         // 更新预览
         function updatePreview(section) {
-            const content = document.getElementById(section + 'Content').value;
+            const content = document.getElementById(`${section}Content`).value;
             const previewContent = document.querySelector(`#${section}Section .preview-content`);
             if (previewContent) {
                 previewContent.innerHTML = marked.parse(content);
@@ -403,11 +508,11 @@
 
         // 保存内容
         function saveContent(section) {
-            const content = document.getElementById(section + 'Content').value;
-            localStorage.setItem(section + 'Content', content);
+            const content = document.getElementById(`${section}Content`).value;
+            localStorage.setItem(`${section}Content_${currentLang}`, content);
             
             // 显示成功消息
-            const successMessage = document.getElementById(section + 'Success');
+            const successMessage = document.getElementById(`${section}Success`);
             successMessage.style.display = 'block';
             setTimeout(() => {
                 successMessage.style.display = 'none';
@@ -420,13 +525,13 @@
         // 删除内容
         function deleteContent(section) {
             if (confirm('确定要删除这段内容吗？删除后将恢复默认内容。')) {
-                localStorage.removeItem(section + 'Content');
+                localStorage.removeItem(`${section}Content_${currentLang}`);
                 // 恢复默认内容
-                document.getElementById(section + 'Content').value = defaultContents[section];
+                document.getElementById(`${section}Content`).value = defaultContents[currentLang][section];
                 updatePreview(section);
                 
                 // 显示成功消息
-                const successMessage = document.getElementById(section + 'Success');
+                const successMessage = document.getElementById(`${section}Success`);
                 successMessage.textContent = '已恢复默认内容！';
                 successMessage.style.display = 'block';
                 setTimeout(() => {
@@ -436,15 +541,38 @@
             }
         }
 
+        // 切换语言
+        function switchLang(lang) {
+            currentLang = lang;
+            const section = currentSection;
+            
+            // 更新语言按钮状态
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // 更新预览标签状态
+            document.querySelectorAll('.preview-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.lang === lang);
+            });
+
+            // 加载对应语言的内容
+            const content = localStorage.getItem(`${section}Content_${lang}`) || defaultContents[lang][section];
+            document.getElementById(`${section}Content`).value = content;
+            updatePreview(section);
+        }
+
         // 切换内容区域
         function switchSection(section) {
+            currentSection = section;
+            
             // 隐藏所有区域
             document.querySelectorAll('.content-wrapper').forEach(el => {
                 el.style.display = 'none';
             });
             
             // 显示选中的区域
-            document.getElementById(section + 'Section').style.display = 'grid';
+            document.getElementById(`${section}Section`).style.display = 'grid';
             
             // 更新导航栏活动状态
             document.querySelectorAll('.admin-nav a').forEach(a => {
@@ -454,9 +582,9 @@
                 }
             });
 
-            // 确保当前区域的内容已加载
-            const content = localStorage.getItem(section + 'Content') || defaultContents[section];
-            document.getElementById(section + 'Content').value = content;
+            // 加载当前语言的内容
+            const content = localStorage.getItem(`${section}Content_${currentLang}`) || defaultContents[currentLang][section];
+            document.getElementById(`${section}Content`).value = content;
             updatePreview(section);
         }
 
@@ -475,11 +603,25 @@
                 }
             });
 
+            // 添加语言切换事件监听
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchLang(btn.dataset.lang);
+                });
+            });
+
+            // 添加预览标签切换事件监听
+            document.querySelectorAll('.preview-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchLang(tab.dataset.lang);
+                });
+            });
+
             // 添加表单提交事件监听
             const sections = ['about', 'education', 'experience', 'contact'];
             sections.forEach(section => {
-                const form = document.getElementById(section + 'Form');
-                const textarea = document.getElementById(section + 'Content');
+                const form = document.getElementById(`${section}Form`);
+                const textarea = document.getElementById(`${section}Content`);
                 
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();

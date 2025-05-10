@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简历模板</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .resume-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resume-title i {
+            font-size: 28px;
+        }
+
+        .resume-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .save-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: var(--primary-color-dark);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .download-btn:hover {
+            background: var(--success-color-dark);
+            transform: translateY(-2px);
+        }
+
+        /* A4 纸张样式 */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            position: relative;
+        }
+
+        @media print {
+            .a4-page {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 20mm;
+                box-shadow: none;
+                border-radius: 0;
+            }
+
+            .resume-header,
+            .back-link,
+            .floating-actions {
+                display: none;
+            }
+        }
+
+        .resume-section {
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .resume-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resume-section h2 i {
+            font-size: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--text-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .experience-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #fafafa;
+            transition: all 0.3s;
+        }
+
+        .experience-item:hover {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .experience-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--text-color);
+        }
+
+        .experience-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .experience-description {
+            color: var(--text-color);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .back-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .back-link a:hover {
+            background: rgba(var(--primary-color-rgb), 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* 浮动操作按钮 */
+        .floating-actions {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .floating-btn.download {
+            background: var(--success-color);
+        }
+
+        /* 预览模式样式 */
+        .preview-mode {
+            display: none;
+        }
+
+        .preview-mode .form-group {
+            margin-bottom: 15px;
+        }
+
+        .preview-mode label {
+            display: none;
+        }
+
+        .preview-mode input,
+        .preview-mode textarea {
+            border: none;
+            padding: 0;
+            background: none;
+        }
+
+        .preview-mode textarea {
+            min-height: auto;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .resume-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .resume-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .a4-page {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .floating-actions {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container">
+        <div class="resume-header">
+            <h1 class="resume-title">
+                <i class="fas fa-file-alt"></i>
+                简历模板
+            </h1>
+            <div class="resume-actions">
+                <button class="action-btn save-btn" onclick="saveResume()">
+                    <i class="fas fa-save"></i> 保存
+                </button>
+                <button class="action-btn download-btn" onclick="downloadResume()">
+                    <i class="fas fa-download"></i> 下载PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="a4-page" id="resumeContent">
+            <div class="resume-section">
+                <h2><i class="fas fa-user"></i> 个人信息</h2>
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" name="name" placeholder="请输入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label for="title">职位</label>
+                    <input type="text" id="title" name="title" placeholder="请输入您的职位">
+                </div>
+                <div class="form-group">
+                    <label for="contact">联系方式</label>
+                    <input type="text" id="contact" name="contact" placeholder="请输入您的联系方式">
+                </div>
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="email" id="email" name="email" placeholder="请输入您的邮箱">
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h2><i class="fas fa-graduation-cap"></i> 教育经历</h2>
+                <div class="form-group">
+                    <label for="education">教育背景</label>
+                    <textarea id="education" name="education" placeholder="请输入您的教育经历"></textarea>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h2><i class="fas fa-briefcase"></i> 工作经验</h2>
+                <div class="form-group">
+                    <label for="experience">工作经历</label>
+                    <textarea id="experience" name="experience" placeholder="请输入您的工作经历"></textarea>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h2><i class="fas fa-tools"></i> 技能特长</h2>
+                <div class="form-group">
+                    <label for="skills">技能列表</label>
+                    <textarea id="skills" name="skills" placeholder="请输入您的技能特长，每行一个"></textarea>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h2><i class="fas fa-project-diagram"></i> 项目经验</h2>
+                <div class="form-group">
+                    <label for="projects">项目经历</label>
+                    <textarea id="projects" name="projects" placeholder="请输入您的项目经历"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 浮动操作按钮 -->
+        <div class="floating-actions">
+            <button class="floating-btn save" onclick="saveResume()" title="保存">
+                <i class="fas fa-save"></i>
+            </button>
+            <button class="floating-btn download" onclick="downloadResume()" title="下载PDF">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+
+        <div class="back-link">
+            <a href="tools.html">
+                <i class="fas fa-arrow-left"></i> 返回工具列表
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 加载保存的简历数据
+        function loadResume() {
+            const fields = ['name', 'title', 'contact', 'email', 'education', 'experience', 'skills', 'projects'];
+            fields.forEach(field => {
+                const savedValue = localStorage.getItem(`resume_${field}`);
+                if (savedValue) {
+                    document.getElementById(field).value = savedValue;
+                }
+            });
+        }
+
+        // 保存简历数据
+        function saveResume() {
+            const fields = ['name', 'title', 'contact', 'email', 'education', 'experience', 'skills', 'projects'];
+            fields.forEach(field => {
+                const value = document.getElementById(field).value;
+                localStorage.setItem(`resume_${field}`, value);
+            });
+            
+            // 显示保存成功提示
+            const saveBtn = document.querySelector('.save-btn');
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<i class="fas fa-check"></i> 已保存';
+            saveBtn.style.background = 'var(--success-color)';
+            
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+                saveBtn.style.background = 'var(--primary-color)';
+            }, 2000);
+        }
+
+        // 下载简历为PDF
+        function downloadResume() {
+            // 创建临时预览元素
+            const element = document.getElementById('resumeContent');
+            const previewElement = element.cloneNode(true);
+            
+            // 处理预览元素中的输入框和文本域
+            const inputs = previewElement.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                const value = input.value;
+                const div = document.createElement('div');
+                div.style.padding = '8px 0';
+                div.style.fontSize = '14px';
+                div.style.lineHeight = '1.6';
+                div.style.color = '#333';
+                div.textContent = value || input.placeholder;
+                input.parentNode.replaceChild(div, input);
+            });
+
+            // 移除所有标签
+            const labels = previewElement.querySelectorAll('label');
+            labels.forEach(label => label.remove());
+
+            // 设置 PDF 选项
+            const opt = {
+                margin: 0,
+                filename: '我的简历.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true,
+                    logging: true,
+                    allowTaint: true
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait'
+                }
+            };
+
+            // 显示下载中提示
+            const downloadBtn = document.querySelector('.download-btn');
+            const originalText = downloadBtn.innerHTML;
+            downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 生成中...';
+            downloadBtn.disabled = true;
+
+            // 生成PDF
+            html2pdf().set(opt).from(previewElement).save().then(() => {
+                // 恢复按钮状态
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+            }).catch(error => {
+                console.error('PDF生成错误:', error);
+                alert('PDF生成失败，请重试');
+                downloadBtn.innerHTML = originalText;
+                downloadBtn.disabled = false;
+            });
+        }
+
+        // 页面加载时加载保存的数据
+        window.onload = loadResume;
+    </script>
+</body>
+</html> 
