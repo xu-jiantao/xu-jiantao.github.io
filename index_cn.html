@@ -10,7 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <!-- 导航栏 -->
     <div class="nav">
         <div class="nav-links">
             <a href="#" class="nav-link active" data-section="about">
@@ -25,20 +24,13 @@
             <a href="#" class="nav-link" data-section="contact">
                 <i class="fas fa-envelope"></i> 联系方式
             </a>
-<!--            <a href="login.html" class="nav-link">-->
-<!--&lt;!&ndash;                <i class="fas fa-tools"></i> 工具&ndash;&gt;-->
-<!--            </a>-->
         </div>
         <div class="nav-buttons">
             <a href="index.html" class="lang-switch"><i class="fas fa-globe"></i> English</a>
-<!--            <a href="CV_CN.html" class="lang-switch"><i class="fas fa-file-alt"></i> CV_CN</a>-->
-<!--            <a href="admin-login.html" class="admin-link"><i class="fas fa-cog"></i> 管理</a>-->
         </div>
     </div>
 
-    <!-- 主要内容区域 -->
     <div class="main-container">
-        <!-- 左侧个人信息 -->
         <div class="sidebar">
             <div class="profile-info">
                 <img src="img.jpeg" alt="Profile" class="profile-img">
@@ -61,93 +53,11 @@
                 <a href="https://github.com/xu-jiantao" target="_blank" class="social-link">
                     <i class="fab fa-github"></i>
                 </a>
-<!--                <a href="https://linkedin.com/in/your-profile" target="_blank" class="social-link">-->
-<!--                    <i class="fab fa-linkedin"></i>-->
-<!--                </a>-->
             </div>
         </div>
 
-        <!-- 右侧内容区域 -->
         <div id="content"></div>
     </div>
 
-    <script>
-        const contents = {
-            about: localStorage.getItem('aboutContent') || `# 关于我
-
-我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习和机器学习。
-
-## 研究方向
-- 🤖 联邦学习
-- 🧠 机器学习
-- 📊 数据分析
-
-## 专业技能
-- 💻 编程语言：HTML、Java、Python
-- 🗄️ 数据库：MySQL
-- 🖥️ 系统：Linux服务器`,
-            
-            education: localStorage.getItem('educationContent') || `# 教育经历
-
-## 博士：计算机信息系统
-- 🏫 会津大学，日本
-- 📅 2023年10月至今
-
-## 硕士：计算机信息系统
-- 🏫 会津大学，日本
-- 📅 2021年10月-2023年10月
-
-## 学士：计算机信息管理
-- 🏫 郑州大学，中国
-- 📅 2017年-2021年`,
-            
-            experience: localStorage.getItem('experienceContent') || `# 工作经历
-
-## EyesJapan（兼职）
-*2023年10月至今*
-- 💻 网页开发
-- 🔧 前后端开发
-- 📊 数据库开发
-
-## 上海某保险公司数据中心
-*2021年4月-2022年8月*
-
-## 所获证书
-- 📜 大学英语四级证书
-- 🚗 中国驾照`,
-
-            contact: localStorage.getItem('contactContent') || `# 联系方式
-
-- 📧 邮箱：xujiantao9510@gmail.com
-- 🌐 个人网站：https://xu-jiantao.github.io
-- 💬 Wechat：dylanethan9510`
-        };
-
-        function showContent(page) {
-            const contentDiv = document.getElementById('content');
-            contentDiv.innerHTML = marked.parse(contents[page] || '内容不可用');
-            
-            // 更新活动链接样式
-            document.querySelectorAll('.nav-link').forEach(a => {
-                a.classList.remove('active');
-                if (a.dataset.section === page) {
-                    a.classList.add('active');
-                }
-            });
-        }
-
-        // 页面加载时显示 about 内容
-        window.onload = () => showContent('about');
-
-        // 添加导航链接点击事件
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.dataset.section) {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showContent(link.dataset.section);
-                });
-            }
-        });
-    </script>
-</body>
-</html> 
+    <script src="script.js" defer></script> </body>
+</html>

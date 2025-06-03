@@ -1,73 +1,81 @@
 /* 全局样式 */
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --text-color: #1f2937;
-    --light-text: #6b7280;
-    --background: #ffffff;
-    --card-background: #f8fafc;
-    --border-color: #e5e7eb;
+    --primary-color: #2563eb; /* 主色调，可以考虑更现代的蓝色，如 #3B82F6 */
+    --secondary-color: #1e40af; /* 深一些的蓝色 */
+    --text-color: #1f2937; /* 主要文本颜色 */
+    --light-text: #4b5563; /* 较浅文本颜色，略微加深以提高对比度 */
+    --background: #f9fafb; /* 更柔和的页面背景色 */
+    --card-background: #ffffff; /* 卡片背景，纯白以突出 */
+    --border-color: #e5e7eb; /* 边框颜色 */
+    --hover-bg-color: rgba(37, 99, 235, 0.08); /* 悬停背景色，更淡雅 */
+    --shadow-color: rgba(0, 0, 0, 0.05); /* 更柔和的阴影 */
 }
 
 body {
     margin: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
+    line-height: 1.7; /* 增加行高以提高可读性 */
     color: var(--text-color);
     background-color: var(--background);
+    -webkit-font-smoothing: antialiased; /* 抗锯齿，使字体更平滑 */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* 导航栏样式 */
 .nav {
-    background-color: var(--background);
-    padding: 1rem 2rem;
+    background-color: rgba(255, 255, 255, 0.85); /* 背景增加透明度以配合模糊 */
+    padding: 0.8rem 2rem; /* 微调内边距 */
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between; /* 让左右两部分分开 */
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px var(--shadow-color);
     z-index: 1000;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px); /* 增强模糊效果 */
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
-    margin-right: auto;
-    padding-left: 340px;
+    gap: 1.5rem; /* 调整链接间距 */
+    /* padding-left: 340px;  移除了固定的左边距，在大屏上让它更自然 */
+    margin-left: max(1rem, calc(300px + 4rem)); /* 至少1rem，或者侧边栏宽度+一些间距 */
+
 }
 
 .nav a {
     color: var(--light-text);
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem; /* 调整内边距 */
     border-radius: 0.5rem;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease-in-out;
     font-weight: 500;
+    position: relative; /* 为下划线动画做准备 */
 }
 
 .nav a:hover {
     color: var(--primary-color);
-    background-color: rgba(37, 99, 235, 0.1);
+    background-color: var(--hover-bg-color);
 }
 
 .nav a.active {
     color: var(--primary-color);
-    background-color: rgba(37, 99, 235, 0.1);
+    background-color: var(--hover-bg-color);
+    font-weight: 600; /* 加粗激活的链接 */
 }
 
 /* 语言切换按钮 */
 .lang-switch {
-    padding: 0.5rem 1rem;
-    background-color: var(--card-background);
+    padding: 0.6rem 1.2rem;
+    background-color: transparent; /* 改为透明背景 */
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     cursor: pointer;
     margin-left: 1rem;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease-in-out;
     font-weight: 500;
+    color: var(--text-color); /* 确保文本颜色 */
 }
 
 .lang-switch:hover {
@@ -76,105 +84,158 @@ body {
     border-color: var(--primary-color);
 }
 
+.lang-switch i {
+    margin-right: 0.3em;
+}
+
 /* 主要内容区布局 */
 .main-container {
     display: flex;
-    margin-top: 2rem;
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    margin-top: 2.5rem; /* 增加顶部间距 */
+    max-width: 1280px; /* 稍微增加最大宽度 */
+    margin: 2.5rem auto;
+    padding: 0 1.5rem; /* 增加左右内边距 */
+    gap: 2rem; /* 侧边栏和内容区之间的间距 */
 }
 
 /* 侧边栏样式 */
 .sidebar {
     width: 300px;
-    padding: 2rem;
+    padding: 1.5rem; /* 调整内边距 */
     position: fixed;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 80px - 2.5rem); /* 调整高度计算，减去导航栏高度和顶部间距*/
+    top: calc(60px + 1.5rem); /* 导航栏高度 + 一些间距 */
     overflow-y: auto;
     background-color: var(--card-background);
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem; /* 调整圆角 */
+    box-shadow: 0 6px 12px var(--shadow-color); /* 更明显的阴影 */
 }
 
 /* 个人信息样式 */
 .profile-info {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .profile-img {
-    width: 180px;
-    height: 180px;
+    width: 160px; /* 调整尺寸 */
+    height: 160px;
     border-radius: 50%;
-    margin-bottom: 1.5rem;
-    border: 4px solid white;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+    margin-bottom: 1rem;
+    border: 5px solid var(--card-background); /* 使用卡片背景作为边框底色 */
+    box-shadow: 0 0 0 3px var(--primary-color), 0 8px 16px rgba(0,0,0,0.1); /* 双层阴影/边框效果 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .profile-img:hover {
-    transform: scale(1.05);
+    transform: scale(1.08); /* 悬停放大效果更明显 */
+    box-shadow: 0 0 0 4px var(--primary-color), 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.profile-info h2 {
+    margin-bottom: 0.25rem;
+    font-size: 1.6rem; /* 调整字号 */
+    color: var(--text-color);
+}
+
+.title {
+    color: var(--primary-color); /* 标题使用主色调 */
+    font-size: 1rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
 }
 
 .info-item {
-    margin: 1rem 0;
+    margin: 0.8rem 0;
     color: var(--light-text);
     text-align: left;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem; /* 调整内边距 */
     border-radius: 0.5rem;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease-in-out;
+}
+
+.info-item i {
+    color: var(--primary-color); /* 图标使用主色调 */
+    font-size: 1.1rem; /* 微调图标大小 */
 }
 
 .info-item:hover {
-    background-color: rgba(37, 99, 235, 0.1);
+    background-color: var(--hover-bg-color);
     color: var(--primary-color);
+}
+
+.info-item a {
+    color: inherit; /* 继承父元素颜色 */
+    text-decoration: none;
+}
+.info-item a:hover {
+    text-decoration: underline; /* 悬停时加下划线 */
 }
 
 /* 主要内容区域样式 */
 #content {
-    margin-left: 340px;
+    margin-left: calc(300px + 2rem); /* 侧边栏宽度 + 间距 */
     padding: 2rem;
     max-width: 800px;
     flex-grow: 1;
     background-color: var(--card-background);
-    border-radius: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem; /* 调整圆角 */
+    box-shadow: 0 6px 12px var(--shadow-color);
+    min-height: calc(100vh - 150px); /* 确保内容区有一定最小高度 */
 }
 
 /* Markdown 内容样式 */
 #content h1 {
     color: var(--text-color);
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--primary-color); /* 强调标题下边框 */
+    padding-bottom: 0.8rem;
+    margin-top: 0; /* 第一个h1不带上边距 */
     margin-bottom: 2rem;
-    font-size: 2rem;
+    font-size: 2.2rem; /* 调整字号 */
 }
 
 #content h2 {
     color: var(--text-color);
-    margin-top: 2rem;
-    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem; /* 调整间距 */
+    font-size: 1.7rem; /* 调整字号 */
+    border-bottom: 1px solid var(--border-color); /* 给h2也加个细边框 */
+    padding-bottom: 0.5rem;
 }
 
 #content ul {
-    padding-left: 1.5rem;
+    padding-left: 0; /* 由 li::before 控制缩进 */
+    list-style-type: none;
 }
 
 #content li {
-    margin: 1rem 0;
+    margin: 0.8rem 0; /* 调整列表项间距 */
     color: var(--light-text);
+    position: relative;
+    padding-left: 1.8rem; /* 为自定义标记留出空间 */
+    line-height: 1.8; /* 调整列表项行高 */
+}
+
+#content li::before {
+    content: "✓"; /* 使用更现代的标记 */
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1rem; /* 调整标记大小 */
+    font-weight: bold; /* 加粗标记 */
+    top: 4px; /* 微调位置 */
 }
 
 #content p {
     color: var(--light-text);
-    margin: 1rem 0;
+    margin: 1rem 0 1.5rem; /* 调整段落间距 */
+    line-height: 1.8; /* 调整段落行高 */
 }
 
-/* 动画效果 */
+/* 动画效果 (保持不变) */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -191,165 +252,171 @@ body {
 }
 
 /* 移动端适配 */
-@media (max-width: 768px) {
+@media (max-width: 1024px) { /* 调整断点，更早进入平板布局 */
     .nav-links {
-        padding-left: 1rem;
-        gap: 1rem;
+        margin-left: 1rem; /* 在平板上减少左边距 */
     }
-
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-
     .main-container {
         flex-direction: column;
-        margin: 1rem;
+        margin-top: 1.5rem;
+        gap: 1.5rem;
     }
-
+    .sidebar {
+        position: relative; /* 改为相对定位 */
+        width: 100%;
+        height: auto;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        top: auto; /* 重置 top */
+        box-sizing: border-box; /* 确保 padding 不会增加宽度 */
+    }
     #content {
         margin-left: 0;
-        padding: 1rem;
+        padding: 1.5rem;
+        width: 100%; /* 确保内容区占满 */
+        box-sizing: border-box; /* 确保 padding 不会增加宽度 */
+    }
+}
+
+@media (max-width: 768px) {
+    .nav {
+        padding: 0.8rem 1rem; /* 调整手机端导航栏内边距 */
+        flex-direction: column; /* 导航栏内容垂直排列 */
+        align-items: flex-start; /* 左对齐 */
+    }
+    .nav-links {
+        padding-left: 0;
+        gap: 0.5rem; /* 减少手机端链接间距 */
+        flex-wrap: wrap;
+        justify-content: flex-start; /* 左对齐 */
+        margin-bottom: 0.5rem; /* 与按钮组的间距 */
+        width: 100%; /* 占满宽度 */
+    }
+    .nav a {
+        padding: 0.5rem 0.8rem;
+    }
+    .nav-buttons {
+        width: 100%; /* 按钮组占满宽度 */
+        display: flex;
+        justify-content: flex-start; /* 左对齐 */
+    }
+    .lang-switch {
+        margin-left: 0; /* 移除左边距 */
     }
 
     .profile-img {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
     }
-
-    .nav {
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        padding: 0.5rem;
-    }
-
-    .lang-switch {
-        margin: 0.5rem 0;
-    }
+    #content h1 { font-size: 1.8rem; }
+    #content h2 { font-size: 1.4rem; }
 }
 
-/* 标题样式 */
-.title {
-    color: var(--light-text);
-    font-size: 1.1rem;
-    margin-top: 0.5rem;
-    font-weight: 500;
-}
 
 /* 社交链接样式 */
 .social-links {
     display: flex;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
+    gap: 1.2rem; /* 调整间距 */
+    margin-top: 1.5rem; /* 调整顶部间距 */
 }
 
 .social-link {
     color: var(--light-text);
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-    padding: 0.5rem;
+    font-size: 1.4rem; /* 调整图标大小 */
+    transition: all 0.25s ease-in-out;
+    padding: 0.6rem; /* 调整内边距 */
     border-radius: 50%;
-    background-color: var(--background);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: var(--background); /* 使用页面背景色 */
+    box-shadow: 0 3px 6px var(--shadow-color);
+    display: inline-flex; /* 用于居中图标 */
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* 固定宽高 */
+    height: 40px;
 }
 
 .social-link:hover {
     color: var(--primary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* 导航按钮组样式 */
-.nav-buttons {
-    display: flex;
-    gap: 1rem;
+    transform: translateY(-3px) scale(1.1); /* 悬停效果增强 */
+    box-shadow: 0 5px 10px rgba(37, 99, 235, 0.2); /* 悬停时使用主色调阴影 */
+    background-color: var(--card-background);
 }
 
 /* 内容区域链接样式 */
 #content a {
     color: var(--primary-color);
     text-decoration: none;
-    transition: all 0.3s ease;
-    border-bottom: 1px solid transparent;
+    transition: all 0.25s ease-in-out;
+    border-bottom: 1px solid transparent; /* 初始透明下划线 */
+    font-weight: 500; /* 加粗链接文本 */
 }
 
 #content a:hover {
-    border-bottom-color: var(--primary-color);
-}
-
-/* 列表样式优化 */
-#content ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-#content li {
-    position: relative;
-    padding-left: 1.5rem;
-    margin: 1rem 0;
-}
-
-#content li::before {
-    content: "•";
-    color: var(--primary-color);
-    position: absolute;
-    left: 0;
-    font-size: 1.2rem;
+    border-bottom-color: var(--primary-color); /* 悬停时显示下划线 */
+    color: var(--secondary-color); /* 悬停时颜色略深 */
 }
 
 /* 代码块样式 */
 #content pre {
-    background-color: var(--background);
-    padding: 1rem;
+    background-color: #f0f3f5; /* 更柔和的代码块背景 */
+    padding: 1.2rem; /* 增加内边距 */
     border-radius: 0.5rem;
     overflow-x: auto;
     border: 1px solid var(--border-color);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); /* 轻微内阴影 */
 }
 
 #content code {
-    font-family: 'Fira Code', monospace;
+    font-family: 'Fira Code', 'JetBrains Mono', monospace; /* 优先使用适合编程的字体 */
     font-size: 0.9rem;
+    color: #2d3748; /* 深色代码文本 */
 }
 
 /* 引用块样式 */
 #content blockquote {
-    border-left: 4px solid var(--primary-color);
-    margin: 1rem 0;
-    padding: 1rem;
-    background-color: var(--background);
+    border-left: 5px solid var(--primary-color); /* 加粗左边框 */
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem; /* 调整内边距 */
+    background-color: var(--hover-bg-color); /* 淡蓝色背景 */
     border-radius: 0 0.5rem 0.5rem 0;
+    color: var(--light-text);
 }
+
+#content blockquote p {
+    margin: 0; /* 移除引用块内段落的默认边距 */
+    color: inherit; /* 继承引用块的文本颜色 */
+}
+
 
 /* 表格样式 */
 #content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 4px var(--shadow-color); /* 给表格也加上阴影 */
+    border-radius: 0.5rem; /* 给表格添加圆角 */
+    overflow: hidden; /* 配合圆角 */
 }
 
 #content th,
 #content td {
-    padding: 0.75rem;
+    padding: 0.8rem 1rem; /* 调整单元格内边距 */
     border: 1px solid var(--border-color);
     text-align: left;
 }
 
 #content th {
-    background-color: var(--background);
+    background-color: #f8fafc; /* 表头背景色 */
     font-weight: 600;
+    color: var(--text-color);
 }
 
 #content tr:nth-child(even) {
-    background-color: var(--background);
+    background-color: var(--card-background); /* 偶数行背景色，保持为白色 */
+}
+#content tr:nth-child(odd) {
+    background-color: #fdfdfe; /* 奇数行一个非常浅的颜色 */
 }
 
 /* 图片样式 */
@@ -357,24 +424,27 @@ body {
     max-width: 100%;
     height: auto;
     border-radius: 0.5rem;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 8px var(--shadow-color); /* 给图片加阴影 */
 }
 
-/* 滚动条样式 */
+/* 滚动条样式 (保持基本不变，颜色与主题匹配) */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px; /* 略微加宽 */
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
     background: var(--background);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--light-text);
-    border-radius: 4px;
+    background: #c1c1c1; /* 更中性的滚动条颜色 */
+    border-radius: 10px;
+    border: 2px solid var(--background); /* 增加边框使其看起来更细 */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
-} 
+    background: var(--light-text); /* 悬停时颜色 */
+}
