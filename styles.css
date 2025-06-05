@@ -9,6 +9,18 @@
     --border-color: #e5e7eb; /* 边框颜色 */
     --hover-bg-color: rgba(37, 99, 235, 0.08); /* 悬停背景色，更淡雅 */
     --shadow-color: rgba(0, 0, 0, 0.05); /* 更柔和的阴影 */
+    --nav-bg: rgba(255, 255, 255, 0.85);
+}
+
+body.dark-theme {
+    --text-color: #f3f4f6;
+    --light-text: #d1d5db;
+    --background: #1f2937;
+    --card-background: #111827;
+    --border-color: #374151;
+    --hover-bg-color: rgba(255, 255, 255, 0.08);
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --nav-bg: rgba(17, 24, 39, 0.85);
 }
 
 body {
@@ -23,7 +35,7 @@ body {
 
 /* 导航栏样式 */
 .nav {
-    background-color: rgba(255, 255, 255, 0.85); /* 背景增加透明度以配合模糊 */
+    background-color: var(--nav-bg); /* 使用变量以便主题切换 */
     padding: 0.8rem 2rem; /* 微调内边距 */
     border-bottom: 1px solid var(--border-color);
     position: sticky;
@@ -65,6 +77,12 @@ body {
     font-weight: 600; /* 加粗激活的链接 */
 }
 
+/* 导航栏右侧按钮组 */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+}
+
 /* 语言切换按钮 */
 .lang-switch {
     padding: 0.6rem 1.2rem;
@@ -76,6 +94,27 @@ body {
     transition: all 0.25s ease-in-out;
     font-weight: 500;
     color: var(--text-color); /* 确保文本颜色 */
+}
+
+/* 主题切换按钮 */
+.theme-switch {
+    padding: 0.6rem 1.2rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    color: var(--text-color);
+    margin-right: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-switch:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
 }
 
 .lang-switch:hover {
@@ -299,6 +338,10 @@ body {
         width: 100%; /* 按钮组占满宽度 */
         display: flex;
         justify-content: flex-start; /* 左对齐 */
+    }
+    .theme-switch {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
     }
     .lang-switch {
         margin-left: 0; /* 移除左边距 */
