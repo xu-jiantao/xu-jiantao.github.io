@@ -111,6 +111,25 @@ const currentLang = document.documentElement.lang;
 const contents = (currentLang === 'zh') ? contents_cn : contents_en;
 const अनुपलब्धपाठ = (currentLang === 'zh') ? '内容不可用' : 'Content not available';
 
+// 处理主题切换
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+    document.body.classList.add('dark-theme');
+}
+
+const themeToggle = document.getElementById('theme-toggle');
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        const isDark = document.body.classList.contains('dark-theme');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+    // 初始化图标
+    const isDark = document.body.classList.contains('dark-theme');
+    themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+}
+
 
 function showContent(page) {
     const contentDiv = document.getElementById('content');
