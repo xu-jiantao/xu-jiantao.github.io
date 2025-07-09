@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>科研工具导航大全</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#0FC6C2',
+                        accent: '#722ED1',
+                        neutral: '#86909C',
+                        'neutral-light': '#F2F3F5',
+                        'neutral-dark': '#4E5969'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .tool-card-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .category-title {
+                @apply text-xl font-bold text-gray-800 mb-4 flex items-center;
+            }
+            .category-icon {
+                @apply w-6 h-6 mr-2 text-primary;
+            }
+            .search-container {
+                @apply relative max-w-2xl mx-auto;
+            }
+            .search-input {
+                @apply w-full py-3 px-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all;
+            }
+            .search-button {
+                @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary transition-colors;
+            }
+            .nav-link {
+                @apply text-gray-600 hover:text-primary transition-colors font-medium;
+            }
+            .nav-link-active {
+                @apply text-primary border-b-2 border-primary;
+            }
+            .footer-link {
+                @apply text-gray-400 hover:text-white transition-colors;
+            }
+            .dropdown-content {
+                @apply hidden absolute bg-white shadow-lg rounded-lg py-2 z-50 min-w-48 mt-2;
+            }
+            .dropdown-content a {
+                @apply block px-4 py-2 text-gray-700 hover:bg-primary/10 hover:text-primary;
+            }
+            .dropdown:hover .dropdown-content {
+                @apply block;
+            }
+            .search-result {
+                @apply absolute top-full left-0 right-0 bg-white shadow-lg rounded-lg mt-1 z-50 max-h-96 overflow-y-auto;
+            }
+            .search-item {
+                @apply px-4 py-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+    <!-- 顶部导航栏 -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 transition-all duration-300" id="header">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="text-primary text-2xl font-bold flex items-center">
+                        <i class="fa fa-flask mr-2"></i>
+                        <span>科研工具导航</span>
+                    </div>
+                </div>
+
+                <div class="search-container w-full md:w-auto">
+                    <input type="text" placeholder="搜索科研工具..." class="search-input" id="searchInput">
+                    <button class="search-button" id="searchButton">
+                        <i class="fa fa-search text-lg"></i>
+                    </button>
+                    <div class="search-result hidden" id="searchResults"></div>
+                </div>
+
+                <div class="mt-4 md:mt-0 flex space-x-6">
+                    <a href="#" class="nav-link nav-link-active">首页</a>
+                    <div class="dropdown relative">
+                        <a href="#" class="nav-link flex items-center">
+                            分类
+                            <i class="fa fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="#literature">文献工具</a>
+                            <a href="#data">数据分析</a>
+                            <a href="#writing">写作工具</a>
+                            <a href="#other">其他工具</a>
+                        </div>
+                    </div>
+                    <a href="#recommended" class="nav-link">推荐</a>
+                    <a href="#favorites" class="nav-link">收藏</a>
+                    <a href="#about" class="nav-link">关于</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容区域 -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- 欢迎横幅 -->
+        <section class="bg-gradient-to-r from-primary/90 to-accent/90 text-white rounded-xl p-8 mb-12 shadow-lg">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-2/3 mb-6 md:mb-0">
+                    <h1 class="text-[clamp(1.8rem,5vw,3rem)] font-bold mb-4">科研工作者的得力助手</h1>
+                    <p class="text-lg md:text-xl opacity-90 mb-6">一站式科研工具导航，助您高效完成研究工作，节省宝贵时间</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#literature" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-md">
+                            文献工具
+                        </a>
+                        <a href="#data" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-md">
+                            数据分析
+                        </a>
+                        <a href="#writing" class="bg-white text-primary px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors shadow-md">
+                            写作工具
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="w-32 h-32 md:w-48 md:h-48 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                        <i class="fa fa-rocket text-5xl md:text-7xl"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 文献工具 -->
+        <section id="literature" class="mb-12">
+            <h2 class="category-title">
+                <i class="fa fa-book category-icon"></i>
+                文献工具
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- 文献检索 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-search text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">文献检索</h3>
+                                <p class="text-gray-500 text-sm">学术文献搜索引擎</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">提供跨数据库的学术文献检索服务，覆盖期刊、论文、书籍等多种资源。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">期刊</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">论文</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">书籍</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://scholar.google.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Google Scholar
+                            </a>
+                            <a href="https://ieeexplore.ieee.org" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> IEEE Xplore
+                            </a>
+                            <a href="https://www.sciencedirect.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> ScienceDirect
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文献管理 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-secondary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+                                <i class="fa fa-folder-open text-secondary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">文献管理</h3>
+                                <p class="text-gray-500 text-sm">参考文献管理工具</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">支持文献导入、整理、标注和引用格式化，帮助您高效管理研究资料。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">引用</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">标注</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">整理</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.mendeley.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Mendeley
+                            </a>
+                            <a href="https://www.zotero.org" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Zotero
+                            </a>
+                            <a href="https://endnote.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> EndNote
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文献阅读 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-accent"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                                <i class="fa fa-eye text-accent text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">文献阅读</h3>
+                                <p class="text-gray-500 text-sm">PDF阅读与批注工具</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">专为学术文献设计的PDF阅读器，支持高亮、批注、笔记和全文检索功能。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">PDF</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">批注</span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">检索</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.adobe.com/products/acrobat.html" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Adobe Acrobat
+                            </a>
+                            <a href="https://www.sumatrapdfreader.org/free-pdf-reader" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Sumatra PDF
+                            </a>
+                            <a href="https://www.readcube.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> ReadCube
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 文献翻译 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-language text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">文献翻译</h3>
+                                <p class="text-gray-500 text-sm">学术论文翻译工具</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">专注于学术领域的专业翻译工具，准确翻译科技文献、论文摘要和专业术语。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">专业</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">术语</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">双语</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://fanyi.baidu.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> 百度翻译
+                            </a>
+                            <a href="https://translate.google.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Google 翻译
+                            </a>
+                            <a href="https://www.deepl.com/translator" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> DeepL
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据分析工具 -->
+        <section id="data" class="mb-12">
+            <h2 class="category-title">
+                <i class="fa fa-bar-chart category-icon"></i>
+                数据分析工具
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- 统计分析 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-secondary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+                                <i class="fa fa-calculator text-secondary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">统计分析</h3>
+                                <p class="text-gray-500 text-sm">专业统计分析软件</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">功能强大的统计分析工具，支持各种统计方法和模型，适合科研数据处理。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">统计</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">建模</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">分析</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.r-project.org" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> R
+                            </a>
+                            <a href="https://www.python.org" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Python
+                            </a>
+                            <a href="https://www.spss.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> SPSS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 数据可视化 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-accent"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                                <i class="fa fa-pie-chart text-accent text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">数据可视化</h3>
+                                <p class="text-gray-500 text-sm">科学图表绘制工具</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">提供丰富的图表类型和样式，帮助您创建高质量的科学可视化图表和图形。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">图表</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">可视化</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">科学</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://plotly.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Plotly
+                            </a>
+                            <a href="https://www.tableau.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Tableau
+                            </a>
+                            <a href="https://matplotlib.org" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Matplotlib
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 编程工具 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-code text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">编程工具</h3>
+                                <p class="text-gray-500 text-sm">科研计算与编程环境</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">专为科研工作者设计的编程环境，支持数据分析、数值计算和算法实现。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">Python</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">R</span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">计算</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://jupyter.org" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Jupyter Notebook
+                            </a>
+                            <a href="https://www.rstudio.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> RStudio
+                            </a>
+                            <a href="https://www.anaconda.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Anaconda
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 数据管理 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-secondary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+                                <i class="fa fa-database text-secondary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">数据管理</h3>
+                                <p class="text-gray-500 text-sm">科研数据组织工具</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">帮助科研人员高效管理实验数据、样本信息和研究结果，支持数据备份和共享。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">组织</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">备份</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">共享</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.mysql.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> MySQL
+                            </a>
+                            <a href="https://www.postgresql.org" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> PostgreSQL
+                            </a>
+                            <a href="https://www.mongodb.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> MongoDB
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 写作工具 -->
+        <section id="writing" class="mb-12">
+            <h2 class="category-title">
+                <i class="fa fa-pencil-square-o category-icon"></i>
+                写作工具
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- 学术写作 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-accent"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                                <i class="fa fa-file-text-o text-accent text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">学术写作</h3>
+                                <p class="text-gray-500 text-sm">专业学术论文写作</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">提供学术论文模板、语法检查和文献引用管理功能，帮助您撰写高质量论文。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">论文</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">语法</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">引用</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.overleaf.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Overleaf
+                            </a>
+                            <a href="https://www.microsoft.com/en-us/microsoft-365/word" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Microsoft Word
+                            </a>
+                            <a href="https://www.libreoffice.org/discover/writer" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> LibreOffice Writer
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 语法检查 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-check-square-o text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">语法检查</h3>
+                                <p class="text-gray-500 text-sm">学术英语语法校正</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">专注于学术英语的语法检查工具，识别并纠正语法错误、用词不当和句子结构问题。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">语法</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">拼写</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">学术</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.grammarly.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Grammarly
+                            </a>
+                            <a href="https://www.proofreadnow.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> ProofreadNow
+                            </a>
+                            <a href="https://www.hemingwayapp.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Hemingway Editor
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 图表制作 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-secondary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+                                <i class="fa fa-picture-o text-secondary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">图表制作</h3>
+                                <p class="text-gray-500 text-sm">科学图表绘制工具</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">简单易用的科学图表制作工具，提供专业模板和高质量输出，适合学术论文插图。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">图表</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">科学</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">专业</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.canva.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Canva
+                            </a>
+                            <a href="https://www.graphpad.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> GraphPad Prism
+                            </a>
+                            <a href="https://www.adobe.com/products/illustrator.html" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Adobe Illustrator
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 参考文献 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-accent"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                                <i class="fa fa-bookmark-o text-accent text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">参考文献</h3>
+                                <p class="text-gray-500 text-sm">引用格式生成器</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">自动生成各种学术期刊要求的引用格式，支持书籍、论文、网页等多种资源类型。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">引用</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">格式</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">期刊</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.citethisforme.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Cite This For Me
+                            </a>
+                            <a href="https://www.bibme.org" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> BibMe
+                            </a>
+                            <a href="https://www.refme.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> RefME
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 其他工具 -->
+        <section id="other" class="mb-12">
+            <h2 class="category-title">
+                <i class="fa fa-cogs category-icon"></i>
+                其他工具
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- 项目管理 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-tasks text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">项目管理</h3>
+                                <p class="text-gray-500 text-sm">科研项目规划工具</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">帮助科研团队规划、跟踪和管理研究项目，分配任务、设置里程碑和监控进度。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">规划</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">任务</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">进度</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://trello.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Trello
+                            </a>
+                            <a href="https://www.asana.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Asana
+                            </a>
+                            <a href="https://www.jira.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Jira
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 协作工具 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-secondary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+                                <i class="fa fa-users text-secondary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">协作工具</h3>
+                                <p class="text-gray-500 text-sm">团队协作与交流</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">支持团队成员实时协作编辑文档、共享资源和讨论研究问题的在线协作平台。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">协作</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">实时</span>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">共享</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.google.com/docs/about" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Google Docs
+                            </a>
+                            <a href="https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> SharePoint
+                            </a>
+                            <a href="https://slack.com" target="_blank" class="text-secondary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Slack
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 时间管理 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-accent"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+                                <i class="fa fa-clock-o text-accent text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">时间管理</h3>
+                                <p class="text-gray-500 text-sm">科研工作时间规划</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">帮助科研人员有效规划和管理工作时间，设置优先级，提高研究效率。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">时间</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">效率</span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-800 text-xs rounded-full">规划</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://todoist.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Todoist
+                            </a>
+                            <a href="https://www.toggl.com" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Toggl
+                            </a>
+                            <a href="https://www.notion.so" target="_blank" class="text-accent font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Notion
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 学术社区 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="fa fa-comments-o text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">学术社区</h3>
+                                <p class="text-gray-500 text-sm">科研交流平台</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">连接全球科研人员的专业社区，分享研究成果、讨论学术问题和寻找合作机会。</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">交流</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">分享</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full">合作</span>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="https://www.researchgate.net" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> ResearchGate
+                            </a>
+                            <a href="https://www.academia.edu" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Academia.edu
+                            </a>
+                            <a href="https://stackoverflow.com" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                                <i class="fa fa-external-link mr-1"></i> Stack Overflow
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 推荐工具 -->
+        <section id="recommended" class="mb-12 bg-gradient-to-br from-neutral-light to-white p-8 rounded-xl shadow-md">
+            <h2 class="category-title mb-6">
+                <i class="fa fa-star category-icon"></i>
+                推荐工具
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 工具1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="flex">
+                        <div class="w-1/3 bg-primary/10 p-4 flex items-center justify-center">
+                            <i class="fa fa-lightbulb-o text-primary text-4xl"></i>
+                        </div>
+                        <div class="w-2/3 p-4">
+                            <h3 class="font-bold text-lg mb-2">研究灵感生成器</h3>
+                            <p class="text-gray-600 text-sm mb-3">基于AI的研究灵感生成工具，帮助你找到创新研究方向和实验设计思路。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fa fa-star text-yellow-400"></i>
+                                    <span class="ml-1 text-sm">4.9</span>
+                                </div>
+                                <a href="https://researchidea.ai" target="_blank" class="text-primary text-sm hover:underline">访问工具</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工具2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="flex">
+                        <div class="w-1/3 bg-secondary/10 p-4 flex items-center justify-center">
+                            <i class="fa fa-line-chart text-secondary text-4xl"></i>
+                        </div>
+                        <div class="w-2/3 p-4">
+                            <h3 class="font-bold text-lg mb-2">学术影响力分析</h3>
+                            <p class="text-gray-600 text-sm mb-3">分析你的学术论文影响力和引用情况，提供领域对比和趋势分析。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fa fa-star text-yellow-400"></i>
+                                    <span class="ml-1 text-sm">4.8</span>
+                                </div>
+                                <a href="https://academicinfluence.com" target="_blank" class="text-secondary text-sm hover:underline">访问工具</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工具3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden tool-card-hover">
+                    <div class="flex">
+                        <div class="w-1/3 bg-accent/10 p-4 flex items-center justify-center">
+                            <i class="fa fa-graduation-cap text-accent text-4xl"></i>
+                        </div>
+                        <div class="w-2/3 p-4">
+                            <h3 class="font-bold text-lg mb-2">学术机会发现</h3>
+                            <p class="text-gray-600 text-sm mb-3">自动收集和推荐适合你的研究基金、会议和合作机会。</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center">
+                                    <i class="fa fa-star text-yellow-400"></i>
+                                    <span class="ml-1 text-sm">4.7</span>
+                                </div>
+                                <a href="https://researchopportunities.com" target="_blank" class="text-accent text-sm hover:underline">访问工具</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 收藏工具（默认隐藏） -->
+        <section id="favorites" class="mb-12 hidden">
+            <h2 class="category-title">
+                <i class="fa fa-heart category-icon"></i>
+                我的收藏
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="favoritesList">
+                <!-- 收藏的工具将通过JavaScript动态添加 -->
+                <div class="col-span-full text-center text-gray-500 py-12">
+                    <i class="fa fa-bookmark-o text-4xl mb-4"></i>
+                    <p>您还没有收藏任何工具</p>
+                    <p class="text-sm mt-2">点击工具卡片上的 <i class="fa fa-heart-o"></i> 按钮添加收藏</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于页面 -->
+        <section id="about" class="mb-12 hidden">
+            <div class="bg-white rounded-xl shadow-md p-8">
+                <h2 class="text-2xl font-bold mb-6">关于科研工具导航</h2>
+                <div class="prose max-w-none">
+                    <p>科研工具导航是一个为科研工作者提供一站式工具导航服务的平台。我们致力于收集、整理和推荐各类优质科研工具，帮助科研人员提高工作效率，节省宝贵时间。</p>
+
+                    <h3 class="text-xl font-semibold mt-6 mb-3">我们的使命</h3>
+                    <p>我们的使命是打造一个专业、全面、易用的科研工具资源平台，为全球科研工作者提供便捷的工具发现和使用体验。</p>
+
+                    <h3 class="text-xl font-semibold mt-6 mb-3">我们的愿景</h3>
+                    <p>成为科研工作者首选的工具导航平台，助力科学研究的高效开展和创新突破。</p>
+
+                    <h3 class="text-xl font-semibold mt-6 mb-3">联系我们</h3>
+                    <p>如果您有任何问题、建议或想推荐优秀的科研工具，请通过以下方式联系我们：</p>
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>邮箱：xujiantao9510@gmail.com</li>
+                        <li>电话：+86 123 4567 8910</li>
+                        <li>地址：会津大学网络安全实验室</li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold mt-6 mb-3">加入我们</h3>
+                    <p>我们欢迎对科研工具有热情的开发者、科研人员加入我们，共同完善这个平台。</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-flask mr-2"></i>
+                        科研工具导航
+                    </h3>
+                    <p class="text-gray-400 mb-4">一站式科研工具导航平台，助力科研工作者高效完成研究任务。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link">首页</a></li>
+                        <li><a href="#literature" class="footer-link">文献工具</a></li>
+                        <li><a href="#data" class="footer-link">数据分析</a></li>
+                        <li><a href="#writing" class="footer-link">写作工具</a></li>
+                        <li><a href="#other" class="footer-link">其他工具</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">工具分类</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#literature" class="footer-link">文献工具</a></li>
+                        <li><a href="#data" class="footer-link">数据分析</a></li>
+                        <li><a href="#writing" class="footer-link">写作工具</a></li>
+                        <li><a href="#other" class="footer-link">项目管理</a></li>
+                        <li><a href="#" class="footer-link">更多工具</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa fa-envelope-o mr-2"></i>
+                            <span>xujiantao9510@gmail.com</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa fa-phone mr-2"></i>
+                            <span>+86 123 4567 8910</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fa fa-map-marker mr-2"></i>
+                            <span>会津大学网络安全实验室</span>
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded transition-colors">
+                            提交工具
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2025 科研工具导航. 保留所有权利.</p>
+                <div class="mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm mr-4 transition-colors">隐私政策</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm mr-4 transition-colors">使用条款</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">帮助中心</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-primary text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // 监听滚动事件，显示/隐藏回到顶部按钮
+        const backToTopButton = document.getElementById('backToTop');
+        const header = document.getElementById('header');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+                header.classList.add('shadow-md');
+                header.classList.remove('shadow-sm');
+            } else {
+                backToTopButton.classList.add('opacity-0', 'invisible');
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                header.classList.remove('shadow-md');
+                header.classList.add('shadow-sm');
+            }
+        });
+
+        // 点击回到顶部按钮
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // 隐藏所有内容区域
+                    document.querySelectorAll('main > section').forEach(section => {
+                        section.classList.add('hidden');
+                    });
+
+                    // 显示目标区域
+                    targetElement.classList.remove('hidden');
+
+                    // 滚动到目标区域
+                    setTimeout(() => {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+
+                    // 更新导航栏激活状态
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('nav-link-active');
+                    });
+                    this.classList.add('nav-link-active');
+                }
+            });
+        });
+
+        // 处理首页链接点击
+        document.querySelector('a[href="#"]').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // 隐藏所有内容区域
+            document.querySelectorAll('main > section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // 显示所有默认应该显示的部分
+            document.querySelectorAll('#literature, #data, #writing, #other, #recommended').forEach(section => {
+                section.classList.remove('hidden');
+            });
+
+            // 更新导航栏激活状态
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('nav-link-active');
+            });
+            this.classList.add('nav-link-active');
+        });
+
+        // 搜索功能
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const searchResults = document.getElementById('searchResults');
+
+        // 模拟科研工具数据
+        const tools = [
+            { name: "Google Scholar", category: "文献检索", url: "https://scholar.google.com" },
+            { name: "IEEE Xplore", category: "文献检索", url: "https://ieeexplore.ieee.org" },
+            { name: "ScienceDirect", category: "文献检索", url: "https://www.sciencedirect.com" },
+            { name: "Mendeley", category: "文献管理", url: "https://www.mendeley.com" },
+            { name: "Zotero", category: "文献管理", url: "https://www.zotero.org" },
+            { name: "EndNote", category: "文献管理", url: "https://endnote.com" },
+            { name: "Adobe Acrobat", category: "文献阅读", url: "https://www.adobe.com/products/acrobat.html" },
+            { name: "Sumatra PDF", category: "文献阅读", url: "https://www.sumatrapdfreader.org/free-pdf-reader" },
+            { name: "ReadCube", category: "文献阅读", url: "https://www.readcube.com" },
+            { name: "百度翻译", category: "文献翻译", url: "https://fanyi.baidu.com" },
+            { name: "Google 翻译", category: "文献翻译", url: "https://translate.google.com" },
+            { name: "DeepL", category: "文献翻译", url: "https://www.deepl.com/translator" },
+            { name: "R", category: "统计分析", url: "https://www.r-project.org" },
+            { name: "Python", category: "统计分析", url: "https://www.python.org" },
+            { name: "SPSS", category: "统计分析", url: "https://www.spss.com" },
+            { name: "Plotly", category: "数据可视化", url: "https://plotly.com" },
+            { name: "Tableau", category: "数据可视化", url: "https://www.tableau.com" },
+            { name: "Matplotlib", category: "数据可视化", url: "https://matplotlib.org" },
+            { name: "Jupyter Notebook", category: "编程工具", url: "https://jupyter.org" },
+            { name: "RStudio", category: "编程工具", url: "https://www.rstudio.com" },
+            { name: "Anaconda", category: "编程工具", url: "https://www.anaconda.com" },
+            { name: "MySQL", category: "数据管理", url: "https://www.mysql.com" },
+            { name: "PostgreSQL", category: "数据管理", url: "https://www.postgresql.org" },
+            { name: "MongoDB", category: "数据管理", url: "https://www.mongodb.com" },
+            { name: "Overleaf", category: "学术写作", url: "https://www.overleaf.com" },
+            { name: "Microsoft Word", category: "学术写作", url: "https://www.microsoft.com/en-us/microsoft-365/word" },
+            { name: "LibreOffice Writer", category: "学术写作", url: "https://www.libreoffice.org/discover/writer" },
+            { name: "Grammarly", category: "语法检查", url: "https://www.grammarly.com" },
+            { name: "ProofreadNow", category: "语法检查", url: "https://www.proofreadnow.com" },
+            { name: "Hemingway Editor", category: "语法检查", url: "https://www.hemingwayapp.com" },
+            { name: "Canva", category: "图表制作", url: "https://www.canva.com" },
+            { name: "GraphPad Prism", category: "图表制作", url: "https://www.graphpad.com" },
+            { name: "Adobe Illustrator", category: "图表制作", url: "https://www.adobe.com/products/illustrator.html" },
+            { name: "Cite This For Me", category: "参考文献", url: "https://www.citethisforme.com" },
+            { name: "BibMe", category: "参考文献", url: "https://www.bibme.org" },
+            { name: "RefME", category: "参考文献", url: "https://www.refme.com" },
+            { name: "Trello", category: "项目管理", url: "https://trello.com" },
+            { name: "Asana", category: "项目管理", url: "https://www.asana.com" },
+            { name: "Jira", category: "项目管理", url: "https://www.jira.com" },
+            { name: "SharePoint", category: "协作工具", url: "https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration" },
+            { name: "Slack", category: "协作工具", url: "https://slack.com" },
+            { name: "Todoist", category: "时间管理", url: "https://todoist.com" },
+            { name: "Toggl", category: "时间管理", url: "https://www.toggl.com" },
+            { name: "Notion", category: "时间管理", url: "https://www.notion.so" },
+            { name: "ResearchGate", category: "学术社区", url: "https://www.researchgate.net" },
+            { name: "Academia.edu", category: "学术社区", url: "https://www.academia.edu" },
+            { name: "Stack Overflow", category: "学术社区", url: "https://stackoverflow.com" },
+            { name: "研究灵感生成器", category: "推荐工具", url: "https://researchidea.ai" },
+            { name: "学术影响力分析", category: "推荐工具", url: "https://academicinfluence.com" },
+            { name: "学术机会发现", category: "推荐工具", url: "https://researchopportunities.com" }
+        ];
+
+        // 处理搜索
+        function handleSearch() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            if (searchTerm.length < 2) {
+                searchResults.classList.add('hidden');
+                return;
+            }
+
+            // 过滤匹配的工具
+            const matchedTools = tools.filter(tool =>
+                tool.name.toLowerCase().includes(searchTerm) ||
+                tool.category.toLowerCase().includes(searchTerm)
+            );
+
+            // 显示搜索结果
+            searchResults.innerHTML = '';
+            if (matchedTools.length > 0) {
+                matchedTools.forEach(tool => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-item';
+                    resultItem.innerHTML = `
+                        <div class="font-medium">${tool.name}</div>
+                        <div class="text-xs text-gray-500">${tool.category}</div>
+                    `;
+                    resultItem.addEventListener('click', () => {
+                        window.open(tool.url, '_blank');
+                        searchInput.value = '';
+                        searchResults.classList.add('hidden');
+                    });
+                    searchResults.appendChild(resultItem);
+                });
+            } else {
+                const noResult = document.createElement('div');
+                noResult.className = 'search-item text-center text-gray-500';
+                noResult.textContent = '未找到匹配的工具';
+                searchResults.appendChild(noResult);
+            }
+
+            searchResults.classList.remove('hidden');
+        }
+
+        searchInput.addEventListener('input', handleSearch);
+        searchButton.addEventListener('click', handleSearch);
+
+        // 点击页面其他地方关闭搜索结果
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !searchResults.contains(e.target) && !searchButton.contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        // 收藏功能
+        // 初始化收藏
+        let favorites = JSON.parse(localStorage.getItem('researchToolFavorites')) || [];
+        const favoritesList = document.getElementById('favoritesList');
+        const favoritesSection = document.getElementById('favorites');
+
+        // 更新收藏列表
+        function updateFavorites() {
+            favoritesList.innerHTML = '';
+
+            if (favorites.length === 0) {
+                favoritesList.innerHTML = `
+                    <div class="col-span-full text-center text-gray-500 py-12">
+                        <i class="fa fa-bookmark-o text-4xl mb-4"></i>
+                        <p>您还没有收藏任何工具</p>
+                        <p class="text-sm mt-2">点击工具卡片上的 <i class="fa fa-heart-o"></i> 按钮添加收藏</p>
+                    </div>
+                `;
+                return;
+            }
+
+            favorites.forEach(tool => {
+                const toolCard = document.createElement('div');
+                toolCard.className = 'bg-white rounded-xl shadow-md overflow-hidden tool-card-hover';
+                toolCard.innerHTML = `
+                    <div class="h-3 bg-primary"></div>
+                    <div class="p-6 relative">
+                        <button class="absolute top-4 right-4 text-red-500 hover:text-red-700 transition-colors" onclick="removeFromFavorites('${tool.id}')">
+                            <i class="fa fa-heart"></i>
+                        </button>
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                                <i class="${tool.icon} text-primary text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="font-bold text-lg">${tool.name}</h3>
+                                <p class="text-gray-500 text-sm">${tool.category}</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-4">${tool.description}</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            ${tool.tags.map(tag => `<span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">${tag}</span>`).join('')}
+                        </div>
+                        <a href="${tool.url}" target="_blank" class="text-primary font-medium hover:underline flex items-center">
+                            <i class="fa fa-external-link mr-1"></i> 访问工具
+                        </a>
+                    </div>
+                `;
+                favoritesList.appendChild(toolCard);
+            });
+        }
+
+        // 添加到收藏
+        window.addToFavorites = function(id, name, category, description, url, icon, tags) {
+            if (favorites.some(tool => tool.id === id)) {
+                removeFromFavorites(id);
+                return;
+            }
+
+            favorites.push({
+                id,
+                name,
+                category,
+                description,
+                url,
+                icon,
+                tags
+            });
+
+            localStorage.setItem('researchToolFavorites', JSON.stringify(favorites));
+            updateFavorites();
+
+            // 显示收藏成功提示
+            const toast = document.createElement('div');
+            toast.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50 transition-all duration-300 transform translate-y-[-20px] opacity-0';
+            toast.textContent = `${name} 已添加到收藏`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-[-20px]', 'opacity-0');
+            }, 100);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-[-20px]', 'opacity-0');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 2000);
+        }
+
+        // 从收藏中移除
+        window.removeFromFavorites = function(id) {
+            favorites = favorites.filter(tool => tool.id !== id);
+            localStorage.setItem('researchToolFavorites', JSON.stringify(favorites));
+            updateFavorites();
+        }
+
+        // 为所有工具卡片添加收藏按钮
+        document.addEventListener('DOMContentLoaded', () => {
+            // 初始化收藏列表
+            updateFavorites();
+
+            // 为现有工具卡片添加收藏按钮
+            const toolCards = document.querySelectorAll('.tool-card-hover');
+            toolCards.forEach(card => {
+                const name = card.querySelector('h3').textContent;
+                const category = card.querySelector('p.text-gray-500.text-sm').textContent;
+                const description = card.querySelector('p.text-gray-600').textContent;
+                const url = card.querySelector('a[href^="http"]').getAttribute('href');
+                const iconElement = card.querySelector('.w-12.h-12.rounded-full i');
+                const icon = iconElement ? iconElement.className : 'fa fa-star';
+
+                const tags = Array.from(card.querySelectorAll('.px-2.py-1.bg-blue-100.text-blue-800.text-xs.rounded-full'))
+                                  .map(tag => tag.textContent);
+
+                // 生成唯一ID
+                const id = `${name}-${category}`.toLowerCase().replace(/\s+/g, '-');
+
+                // 创建收藏按钮
+                const favoriteButton = document.createElement('button');
+                favoriteButton.className = 'absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors';
+                favoriteButton.innerHTML = `<i class="fa fa-heart-o"></i>`;
+
+                // 检查是否已收藏
+                if (favorites.some(tool => tool.id === id)) {
+                    favoriteButton.innerHTML = `<i class="fa fa-heart text-red-500"></i>`;
+                }
+
+                favoriteButton.onclick = function() {
+                    addToFavorites(id, name, category, description, url, icon, tags);
+                    // 切换图标状态
+                    if (favoriteButton.innerHTML.includes('fa-heart-o')) {
+                        favoriteButton.innerHTML = `<i class="fa fa-heart text-red-500"></i>`;
+                    } else {
+                        favoriteButton.innerHTML = `<i class="fa fa-heart-o"></i>`;
+                    }
+                };
+
+                // 添加按钮到卡片
+                card.querySelector('.p-6').appendChild(favoriteButton);
+            });
+        });
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化页面显示
+            document.querySelectorAll('#literature, #data, #writing, #other, #recommended').forEach(section => {
+                section.classList.remove('hidden');
+            });
+
+            // 设置默认激活的导航链接
+            document.querySelector('a[href="#"]').classList.add('nav-link-active');
+        });
+    </script>
+</body>
+</html>
