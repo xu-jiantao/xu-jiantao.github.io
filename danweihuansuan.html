@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小学单位换算测试</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4F46E5',
+            secondary: '#F59E0B',
+            success: '#10B981',
+            danger: '#EF4444',
+            neutral: '#6B7280',
+            light: '#F3F4F6',
+            dark: '#1F2937'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            certificate: ['"Comic Sans MS"', 'cursive', 'sans-serif']
+          },
+        },
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .rotate-cert {
+        transform: rotate(-2deg);
+      }
+      .card-shadow {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+  <!-- 导航栏 -->
+  <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <span class="text-primary font-bold text-xl">单位换算小能手</span>
+        </div>
+        <div class="flex items-center">
+          <button id="helpBtn" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+            <i class="fa fa-question-circle text-neutral"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主容器 -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+    <!-- 欢迎区域 -->
+    <section id="welcome" class="text-center py-8">
+      <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-dark mb-4">单位换算测试</h1>
+      <p class="text-lg text-neutral max-w-2xl mx-auto mb-8">挑战时间、长度、面积和体积单位换算，看看你能得多少分！</p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        <div class="bg-white p-4 rounded-xl shadow-lg w-full sm:w-64 transition-transform hover:scale-105">
+          <i class="fa fa-clock-o text-primary text-3xl mb-2"></i>
+          <h3 class="font-bold text-lg">时间单位</h3>
+          <p class="text-sm text-neutral">秒、分、时、天等</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-lg w-full sm:w-64 transition-transform hover:scale-105">
+          <i class="fa fa-arrows-h text-primary text-3xl mb-2"></i>
+          <h3 class="font-bold text-lg">长度单位</h3>
+          <p class="text-sm text-neutral">毫米、厘米、米、千米等</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-lg w-full sm:w-64 transition-transform hover:scale-105">
+          <i class="fa fa-square text-primary text-3xl mb-2"></i>
+          <h3 class="font-bold text-lg">面积单位</h3>
+          <p class="text-sm text-neutral">平方厘米、平方米、公顷等</p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-lg w-full sm:w-64 transition-transform hover:scale-105">
+          <i class="fa fa-cube text-primary text-3xl mb-2"></i>
+          <h3 class="font-bold text-lg">体积单位</h3>
+          <p class="text-sm text-neutral">立方厘米、立方分米、升等</p>
+        </div>
+      </div>
+
+      <!-- 类型选择器 -->
+      <div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl mx-auto mb-8">
+        <h3 class="text-xl font-bold text-dark mb-4">选择题目类型</h3>
+        <p class="text-neutral mb-4">请选择你想要练习的题目类型（至少选择一种）</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label class="flex items-center p-3 bg-light rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">
+            <input type="checkbox" id="timeType" class="form-checkbox h-5 w-5 text-primary rounded" checked>
+            <span class="ml-3 text-dark">时间单位</span>
+          </label>
+          <label class="flex items-center p-3 bg-light rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">
+            <input type="checkbox" id="lengthType" class="form-checkbox h-5 w-5 text-primary rounded" checked>
+            <span class="ml-3 text-dark">长度单位</span>
+          </label>
+          <label class="flex items-center p-3 bg-light rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">
+            <input type="checkbox" id="areaType" class="form-checkbox h-5 w-5 text-primary rounded" checked>
+            <span class="ml-3 text-dark">面积单位</span>
+          </label>
+          <label class="flex items-center p-3 bg-light rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">
+            <input type="checkbox" id="volumeType" class="form-checkbox h-5 w-5 text-primary rounded" checked>
+            <span class="ml-3 text-dark">体积单位</span>
+          </label>
+        </div>
+
+        <div class="mt-6">
+          <label for="questionCount" class="block text-sm font-medium text-dark mb-2">题目数量：</label>
+          <select id="questionCount" class="w-full p-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-primary transition-colors">
+            <option value="5">5题</option>
+            <option value="10" selected>10题</option>
+            <option value="15">15题</option>
+            <option value="20">20题</option>
+          </select>
+        </div>
+      </div>
+
+      <button id="startBtn" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all transform hover:scale-105 hover:shadow-xl">
+        开始测试
+      </button>
+    </section>
+
+    <!-- 测试区域 (默认隐藏) -->
+    <section id="test" class="hidden py-8">
+      <div class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-dark">测试中</h2>
+          <div class="bg-light rounded-full px-4 py-2">
+            <i class="fa fa-clock-o text-primary mr-2"></i>
+            <span id="timer" class="font-bold">00:00</span>
+          </div>
+        </div>
+
+        <div id="questionContainer" class="mb-8">
+          <div class="mb-6">
+            <p id="questionNumber" class="text-sm font-medium text-primary mb-2">问题 <span>1</span> / 10</p>
+            <p id="questionText" class="text-xl font-medium text-dark mb-4">3 米等于多少厘米？</p>
+            <div class="flex items-center">
+              <input type="number" id="answerInput" class="flex-1 border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-primary transition-colors" placeholder="输入答案">
+              <span id="unitDisplay" class="ml-3 text-lg font-medium text-dark">厘米</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between">
+          <button id="prevBtn" class="bg-light hover:bg-gray-200 text-dark font-medium py-2 px-6 rounded-lg transition-colors">
+            <i class="fa fa-arrow-left mr-2"></i>上一题
+          </button>
+          <button id="nextBtn" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-colors">
+            下一题<i class="fa fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="questionNav" class="grid grid-cols-5 sm:grid-cols-10 gap-2 mb-8">
+        <!-- 问题导航按钮将由JS动态生成 -->
+      </div>
+
+      <button id="submitBtn" class="w-full bg-secondary hover:bg-secondary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:scale-[1.02]">
+        提交测试
+      </button>
+    </section>
+
+    <!-- 结果区域 (默认隐藏) -->
+    <section id="result" class="hidden py-8">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-dark mb-2">测试结果</h2>
+        <p class="text-neutral">太棒了！你完成了所有题目</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-xl p-6 mb-8 max-w-md mx-auto">
+        <div class="flex flex-col items-center">
+          <div class="w-32 h-32 rounded-full bg-success/10 flex items-center justify-center mb-4">
+            <span id="scoreDisplay" class="text-5xl font-bold text-success">90</span>
+            <span class="text-2xl font-bold text-success ml-1">分</span>
+          </div>
+
+          <p id="resultMessage" class="text-xl font-medium text-dark mb-6">优秀！你掌握得很好</p>
+
+          <div class="grid grid-cols-2 gap-4 w-full mb-6">
+            <div class="bg-light rounded-lg p-4 text-center">
+              <p class="text-sm text-neutral mb-1">正确题数</p>
+              <p id="correctCount" class="text-2xl font-bold text-success">9</p>
+            </div>
+            <div class="bg-light rounded-lg p-4 text-center">
+              <p class="text-sm text-neutral mb-1">错误题数</p>
+              <p id="wrongCount" class="text-2xl font-bold text-danger">1</p>
+            </div>
+          </div>
+
+          <div class="w-full">
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-neutral">用时</span>
+              <span id="timeTaken" class="font-medium text-dark">05:30</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div id="timeBar" class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="certificateSection" class="hidden">
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-bold text-dark">荣誉证书</h3>
+          <p class="text-neutral">你的优秀表现值得表彰</p>
+        </div>
+
+        <div class="relative max-w-2xl mx-auto mb-8 rotate-cert">
+          <div class="bg-gradient-to-br from-yellow-100 to-orange-100 border-8 border-secondary rounded-xl p-8 card-shadow">
+            <div class="absolute -top-6 -right-6 text-5xl text-secondary/20 transform rotate-12">
+              <i class="fa fa-trophy"></i>
+            </div>
+
+            <div class="flex justify-between mb-6">
+              <div class="w-16 h-16 border-2 border-secondary rounded-full flex items-center justify-center">
+                <i class="fa fa-star text-secondary text-xl"></i>
+              </div>
+              <div class="w-16 h-16 border-2 border-secondary rounded-full flex items-center justify-center">
+                <i class="fa fa-star text-secondary text-xl"></i>
+              </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-center text-secondary mb-2">荣誉证书</h3>
+            <p class="text-center text-neutral mb-6">授予</p>
+
+            <p id="certName" class="text-3xl font-bold text-center text-dark mb-8">同学</p>
+
+            <p class="text-center text-dark mb-8">
+              在单位换算测试中表现优异，<br>
+              获得 <span id="certScore" class="text-secondary font-bold">90</span> 分的好成绩！
+            </p>
+
+            <div class="flex justify-between items-end">
+              <div class="w-24 h-px bg-secondary"></div>
+              <div>
+                <p class="text-center text-sm text-neutral">日期</p>
+                <p id="certDate" class="text-center font-medium text-dark">2025年7月11日</p>
+              </div>
+              <div class="w-24 h-px bg-secondary"></div>
+            </div>
+          </div>
+        </div>
+
+        <button id="saveCertBtn" class="bg-secondary hover:bg-secondary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:scale-[1.02] mb-4">
+          <i class="fa fa-download mr-2"></i>保存证书
+        </button>
+      </div>
+
+      <button id="restartBtn" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all transform hover:scale-[1.02]">
+        再测一次
+      </button>
+    </section>
+
+    <!-- 帮助模态框 (默认隐藏) -->
+    <div id="helpModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full mx-4 p-6 transform transition-all">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-dark">帮助说明</h3>
+          <button id="closeHelpBtn" class="text-neutral hover:text-dark">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <h4 class="font-bold text-dark mb-1">如何进行测试？</h4>
+            <p class="text-neutral">点击"开始测试"按钮，系统会根据你选择的类型生成题目。你需要在输入框中填写正确答案，然后点击"下一题"继续。</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-dark mb-1">如何切换题目？</h4>
+            <p class="text-neutral">你可以使用"上一题"和"下一题"按钮按顺序切换题目，也可以点击下方的题号按钮直接跳转到指定题目。</p>
+          </div>
+
+          <div>
+            <h4 class="font-bold text-dark mb-1">如何获得荣誉证书？</h4>
+            <p class="text-neutral">当你在测试中获得80分以上的成绩时，系统会自动生成荣誉证书，你可以保存证书到本地。</p>
+          </div>
+        </div>
+
+        <button id="gotItBtn" class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg mt-6 transition-colors">
+          明白了
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-white py-6 border-t border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p class="text-neutral text-sm mb-4 md:mb-0">© 2025 单位换算小能手. 保留所有权利.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-neutral hover:text-primary transition-colors">
+            <i class="fa fa-question-circle"></i> 帮助
+          </a>
+          <a href="#" class="text-neutral hover:text-primary transition-colors">
+            <i class="fa fa-info-circle"></i> 关于
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // DOM 元素
+    const welcomeSection = document.getElementById('welcome');
+    const testSection = document.getElementById('test');
+    const resultSection = document.getElementById('result');
+    const startBtn = document.getElementById('startBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const questionContainer = document.getElementById('questionContainer');
+    const questionNumber = document.getElementById('questionNumber').querySelector('span');
+    const questionText = document.getElementById('questionText');
+    const answerInput = document.getElementById('answerInput');
+    const unitDisplay = document.getElementById('unitDisplay');
+    const timer = document.getElementById('timer');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const resultMessage = document.getElementById('resultMessage');
+    const correctCount = document.getElementById('correctCount');
+    const wrongCount = document.getElementById('wrongCount');
+    const timeTaken = document.getElementById('timeTaken');
+    const timeBar = document.getElementById('timeBar');
+    const certificateSection = document.getElementById('certificateSection');
+    const certName = document.getElementById('certName');
+    const certScore = document.getElementById('certScore');
+    const certDate = document.getElementById('certDate');
+    const saveCertBtn = document.getElementById('saveCertBtn');
+    const helpBtn = document.getElementById('helpBtn');
+    const helpModal = document.getElementById('helpModal');
+    const closeHelpBtn = document.getElementById('closeHelpBtn');
+    const gotItBtn = document.getElementById('gotItBtn');
+    const navbar = document.getElementById('navbar');
+    const questionNav = document.getElementById('questionNav');
+
+    // 类型选择器
+    const timeType = document.getElementById('timeType');
+    const lengthType = document.getElementById('lengthType');
+    const areaType = document.getElementById('areaType');
+    const volumeType = document.getElementById('volumeType');
+    const questionCount = document.getElementById('questionCount');
+
+    // 滚动效果
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        navbar.classList.add('shadow-lg', 'bg-white/95', 'backdrop-blur-sm');
+      } else {
+        navbar.classList.remove('shadow-lg', 'bg-white/95', 'backdrop-blur-sm');
+      }
+    });
+
+    // 问题类型定义
+    const questionTypes = [
+      {
+        type: 'time',
+        units: [
+          { name: '秒', factor: 1 },
+          { name: '分', factor: 60 },
+          { name: '时', factor: 3600 },
+          { name: '天', factor: 86400 }
+        ]
+      },
+      {
+        type: 'length',
+        units: [
+          { name: '毫米', factor: 1 },
+          { name: '厘米', factor: 10 },
+          { name: '分米', factor: 100 },
+          { name: '米', factor: 1000 },
+          { name: '千米', factor: 1000000 }
+        ]
+      },
+      {
+        type: 'area',
+        units: [
+          { name: '平方毫米', factor: 1 },
+          { name: '平方厘米', factor: 100 },
+          { name: '平方分米', factor: 10000 },
+          { name: '平方米', factor: 1000000 },
+          { name: '公顷', factor: 10000000000 },
+          { name: '平方千米', factor: 1000000000000 }
+        ]
+      },
+      {
+        type: 'volume',
+        units: [
+          { name: '立方厘米', factor: 1 },
+          { name: '立方分米', factor: 1000 },
+          { name: '立方米', factor: 1000000 },
+          { name: '升', factor: 1000 },
+          { name: '毫升', factor: 1 }
+        ]
+      }
+    ];
+
+    // 测试状态
+    let testState = {
+      questions: [],
+      currentQuestion: 0,
+      startTime: null,
+      timerInterval: null,
+      elapsedTime: 0,
+      answers: []
+    };
+
+    // 生成随机问题
+    function generateQuestions() {
+      // 获取用户选择的类型
+      const selectedTypes = [];
+      if (timeType.checked) selectedTypes.push(questionTypes[0]);
+      if (lengthType.checked) selectedTypes.push(questionTypes[1]);
+      if (areaType.checked) selectedTypes.push(questionTypes[2]);
+      if (volumeType.checked) selectedTypes.push(questionTypes[3]);
+
+      // 检查是否至少选择了一种类型
+      if (selectedTypes.length === 0) {
+        alert("请至少选择一种题目类型！");
+        return false;
+      }
+
+      const questions = [];
+      const count = parseInt(questionCount.value);
+
+      for (let i = 0; i < count; i++) {
+        // 随机选择问题类型
+        const typeIndex = Math.floor(Math.random() * selectedTypes.length);
+        const type = selectedTypes[typeIndex];
+
+        // 随机选择两个不同的单位
+        let fromUnitIndex, toUnitIndex;
+        do {
+          fromUnitIndex = Math.floor(Math.random() * type.units.length);
+          toUnitIndex = Math.floor(Math.random() * type.units.length);
+        } while (fromUnitIndex === toUnitIndex);
+
+        const fromUnit = type.units[fromUnitIndex];
+        const toUnit = type.units[toUnitIndex];
+
+        // 生成随机数值 (1-100之间的整数或1位小数)
+        const value = Math.floor(Math.random() * 100) + 1;
+        const displayValue = Math.random() > 0.5 ? value : value / 10;
+
+        // 计算正确答案
+        const correctAnswer = (displayValue * fromUnit.factor / toUnit.factor).toFixed(5);
+
+        questions.push({
+          type: type.type,
+          displayValue: displayValue,
+          fromUnit: fromUnit.name,
+          toUnit: toUnit.name,
+          correctAnswer: correctAnswer,
+          userAnswer: null,
+          isCorrect: null
+        });
+      }
+
+      return questions;
+    }
+
+    // 生成问题导航按钮
+    function generateQuestionNavButtons() {
+      questionNav.innerHTML = '';
+      const count = testState.questions.length;
+
+      for (let i = 0; i < count; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'question-nav-btn bg-light text-dark font-bold py-2 rounded-lg';
+        btn.dataset.question = i + 1;
+        btn.textContent = i + 1;
+
+        // 设置适当的列数
+        if (count <= 5) {
+          btn.classList.add('col-span-1');
+        } else {
+          btn.classList.add('col-span-1');
+        }
+
+        questionNav.appendChild(btn);
+
+        // 添加点击事件
+        btn.addEventListener('click', () => {
+          // 保存当前答案
+          if (answerInput.value.trim() !== '') {
+            testState.answers[testState.currentQuestion] = answerInput.value;
+          }
+
+          testState.currentQuestion = i;
+          displayCurrentQuestion();
+        });
+      }
+    }
+
+    // 显示当前问题
+    function displayCurrentQuestion() {
+      const question = testState.questions[testState.currentQuestion];
+      questionNumber.textContent = testState.currentQuestion + 1;
+      questionText.textContent = `${question.displayValue} ${question.fromUnit} 等于多少 ${question.toUnit}？`;
+      unitDisplay.textContent = question.toUnit;
+
+      // 更新问题总数显示
+      document.getElementById('questionNumber').textContent = `问题 ${testState.currentQuestion + 1} / ${testState.questions.length}`;
+
+      // 恢复已输入的答案
+      answerInput.value = testState.answers[testState.currentQuestion] !== null ?
+        testState.answers[testState.currentQuestion] : '';
+
+      // 更新问题导航按钮状态
+      const questionNavBtns = document.querySelectorAll('.question-nav-btn');
+      questionNavBtns.forEach((btn, index) => {
+        if (testState.answers[index] !== null) {
+          if (testState.questions[index].isCorrect === true) {
+            btn.classList.remove('bg-light', 'text-dark', 'bg-primary', 'text-white');
+            btn.classList.add('bg-success/20', 'text-success');
+          } else if (testState.questions[index].isCorrect === false) {
+            btn.classList.remove('bg-light', 'text-dark', 'bg-primary', 'text-white');
+            btn.classList.add('bg-danger/20', 'text-danger');
+          } else {
+            btn.classList.remove('bg-light', 'text-dark', 'bg-success/20', 'text-success', 'bg-danger/20', 'text-danger');
+            btn.classList.add('bg-primary/20', 'text-primary');
+          }
+        } else {
+          btn.classList.remove('bg-primary', 'text-white', 'bg-primary/20', 'text-primary', 'bg-success/20', 'text-success', 'bg-danger/20', 'text-danger');
+          btn.classList.add('bg-light', 'text-dark');
+        }
+
+        if (index === testState.currentQuestion) {
+          btn.classList.add('ring-2', 'ring-primary');
+        } else {
+          btn.classList.remove('ring-2', 'ring-primary');
+        }
+      });
+
+      // 聚焦到输入框
+      answerInput.focus();
+    }
+
+    // 格式化时间
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // 更新计时器
+    function updateTimer() {
+      testState.elapsedTime++;
+      timer.textContent = formatTime(testState.elapsedTime);
+    }
+
+    // 检查答案
+    function checkAnswers() {
+      let correct = 0;
+      let wrong = 0;
+
+      testState.questions.forEach((question, index) => {
+        if (testState.answers[index] !== null) {
+          const userAnswer = parseFloat(testState.answers[index]).toFixed(5);
+          question.userAnswer = userAnswer;
+
+          // 比较答案，允许小误差
+          const isCorrect = Math.abs(parseFloat(userAnswer) - parseFloat(question.correctAnswer)) < 0.00001;
+          question.isCorrect = isCorrect;
+
+          if (isCorrect) {
+            correct++;
+          } else {
+            wrong++;
+          }
+        } else {
+          question.isCorrect = false;
+          wrong++;
+        }
+      });
+
+      return { correct, wrong };
+    }
+
+    // 显示结果
+    function displayResult() {
+      const { correct, wrong } = checkAnswers();
+      const total = testState.questions.length;
+      const score = Math.round((correct / total) * 100);
+
+      scoreDisplay.textContent = score;
+      correctCount.textContent = correct;
+      wrongCount.textContent = wrong;
+      timeTaken.textContent = formatTime(testState.elapsedTime);
+
+      // 设置时间条
+      const timePercentage = Math.min(100, (testState.elapsedTime / (total * 30)) * 100);
+      timeBar.style.width = `${timePercentage}%`;
+
+      // 设置结果消息
+      if (score >= 90) {
+        resultMessage.textContent = "优秀！你掌握得非常好";
+        resultMessage.className = "text-xl font-medium text-dark mb-6 text-success";
+      } else if (score >= 80) {
+        resultMessage.textContent = "良好！你做得相当不错";
+        resultMessage.className = "text-xl font-medium text-dark mb-6 text-primary";
+      } else if (score >= 60) {
+        resultMessage.textContent = "及格！继续加油";
+        resultMessage.className = "text-xl font-medium text-dark mb-6 text-secondary";
+      } else {
+        resultMessage.textContent = "需要努力！再试一次";
+        resultMessage.className = "text-xl font-medium text-dark mb-6 text-danger";
+      }
+
+      // 显示证书（如果分数达到80分以上）
+      if (score >= 80) {
+        certificateSection.classList.remove('hidden');
+        certScore.textContent = score;
+
+        // 获取用户姓名（默认为同学）
+        const name = prompt("请输入你的姓名：", "");
+        certName.textContent = name ? name : "同学";
+
+        // 设置当前日期
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+        certDate.textContent = `${year}年${month}月${day}日`;
+      } else {
+        certificateSection.classList.add('hidden');
+      }
+
+      // 停止计时器
+      clearInterval(testState.timerInterval);
+    }
+
+    // 保存证书功能（模拟）
+    function saveCertificate() {
+      alert("证书已保存到本地！");
+    }
+
+    // 开始测试
+    startBtn.addEventListener('click', () => {
+      const questions = generateQuestions();
+      if (!questions) return;
+
+      welcomeSection.classList.add('hidden');
+      testSection.classList.remove('hidden');
+
+      // 初始化测试状态
+      testState.questions = questions;
+      testState.currentQuestion = 0;
+      testState.answers = Array(questions.length).fill(null);
+
+      // 生成问题导航按钮
+      generateQuestionNavButtons();
+
+      // 显示第一个问题
+      displayCurrentQuestion();
+
+      // 开始计时
+      testState.elapsedTime = 0;
+      testState.timerInterval = setInterval(updateTimer, 1000);
+    });
+
+    // 上一题
+    prevBtn.addEventListener('click', () => {
+      // 保存当前答案
+      if (answerInput.value.trim() !== '') {
+        testState.answers[testState.currentQuestion] = answerInput.value;
+      }
+
+      if (testState.currentQuestion > 0) {
+        testState.currentQuestion--;
+        displayCurrentQuestion();
+      }
+    });
+
+    // 下一题
+    nextBtn.addEventListener('click', () => {
+      // 保存当前答案
+      if (answerInput.value.trim() !== '') {
+        testState.answers[testState.currentQuestion] = answerInput.value;
+      }
+
+      if (testState.currentQuestion < testState.questions.length - 1) {
+        testState.currentQuestion++;
+        displayCurrentQuestion();
+      }
+    });
+
+    // 提交测试
+    submitBtn.addEventListener('click', () => {
+      // 保存当前答案
+      if (answerInput.value.trim() !== '') {
+        testState.answers[testState.currentQuestion] = answerInput.value;
+      }
+
+      // 确认提交
+      if (confirm("确定要提交测试吗？提交后将无法修改答案。")) {
+        testSection.classList.add('hidden');
+        resultSection.classList.remove('hidden');
+        displayResult();
+      }
+    });
+
+    // 重新开始
+    restartBtn.addEventListener('click', () => {
+      resultSection.classList.add('hidden');
+      welcomeSection.classList.remove('hidden');
+    });
+
+    // 保存证书
+    saveCertBtn.addEventListener('click', saveCertificate);
+
+    // 帮助模态框
+    helpBtn.addEventListener('click', () => {
+      helpModal.classList.remove('hidden');
+    });
+
+    closeHelpBtn.addEventListener('click', () => {
+      helpModal.classList.add('hidden');
+    });
+
+    gotItBtn.addEventListener('click', () => {
+      helpModal.classList.add('hidden');
+    });
+
+    // 点击模态框外部关闭
+    helpModal.addEventListener('click', (e) => {
+      if (e.target === helpModal) {
+        helpModal.classList.add('hidden');
+      }
+    });
+
+    // 按ESC键关闭模态框
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !helpModal.classList.contains('hidden')) {
+        helpModal.classList.add('hidden');
+      }
+    });
+
+    // 输入框按回车键跳到下一题
+    answerInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        nextBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
