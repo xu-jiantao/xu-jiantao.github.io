@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>徐建涛 - 个人简历 / Resume</title>
+<style>
+    :root{
+        --accent:#0077cc;
+        --bg:#f8f9fa;
+        --text:#222;
+    }
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);}
+    header{background:var(--accent);color:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+    nav{display:flex;gap:1rem;flex-wrap:wrap}
+    nav a{color:#fff;text-decoration:none;font-weight:bold}
+    nav a:hover{text-decoration:underline}
+    .lang-switch{cursor:pointer;border:1px solid #fff;padding:2px 6px;border-radius:4px;font-size:.9rem}
+    main{max-width:960px;margin:2rem auto;padding:0 1rem}
+    section{display:none}
+    section.active{display:block}
+    h2{border-bottom:2px solid var(--accent);padding-bottom:.3rem;margin-top:0}
+    ul{list-style:none;padding-left:0}
+    li{margin:.4rem 0}
+    footer{text-align:center;padding:2rem 0;font-size:.8rem;color:#666}
+    @media(max-width:600px){
+        header{flex-direction:column;align-items:flex-start}
+        nav{flex-direction:column;gap:.5rem}
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1 id="name">徐建涛 / Xu Jiantao</h1>
+    <nav>
+        <a href="#about" data-en="About" data-zh="关于我">关于我</a>
+        <a href="#education" data-en="Education" data-zh="教育经历">教育经历</a>
+        <a href="#experience" data-en="Experience" data-zh="工作经历">工作经历</a>
+        <a href="#research" data-en="Research" data-zh="研究方向">研究方向</a>
+        <a href="#skills" data-en="Skills" data-zh="技能概览">技能概览</a>
+        <a href="#publications" data-en="Publications" data-zh="发表论文">发表论文</a>
+        <a href="#contact" data-en="Contact" data-zh="联系方式">联系方式</a>
+        <span class="lang-switch" onclick="toggleLang()">EN | 中</span>
+    </nav>
+</header>
+
+<main>
+    <!-- 关于我 -->
+    <section id="about" class="active">
+        <h2 data-en="About Me" data-zh="关于我">关于我</h2>
+        <p data-en="I am currently a Ph.D. student majoring in Computer Information Systems at Aizu University, Japan. My research focuses on Federated Learning and Machine Learning."
+           data-zh="目前在日本会津大学攻读计算机信息系统博士学位，研究方向为联邦学习与机器学习。"></p>
+    </section>
+
+    <!-- 教育经历 -->
+    <section id="education">
+        <h2 data-en="Education" data-zh="教育经历">教育经历</h2>
+        <ul>
+            <li><strong data-en="Ph.D. in Computer Information Systems, Aizu University (Japan)" data-zh="博士，计算机信息系统 — 会津大学（日本）"></strong><br>2023.10 – Present</li>
+            <li><strong data-en="M.S. in Computer Information Systems, Aizu University (Japan)" data-zh="硕士，计算机信息系统 — 会津大学（日本）"></strong><br>2021.10 – 2023.10</li>
+            <li><strong data-en="B.S. in Computer Information Management, Zhengzhou University (China)" data-zh="学士，计算机信息管理 — 郑州大学（中国）"></strong><br>2017 – 2021</li>
+        </ul>
+    </section>
+
+    <!-- 工作经历 -->
+    <section id="experience">
+        <h2 data-en="Work Experience" data-zh="工作经历">工作经历</h2>
+        <ul>
+            <li><strong data-en="Part-time Developer Engineer @ EyesJapan (Japan)" data-zh="兼职开发工程师 @ EyesJapan（日本）"></strong><br>2023.10 – Present<br><span data-en="Web development, Front-end & Back-end, Database." data-zh="网页开发 / 前后端 / 数据库"></span></li>
+            <li><strong data-en="Data Intern Engineer @ Insurance Company Data Center (Shanghai)" data-zh="数据实习工程师 @ 某保险公司数据中心（上海）"></strong><br>2021.4 – 2022.8</li>
+        </ul>
+    </section>
+
+    <!-- 研究方向 -->
+    <section id="research">
+        <h2 data-en="Research Interests" data-zh="研究方向">研究方向</h2>
+        <ul>
+            <li data-en="Federated Learning" data-zh="联邦学习"></li>
+            <li data-en="Machine Learning" data-zh="机器学习"></li>
+            <li data-en="Data Analysis" data-zh="数据分析"></li>
+        </ul>
+    </section>
+
+    <!-- 技能概览 -->
+    <section id="skills">
+        <h2 data-en="Skills" data-zh="技能概览">技能概览</h2>
+        <ul>
+            <li data-en="Research: Federated Learning, Machine Learning, Data Analysis" data-zh="研究领域：联邦学习、机器学习、数据分析"></li>
+            <li data-en="Languages: Python, Java, HTML" data-zh="编程语言：Python、Java、HTML"></li>
+            <li data-en="Database: MySQL" data-zh="数据库：MySQL"></li>
+            <li data-en="Systems: Linux Server Maintenance" data-zh="系统：Linux 服务器运维"></li>
+            <li data-en="Certificates: CET-4, Chinese Driving License" data-zh="证书：大学英语四级、中国机动车驾驶证"></li>
+        </ul>
+    </section>
+
+    <!-- 发表论文 -->
+    <section id="publications">
+        <h2 data-en="Publications" data-zh="发表论文">发表论文</h2>
+        <ul>
+            <li><strong data-en="A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing" data-zh="A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing"></strong><br><em>Journal of Cybersecurity and Privacy</em>, 2025, 5(3): 37.</li>
+            <li><strong data-en="Data Quality-Aware Federated Learning for Fake Review Detection" data-zh="Data Quality-Aware Federated Learning for Fake Review Detection"></strong><br><em>2025 7th Int. Conf. on Software Engineering and Computer Science (CSECS)</em>, IEEE, 2025: 1-6.</li>
+            <li><strong data-en="VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification" data-zh="VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification"></strong><br><em>IEEE MCSoC 2024</em>, 70-77.</li>
+            <li><strong data-en="P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition" data-zh="P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition"></strong><br><em>Mathematics</em>, 2024, 12(16): 2587.</li>
+        </ul>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact">
+        <h2 data-en="Contact" data-zh="联系方式">联系方式</h2>
+        <ul>
+            <li>Email: <a href="mailto:xujiantao9510@gmail.com">xujiantao9510@gmail.com</a></li>
+            <li data-en="Location" data-zh="位置">位置: Fukushima, Japan</li>
+            <li>WeChat: 963345284</li>
+            <li><a href="https://github.com/xu-jiantao" target="_blank">GitHub</a> | <a href="https://xu-jiantao.github.io" target="_blank">Personal Website</a></li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    &copy; 2025 Xu Jiantao
+</footer>
+
+<script>
+/* 多语言支持 */
+let lang = 'zh';          // 默认中文
+function toggleLang(){
+    lang = (lang==='zh') ? 'en' : 'zh';
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-zh][data-en]').forEach(el=>{
+        el.textContent = el.dataset[lang];
+    });
+}
+
+/* 单页路由 */
+function route(){
+    const hash = location.hash.slice(1) || 'about';
+    document.querySelectorAll('section').forEach(sec=>sec.classList.remove('active'));
+    const target = document.getElementById(hash);
+    if(target) target.classList.add('active');
+}
+window.addEventListener('hashchange', route);
+window.addEventListener('load', route);
+</script>
+</body>
+</html>
