@@ -442,3 +442,23 @@ window.addEventListener('resize', debounce(function() {
         navToggle.classList.remove('active');
     }
 }, 250)); // 设置250毫秒的延迟以避免在调整大小时过于频繁地触发。
+
+document.addEventListener('DOMContentLoaded', () => {
+    const wechatTrigger = document.getElementById('wechatTrigger');
+    const modal = document.getElementById('wechatModal');
+    const closeBtn = document.getElementById('closeWechatModal');
+
+    wechatTrigger.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
