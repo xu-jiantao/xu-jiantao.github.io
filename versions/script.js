@@ -462,3 +462,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// script.js
+const blogFiles = [
+    { title: "Blog1", file: "blogs/blog1.md" },
+    { title: "Blog2", file: "blogs/blog2.md" }
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+    const blogList = document.getElementById("blog-list");
+    const blogContent = document.getElementById("blog-content");
+
+    // 显示博客标题列表
+    blogFiles.forEach((blog, index) => {
+        const btn = document.createElement("button");
+        btn.textContent = blog.title;
+        btn.className = "btn";
+        btn.addEventListener("click", () => loadBlog(blog.file));
+        blogList.appendChild(btn);
+    });
+
+    // 加载并显示博客内容
+    function loadBlog(file) {
+        fetch(file)
+            .then(res => res.text())
+            .then(md => {
+                blogContent.innerHTML = marked.parse(md);
+                blogContent.style.display = "block";
+                blogList.style.display = "none";
+            });
+    }
+});
+

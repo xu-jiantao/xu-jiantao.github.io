@@ -7,7 +7,7 @@ xujiantao9510@gmail.com
 
 ---
 
-##  教育经历
+##  教育经历（学校名字设置超链接）
 
 - **会津大学，日本**  
   博士，计算机信息系统 | 2023年10月 – 至今  
@@ -18,7 +18,7 @@ xujiantao9510@gmail.com
 
 ---
 
-##  工作经历
+##  工作经历（公司名字设置超链接）
 
 - **EyesJapan（日本）**  
   兼职开发工程师 | 2023年10月 – 至今  
@@ -62,7 +62,7 @@ xujiantao9510@gmail.com
 
 ---
 
-##  发表论文
+##  发表论文（每个论文添加一个下载按钮，标注论文分区来源，如中科院四区，EI 检索等）
 
 - **Xu J, Jin L, Su C.**  
   *Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms*  
@@ -76,6 +76,14 @@ xujiantao9510@gmail.com
   *Data Quality-Aware Federated Learning for Fake Review Detection*  
   *2025 7th Int. Conf. on Software Engineering and Computer Science (CSECS)*, IEEE, 2025: 1-6.
 
+- **Xu J, Zhang C, Jin L, Su C.**  
+  *Crowdsensing with Federated Trust Management: Adaptive Defense Against Malicious Contributions*  
+  *Blocksys 2025.
+
+- **Xu J, Jin L, Su C.**  
+  *Privacy-Enhanced Federated Data Distillation for Efficient Distributed Training and Anomaly Detection in Multi-Center Healthcare*  
+  *AIBlock 2025.
+
 - **Liang Y, Huang H, Wang B, et al.**  
   *VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification*  
   *IEEE MCSoC 2024*, 70-77.
@@ -86,7 +94,7 @@ xujiantao9510@gmail.com
 
 ---
 
-## 联系方式
+## 联系方式（点击微信弹出二维码）
 
 -  邮箱：xujiantao9510@gmail.com  
 -  位置：日本福岛  

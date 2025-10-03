@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>徐建涛 - 个人网站</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span data-zh="" data-en=""></span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-page="home">
+                        <span data-zh="首页" data-en="Home">首页</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="about">
+                        <span data-zh="关于我" data-en="About">关于我</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="experience">
+                        <span data-zh="工作经历" data-en="Experience">工作经历</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="education">
+                        <span data-zh="教育经历" data-en="Education">教育经历</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="skills">
+                        <span data-zh="技能证书" data-en="Skills">技能证书</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="publications">
+                        <span data-zh="发表论文" data-en="Publications">发表论文</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="blogs">
+                        <span data-zh="博客" data-en="Blogs">博客</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <button class="lang-toggle" id="langToggle">
+                <i class="fas fa-globe"></i>
+                <span>EN</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 首页 -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span data-zh="你好，我是" data-en="Hello, I'm">你好，我是</span>
+                            <span class="name-highlight" data-zh="徐建涛" data-en="JiantaoXu" >徐建涛</span>
+                        </h1>
+                        <div class="hero-buttons">
+                            <a href="#" class="btn btn-primary" data-page="about">
+                                <span data-zh="了解更多" data-en="Learn More">了解更多</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="mailto:xujiantao9510@gmail.com" class="btn btn-outline">
+                                <span data-zh="联系我" data-en="Contact Me">联系我</span>
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://xu-jiantao.github.io" target="_blank" class="social-link">
+                                <i class="fas fa-globe"></i>
+                            </a>
+                            <a href="https://github.com/xu-jiantao" target="_blank" class="social-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="mailto:xujiantao9510@gmail.com" class="social-link">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <div class="profile-card">
+                            <div class="profile-avatar">
+                                <img src="/img.jpeg" alt="User Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+                            </div>
+                            <div class="profile-info">
+                                <h3 data-zh="徐建涛" data-en="JiantaoXu">徐建涛</h3>
+                                <p data-zh="博士研究生" data-en="PhD Student">博士研究生</p>
+                                <div class="profile-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span data-zh="日本福岛" data-en="Fukushima, Japan">日本福岛</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="page">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <p data-zh="我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习和机器学习。" data-en="I am currently pursuing a PhD in Computer Information Systems at the University of Aizu, Japan. My research interests include federated learning and machine learning.">
+                            我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习和机器学习。
+                        </p>
+                        <div class="about-details">
+                            <div class="detail-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>xujiantao9510@gmail.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span data-zh="日本福岛" data-en="Fukushima, Japan">日本福岛</span>
+                            </div>
+
+                            <div class="detail-item" id="wechatTrigger">
+                                <i class="fab fa-weixin"></i>
+                                <span>dylanethan9510</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="research-interests">
+                        <h3 data-zh="研究兴趣" data-en="Research Interests">研究兴趣</h3>
+                        <div class="interests-grid">
+                            <div class="interest-card">
+                                <i class="fas fa-network-wired"></i>
+                                <h4 data-zh="联邦学习" data-en="Federated Learning">联邦学习</h4>
+                            </div>
+                            <div class="interest-card">
+                                <i class="fas fa-brain"></i>
+                                <h4 data-zh="机器学习" data-en="Machine Learning">机器学习</h4>
+                            </div>
+                            <div class="interest-card">
+                                <i class="fas fa-chart-line"></i>
+                                <h4 data-zh="数据分析" data-en="Data Analysis">数据分析</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section id="experience" class="page">
+            <div class="container">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3 data-zh="日本某IT公司" data-en="IT Company in Japan">日本某IT公司</h3>
+                                <span class="timeline-badge" data-zh="兼职" data-en="Part-time">兼职</span>
+                            </div>
+                            <p class="timeline-period">2023年10月至今</p>
+                            <ul class="timeline-description">
+                                <li data-zh="网页开发" data-en="Web Development">网页开发</li>
+                                <li data-zh="前后端开发" data-en="Frontend & Backend Development">前后端开发</li>
+                                <li data-zh="数据库开发" data-en="Database Development">数据库开发</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3 data-zh="上海某保险公司数据中心" data-en="Data Center of Shanghai Insurance Company">上海某保险公司数据中心</h3>
+                            </div>
+                            <p class="timeline-period">2021年4月 - 2022年8月</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育经历 -->
+        <section id="education" class="page">
+            <div class="container">
+                <div class="education-grid">
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="education-content">
+                            <h3 data-zh="博士：计算机信息系统" data-en="PhD: Computer Information Systems">博士：计算机信息系统</h3>
+                            <h4 data-zh="会津大学，日本" data-en="University of Aizu, Japan">会津大学，日本</h4>
+                            <p class="education-period">2023年10月至今</p>
+                        </div>
+                    </div>
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="education-content">
+                            <h3 data-zh="硕士：计算机信息系统" data-en="Master: Computer Information Systems">硕士：计算机信息系统</h3>
+                            <h4 data-zh="会津大学，日本" data-en="University of Aizu, Japan">会津大学，日本</h4>
+                            <p class="education-period">2021年10月 - 2023年10月</p>
+                        </div>
+                    </div>
+                    <div class="education-card">
+                        <div class="education-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="education-content">
+                            <h3 data-zh="学士：计算机信息管理" data-en="Bachelor: Computer Information Management">学士：计算机信息管理</h3>
+                            <h4 data-zh="郑州大学，中国" data-en="Zhengzhou University, China">郑州大学，中国</h4>
+                            <p class="education-period">2017年 - 2021年</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技能证书 -->
+        <section id="skills" class="page">
+            <div class="container">
+                <div class="skills-content">
+                    <div class="skills-section">
+                        <h3 data-zh="专业技能" data-en="Professional Skills">专业技能</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4 data-zh="研究方向" data-en="Research Areas">研究方向</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag" data-zh="联邦学习" data-en="Federated Learning">联邦学习</span>
+                                    <span class="skill-tag" data-zh="机器学习" data-en="Machine Learning">机器学习</span>
+                                    <span class="skill-tag" data-zh="数据分析" data-en="Data Analysis">数据分析</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 data-zh="编程语言" data-en="Programming Languages">编程语言</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">HTML</span>
+                                    <span class="skill-tag">Java</span>
+                                    <span class="skill-tag">Python</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 data-zh="数据库" data-en="Database">数据库</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">MySQL</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 data-zh="系统" data-en="Systems">系统</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag" data-zh="Linux服务器" data-en="Linux Server">Linux服务器</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="certificates-section">
+                        <h3 data-zh="所获证书" data-en="Certificates">所获证书</h3>
+                        <div class="certificates-list">
+                            <div class="certificate-item">
+                                <i class="fas fa-certificate"></i>
+                                <span data-zh="大学英语四级证书" data-en="College English Test Band 4">大学英语四级证书</span>
+                            </div>
+                            <div class="certificate-item">
+                                <i class="fas fa-car"></i>
+                                <span data-zh="中国驾照" data-en="Chinese Driver's License">中国驾照</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 发表论文 -->
+        <section id="publications" class="page">
+            <div class="container">
+                <div class="publications-list">
+
+                    <div class="publication-item">
+                        <div class="publication-year">2025</div>
+                        <div class="publication-content">
+                            <h3>Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms</h3>
+                            <p class="publication-authors">Xu J, Jin L, Su C.</p>
+                            <p class="publication-venue">Electronics</p>
+                            <div class="publication-meta">
+                                <span class="meta-tag">SCI中科院四区</span>
+                                <span class="meta-tag">EI检索</span>
+                                <span class="meta-tag">IF: 2.6</span>
+                            </div>
+                            <a href="/pdfs/Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2025</div>
+                        <div class="publication-content">
+                            <h3>A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing</h3>
+                            <p class="publication-authors">Xu J, Zhang C, Jin L, Su C.</p>
+                            <p class="publication-venue">Journal of Cybersecurity and Privacy 5 (3), 37</p>
+                            <div class="publication-meta">
+                                <span class="meta-tag">ESCI</span>
+                                <span class="meta-tag">EI检索</span>
+                                <span class="meta-tag">CiteScore: 9.1</span>
+                            </div>
+                            <a href="/pdfs/A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2025</div>
+                        <div class="publication-content">
+                            <h3>Data Quality-Aware Federated Learning for Fake Review Detection</h3>
+                            <p class="publication-authors">Xu J, Zhang C, Jin L, Su C.</p>
+                            <p class="publication-venue">2025 7th International Conference on Software Engineering and Computer Science (CSECS)</p>
+                            <div class="publication-meta">
+                                <span class="meta-tag">EI检索</span>
+                            </div>
+                            <a href="/pdfs/Data Quality-Aware Federated Learning for Fake Review Detection.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2025</div>
+                        <div class="publication-content">
+                            <h3>Crowdsensing with Federated Trust Management: Adaptive Defense Against Malicious Contributions</h3>
+                            <p class="publication-authors">Xu J, Zhang C, Jin L, Su C.</p>
+                            <p class="publication-venue">Blocksys 2025</p>
+                            <div class="publication-meta">
+                            <span class="meta-tag">EI检索</span>
+                            </div>
+                            <a href="/pdfs/Crowdsensing_with_Federated_Trust_Management__Adaptive_Defense_Against_Malicious_Contributions.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2025</div>
+                        <div class="publication-content">
+                            <h3>Privacy-Enhanced Federated Data Distillation for Efficient Distributed Training and Anomaly Detection in Multi-Center Healthcare</h3>
+                            <p class="publication-authors">Xu J, Jin L, Su C.</p>
+                            <p class="publication-venue">The 7th International Conference on Application Intelligence and Blockchain Security (AIBlock)</p>
+                            <div class="publication-meta">
+                            <span class="meta-tag">EI检索</span>
+                            </div>
+                            <a href="/pdfs/Privacy_Enhanced_Federated_Data_Distillation_for_Efficient_Distributed_Training_and_Anomaly_Detection_in_Multi_Center_Healthcare.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2025</div>
+                        <div class="publication-content">
+                            <h3>A Reputation-Aware Defense Framework for Strategic Behaviors in Federated Learning</h3>
+                            <p class="publication-authors">Cai, Y.; Xu, J.; Lian, Z.; Brian, K.C.W.; Li, Y.; Xu, J.</p>
+                            <p class="publication-venue">Telecom 2025, 6, 60. </p>
+                            <div class="publication-meta">
+                                <span class="meta-tag">ESCI</span>
+                                <span class="meta-tag">EI检索</span>
+                                <span class="meta-tag">IF: 2.4</span>
+                            </div>
+                            <a href="/pdfs/A Reputation-Aware Defense Framework for Strategic Behaviors in Federated Learning.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2025</div>
+                        <div class="publication-content">
+                            <h3>Efficient Federated Unlearning for Privacy-preserving Machine Learning in Decentralized Systems</h3>
+                            <p class="publication-authors">Liu Jin, Haoda Wang, Jiantao Xu, and Chunhua Su</p>
+                            <p class="publication-venue">2025 ICECC. IEEE, 2025: 1-6.</p>
+                            <div class="publication-meta">
+                                <span class="meta-tag">ESCI</span>
+                                <span class="meta-tag">EI检索</span>
+                                <span class="meta-tag">IF: 2.4</span>
+                            </div>
+                            <a href="/pdfs/Efficient Federated Unlearning for Privacy-preserving Machine Learning in Decentralized Systems.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2024</div>
+                        <div class="publication-content">
+                            <h3>VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification</h3>
+                            <p class="publication-authors">Liang Y, Huang H, Wang B, et al.</p>
+                            <p class="publication-venue">2024 IEEE 17th International Symposium on Embedded Multicore/Many-core Systems-on-Chip (MCSoC). IEEE, 2024: 70-77.</p>
+                            <a href="/pdfs/VLC-UNIT-Unsupervised%20Image-to-Image%20Translation%20with%20Vision-Language%20Classification.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-year">2024</div>
+                        <div class="publication-content">
+                            <h3>P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition</h3>
+                            <p class="publication-authors">Wang H, Chen Q, Zhang C, et al.</p>
+                            <p class="publication-venue">Mathematics, 2024, 12(16): 2587.</p>
+                            <div class="publication-meta">
+                                <span class="meta-tag">SCI中科院四区</span>
+                                <span class="meta-tag">EI检索</span>
+                                <span class="meta-tag">IF: 2.2</span>
+                            </div>
+                            <a href="/pdfs/P-CA- Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition.pdf" class="btn btn-download" target="_blank">
+                                <i class="fas fa-file-pdf"></i>
+                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="blogs" class="page">
+            <div class="container">
+                <div id="blog-list"></div> <!-- 博客标题列表 -->
+                <div id="blog-content" style="display:none;"></div> <!-- 博客详情内容 -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 <span data-zh="徐建涛。保留所有权利。" data-en="Jiantao Xu. All rights reserved.">徐建涛。保留所有权利。</span></p>
+        </div>
+    </footer>
+
+    <!-- 微信二维码弹窗 -->
+    <div id="wechatModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-btn" id="closeWechatModal">&times;</span>
+            <img src="wechatID.jpg" alt="微信二维码" style="width: 200px; height: 200px;">
+            <p style="text-align: center; margin-top: 10px;">扫一扫加我微信</p>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html>

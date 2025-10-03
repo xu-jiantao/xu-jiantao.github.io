@@ -3,461 +3,992 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>徐建涛 - 个人网站</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>徐建涛 - 个人简历</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#0E42D2',
+                        accent: '#36BFFA',
+                        dark: '#1D2939',
+                        light: '#F9FAFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .transition-lang {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            }
+            .badge {
+                @apply inline-block px-2.5 py-0.5 rounded-full text-xs font-medium;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-light text-dark font-sans">
     <!-- 导航栏 -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span data-zh="" data-en=""></span>
+    <header class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm shadow-sm z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="text-primary font-bold text-xl flex items-center">
+                    <i class="fa fa-user-circle-o mr-2"></i>
+                    <span class="lang-zh">徐建涛</span>
+                    <span class="lang-en hidden">Jiantao Xu</span>
+                </a>
+                
+                <!-- 桌面导航 -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-dark hover:text-primary transition-colors lang-zh">关于我</a>
+                    <a href="#education" class="text-dark hover:text-primary transition-colors lang-zh">教育经历</a>
+                    <a href="#experience" class="text-dark hover:text-primary transition-colors lang-zh">工作经历</a>
+                    <a href="#research" class="text-dark hover:text-primary transition-colors lang-zh">研究兴趣</a>
+                    <a href="#skills" class="text-dark hover:text-primary transition-colors lang-zh">技能</a>
+                    <a href="#publications" class="text-dark hover:text-primary transition-colors lang-zh">论文</a>
+                    <a href="#contact" class="text-dark hover:text-primary transition-colors lang-zh">联系方式</a>
+                    
+                    <a href="#about" class="text-dark hover:text-primary transition-colors lang-en hidden">About</a>
+                    <a href="#education" class="text-dark hover:text-primary transition-colors lang-en hidden">Education</a>
+                    <a href="#experience" class="text-dark hover:text-primary transition-colors lang-en hidden">Experience</a>
+                    <a href="#research" class="text-dark hover:text-primary transition-colors lang-en hidden">Research</a>
+                    <a href="#skills" class="text-dark hover:text-primary transition-colors lang-en hidden">Skills</a>
+                    <a href="#publications" class="text-dark hover:text-primary transition-colors lang-en hidden">Publications</a>
+                    <a href="#contact" class="text-dark hover:text-primary transition-colors lang-en hidden">Contact</a>
+                </nav>
+                
+                <!-- 语言切换 -->
+                <div class="flex items-center space-x-4">
+                    <button id="lang-zh-btn" class="text-primary font-medium">中文</button>
+                    <button id="lang-en-btn" class="text-dark hover:text-primary transition-colors">English</button>
+                    
+                    <!-- 移动端菜单按钮 -->
+                    <button id="mobile-menu-button" class="md:hidden text-dark hover:text-primary">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
             </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" data-page="home">
-                        <span data-zh="首页" data-en="Home">首页</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="about">
-                        <span data-zh="关于我" data-en="About">关于我</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="experience">
-                        <span data-zh="工作经历" data-en="Experience">工作经历</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="education">
-                        <span data-zh="教育经历" data-en="Education">教育经历</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="skills">
-                        <span data-zh="技能证书" data-en="Skills">技能证书</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="publications">
-                        <span data-zh="发表论文" data-en="Publications">发表论文</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <button class="lang-toggle" id="langToggle">
-                <i class="fas fa-globe"></i>
-                <span>EN</span>
-            </button>
         </div>
-    </nav>
+        
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3 space-y-3">
+                <a href="#about" class="block text-dark hover:text-primary transition-colors lang-zh">关于我</a>
+                <a href="#education" class="block text-dark hover:text-primary transition-colors lang-zh">教育经历</a>
+                <a href="#experience" class="block text-dark hover:text-primary transition-colors lang-zh">工作经历</a>
+                <a href="#research" class="block text-dark hover:text-primary transition-colors lang-zh">研究兴趣</a>
+                <a href="#skills" class="block text-dark hover:text-primary transition-colors lang-zh">技能</a>
+                <a href="#publications" class="block text-dark hover:text-primary transition-colors lang-zh">论文</a>
+                <a href="#contact" class="block text-dark hover:text-primary transition-colors lang-zh">联系方式</a>
+                
+                <a href="#about" class="block text-dark hover:text-primary transition-colors lang-en hidden">About</a>
+                <a href="#education" class="block text-dark hover:text-primary transition-colors lang-en hidden">Education</a>
+                <a href="#experience" class="block text-dark hover:text-primary transition-colors lang-en hidden">Experience</a>
+                <a href="#research" class="block text-dark hover:text-primary transition-colors lang-en hidden">Research</a>
+                <a href="#skills" class="block text-dark hover:text-primary transition-colors lang-en hidden">Skills</a>
+                <a href="#publications" class="block text-dark hover:text-primary transition-colors lang-en hidden">Publications</a>
+                <a href="#contact" class="block text-dark hover:text-primary transition-colors lang-en hidden">Contact</a>
+            </div>
+        </div>
+    </header>
 
-    <!-- 主内容区域 -->
-    <main class="main-content">
-        <!-- 首页 -->
-        <section id="home" class="page active">
-            <div class="hero">
-                <div class="hero-content">
-                    <div class="hero-text">
-                        <h1 class="hero-title">
-                            <span data-zh="你好，我是" data-en="Hello, I'm">你好，我是</span>
-                            <span class="name-highlight" data-zh="徐建涛" data-en="JiantaoXu" >徐建涛</span>
-                        </h1>
-                        <div class="hero-buttons">
-                            <a href="#" class="btn btn-primary" data-page="about">
-                                <span data-zh="了解更多" data-en="Learn More">了解更多</span>
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
-                            <a href="mailto:xujiantao9510@gmail.com" class="btn btn-outline">
-                                <span data-zh="联系我" data-en="Contact Me">联系我</span>
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                        <div class="social-links">
-                            <a href="https://xu-jiantao.github.io" target="_blank" class="social-link">
-                                <i class="fas fa-globe"></i>
-                            </a>
-                            <a href="https://github.com/xu-jiantao" target="_blank" class="social-link">
-                                <i class="fab fa-github"></i>
-                            </a>
-                            <a href="mailto:xujiantao9510@gmail.com" class="social-link">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="hero-image">
-                        <div class="profile-card">
-                            <div class="profile-avatar">
-                                <img src="/img.jpeg" alt="User Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
-                            </div>
-                            <div class="profile-info">
-                                <h3 data-zh="徐建涛" data-en="JiantaoXu">徐建涛</h3>
-                                <p data-zh="博士研究生" data-en="PhD Student">博士研究生</p>
-                                <div class="profile-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span data-zh="日本福岛" data-en="Fukushima, Japan">日本福岛</span>
-                                </div>
+    <!-- 英雄部分 -->
+    <section class="pt-32 pb-20 bg-gradient-to-b from-primary/5 to-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <div class="relative">
+                        <div class="w-64 h-64 rounded-full bg-primary/10 flex items-center justify-center mx-auto md:mx-0">
+                            <div class="w-60 h-60 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                                <img src="img.jpeg" alt="照片" class="w-full h-full object-cover">
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- 关于我 -->
-        <section id="about" class="page">
-            <div class="container">
-                <div class="about-content">
-                    <div class="about-text">
-                        <p data-zh="我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习和机器学习。" data-en="I am currently pursuing a PhD in Computer Information Systems at the University of Aizu, Japan. My research interests include federated learning and machine learning.">
-                            我目前在日本会津大学攻读计算机信息系统博士学位。我的研究兴趣包括联邦学习和机器学习。
+                <div class="md:w-3/4 md:pl-12">
+                    <p class="text-gray-600 text-lg mb-8 max-w-xl">
+                        <span class="lang-zh">研究领域：联邦学习、机器学习和数据分析，隐私保护。</span>
+                        <span class="lang-en hidden">Research Areas: Federated Learning, Machine Learning, Data Analysis, Privacy Protection.</span>
                         </p>
-                        <div class="about-details">
-                            <div class="detail-item">
-                                <i class="fas fa-envelope"></i>
-                                <span>xujiantao9510@gmail.com</span>
-                            </div>
-                            <div class="detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span data-zh="日本福岛" data-en="Fukushima, Japan">日本福岛</span>
-                            </div>
-
-                            <div class="detail-item" id="wechatTrigger">
-                                <i class="fab fa-weixin"></i>
-                                <span>dylanethan9510</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="research-interests">
-                        <h3 data-zh="研究兴趣" data-en="Research Interests">研究兴趣</h3>
-                        <div class="interests-grid">
-                            <div class="interest-card">
-                                <i class="fas fa-network-wired"></i>
-                                <h4 data-zh="联邦学习" data-en="Federated Learning">联邦学习</h4>
-                            </div>
-                            <div class="interest-card">
-                                <i class="fas fa-brain"></i>
-                                <h4 data-zh="机器学习" data-en="Machine Learning">机器学习</h4>
-                            </div>
-                            <div class="interest-card">
-                                <i class="fas fa-chart-line"></i>
-                                <h4 data-zh="数据分析" data-en="Data Analysis">数据分析</h4>
-                            </div>
-                        </div>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="https://github.com/xu-jiantao" target="_blank" class="inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                            <i class="fa fa-github mr-2"></i>
+                            <span class="lang-zh">GitHub</span>
+                            <span class="lang-en hidden">GitHub</span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- 工作经历 -->
-        <section id="experience" class="page">
-            <div class="container">
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <h3 data-zh="日本某IT公司" data-en="IT Company in Japan">日本某IT公司</h3>
-                                <span class="timeline-badge" data-zh="兼职" data-en="Part-time">兼职</span>
-                            </div>
-                            <p class="timeline-period">2023年10月至今</p>
-                            <ul class="timeline-description">
-                                <li data-zh="网页开发" data-en="Web Development">网页开发</li>
-                                <li data-zh="前后端开发" data-en="Frontend & Backend Development">前后端开发</li>
-                                <li data-zh="数据库开发" data-en="Database Development">数据库开发</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="timeline-header">
-                                <h3 data-zh="上海某保险公司数据中心" data-en="Data Center of Shanghai Insurance Company">上海某保险公司数据中心</h3>
-                            </div>
-                            <p class="timeline-period">2021年4月 - 2022年8月</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 教育经历 -->
-        <section id="education" class="page">
-            <div class="container">
-                <div class="education-grid">
-                    <div class="education-card">
-                        <div class="education-icon">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <div class="education-content">
-                            <h3 data-zh="博士：计算机信息系统" data-en="PhD: Computer Information Systems">博士：计算机信息系统</h3>
-                            <h4 data-zh="会津大学，日本" data-en="University of Aizu, Japan">会津大学，日本</h4>
-                            <p class="education-period">2023年10月至今</p>
-                        </div>
-                    </div>
-                    <div class="education-card">
-                        <div class="education-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div class="education-content">
-                            <h3 data-zh="硕士：计算机信息系统" data-en="Master: Computer Information Systems">硕士：计算机信息系统</h3>
-                            <h4 data-zh="会津大学，日本" data-en="University of Aizu, Japan">会津大学，日本</h4>
-                            <p class="education-period">2021年10月 - 2023年10月</p>
-                        </div>
-                    </div>
-                    <div class="education-card">
-                        <div class="education-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <div class="education-content">
-                            <h3 data-zh="学士：计算机信息管理" data-en="Bachelor: Computer Information Management">学士：计算机信息管理</h3>
-                            <h4 data-zh="郑州大学，中国" data-en="Zhengzhou University, China">郑州大学，中国</h4>
-                            <p class="education-period">2017年 - 2021年</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 技能证书 -->
-        <section id="skills" class="page">
-            <div class="container">
-                <div class="skills-content">
-                    <div class="skills-section">
-                        <h3 data-zh="专业技能" data-en="Professional Skills">专业技能</h3>
-                        <div class="skills-grid">
-                            <div class="skill-category">
-                                <h4 data-zh="研究方向" data-en="Research Areas">研究方向</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag" data-zh="联邦学习" data-en="Federated Learning">联邦学习</span>
-                                    <span class="skill-tag" data-zh="机器学习" data-en="Machine Learning">机器学习</span>
-                                    <span class="skill-tag" data-zh="数据分析" data-en="Data Analysis">数据分析</span>
-                                </div>
-                            </div>
-                            <div class="skill-category">
-                                <h4 data-zh="编程语言" data-en="Programming Languages">编程语言</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">HTML</span>
-                                    <span class="skill-tag">Java</span>
-                                    <span class="skill-tag">Python</span>
-                                </div>
-                            </div>
-                            <div class="skill-category">
-                                <h4 data-zh="数据库" data-en="Database">数据库</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">MySQL</span>
-                                </div>
-                            </div>
-                            <div class="skill-category">
-                                <h4 data-zh="系统" data-en="Systems">系统</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag" data-zh="Linux服务器" data-en="Linux Server">Linux服务器</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="certificates-section">
-                        <h3 data-zh="所获证书" data-en="Certificates">所获证书</h3>
-                        <div class="certificates-list">
-                            <div class="certificate-item">
-                                <i class="fas fa-certificate"></i>
-                                <span data-zh="大学英语四级证书" data-en="College English Test Band 4">大学英语四级证书</span>
-                            </div>
-                            <div class="certificate-item">
-                                <i class="fas fa-car"></i>
-                                <span data-zh="中国驾照" data-en="Chinese Driver's License">中国驾照</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 发表论文 -->
-        <section id="publications" class="page">
-            <div class="container">
-                <div class="publications-list">
-
-                    <div class="publication-item">
-                        <div class="publication-year">2025</div>
-                        <div class="publication-content">
-                            <h3>Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms</h3>
-                            <p class="publication-authors">Xu J, Jin L, Su C.</p>
-                            <p class="publication-venue">Electronics</p>
-                            <div class="publication-meta">
-                                <span class="meta-tag">SCI中科院四区</span>
-                                <span class="meta-tag">EI检索</span>
-                                <span class="meta-tag">IF: 2.6</span>
-                            </div>
-                            <a href="/pdfs/Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2025</div>
-                        <div class="publication-content">
-                            <h3>A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing</h3>
-                            <p class="publication-authors">Xu J, Zhang C, Jin L, Su C.</p>
-                            <p class="publication-venue">Journal of Cybersecurity and Privacy 5 (3), 37</p>
-                            <div class="publication-meta">
-                                <span class="meta-tag">ESCI</span>
-                                <span class="meta-tag">EI检索</span>
-                                <span class="meta-tag">CiteScore: 9.1</span>
-                            </div>
-                            <a href="/pdfs/A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2025</div>
-                        <div class="publication-content">
-                            <h3>Data Quality-Aware Federated Learning for Fake Review Detection</h3>
-                            <p class="publication-authors">Xu J, Zhang C, Jin L, Su C.</p>
-                            <p class="publication-venue">2025 7th International Conference on Software Engineering and Computer Science (CSECS)</p>
-                            <div class="publication-meta">
-                                <span class="meta-tag">EI检索</span>
-                            </div>
-                            <a href="/pdfs/Data Quality-Aware Federated Learning for Fake Review Detection.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2025</div>
-                        <div class="publication-content">
-                            <h3>Crowdsensing with Federated Trust Management: Adaptive Defense Against Malicious Contributions</h3>
-                            <p class="publication-authors">Xu J, Zhang C, Jin L, Su C.</p>
-                            <p class="publication-venue">Blocksys 2025</p>
-                            <div class="publication-meta">
-                            <span class="meta-tag">EI检索</span>
-                            </div>
-                            <a href="/pdfs/Crowdsensing_with_Federated_Trust_Management__Adaptive_Defense_Against_Malicious_Contributions.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2025</div>
-                        <div class="publication-content">
-                            <h3>Privacy-Enhanced Federated Data Distillation for Efficient Distributed Training and Anomaly Detection in Multi-Center Healthcare</h3>
-                            <p class="publication-authors">Xu J, Jin L, Su C.</p>
-                            <p class="publication-venue">The 7th International Conference on Application Intelligence and Blockchain Security (AIBlock)</p>
-                            <div class="publication-meta">
-                            <span class="meta-tag">EI检索</span>
-                            </div>
-                            <a href="/pdfs/Privacy_Enhanced_Federated_Data_Distillation_for_Efficient_Distributed_Training_and_Anomaly_Detection_in_Multi_Center_Healthcare.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2025</div>
-                        <div class="publication-content">
-                            <h3>A Reputation-Aware Defense Framework for Strategic Behaviors in Federated Learning</h3>
-                            <p class="publication-authors">Cai, Y.; Xu, J.; Lian, Z.; Brian, K.C.W.; Li, Y.; Xu, J.</p>
-                            <p class="publication-venue">Telecom 2025, 6, 60. </p>
-                            <div class="publication-meta">
-                                <span class="meta-tag">ESCI</span>
-                                <span class="meta-tag">EI检索</span>
-                                <span class="meta-tag">IF: 2.4</span>
-                            </div>
-                            <a href="/pdfs/A Reputation-Aware Defense Framework for Strategic Behaviors in Federated Learning.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2025</div>
-                        <div class="publication-content">
-                            <h3>Efficient Federated Unlearning for Privacy-preserving Machine Learning in Decentralized Systems</h3>
-                            <p class="publication-authors">Liu Jin, Haoda Wang, Jiantao Xu, and Chunhua Su</p>
-                            <p class="publication-venue">2025 ICECC. IEEE, 2025: 1-6.</p>
-                            <div class="publication-meta">
-                                <span class="meta-tag">ESCI</span>
-                                <span class="meta-tag">EI检索</span>
-                                <span class="meta-tag">IF: 2.4</span>
-                            </div>
-                            <a href="/pdfs/Efficient Federated Unlearning for Privacy-preserving Machine Learning in Decentralized Systems.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2024</div>
-                        <div class="publication-content">
-                            <h3>VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification</h3>
-                            <p class="publication-authors">Liang Y, Huang H, Wang B, et al.</p>
-                            <p class="publication-venue">2024 IEEE 17th International Symposium on Embedded Multicore/Many-core Systems-on-Chip (MCSoC). IEEE, 2024: 70-77.</p>
-                            <a href="/pdfs/VLC-UNIT-Unsupervised%20Image-to-Image%20Translation%20with%20Vision-Language%20Classification.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="publication-item">
-                        <div class="publication-year">2024</div>
-                        <div class="publication-content">
-                            <h3>P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition</h3>
-                            <p class="publication-authors">Wang H, Chen Q, Zhang C, et al.</p>
-                            <p class="publication-venue">Mathematics, 2024, 12(16): 2587.</p>
-                            <div class="publication-meta">
-                                <span class="meta-tag">SCI中科院四区</span>
-                                <span class="meta-tag">EI检索</span>
-                                <span class="meta-tag">IF: 2.2</span>
-                            </div>
-                            <a href="/pdfs/P-CA- Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition.pdf" class="btn btn-download" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <span data-zh="下载PDF" data-en="Download PDF">下载PDF</span>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- 页脚 -->
-    <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2025 <span data-zh="徐建涛。保留所有权利。" data-en="Jiantao Xu. All rights reserved.">徐建涛。保留所有权利。</span></p>
         </div>
-    </footer>
+    </section>
 
-    <!-- 微信二维码弹窗 -->
-    <div id="wechatModal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close-btn" id="closeWechatModal">&times;</span>
-            <img src="wechatID.jpg" alt="微信二维码" style="width: 200px; height: 200px;">
-            <p style="text-align: center; margin-top: 10px;">扫一扫加我微信</p>
+    <!-- 关于我 -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark inline-block">
+                    <span class="lang-zh">关于我</span>
+                    <span class="lang-en hidden">About Me</span>
+                </h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                    <span class="lang-zh">我是一名计算机科学领域的学生，目前就读于<a href="https://www.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">会津大学</a>计算机信息系统专业。我的研究方向主要是联邦学习、机器学习和数据分析，尤其关注隐私保护和分布式智能系统的设计与实现。</span>
+                    <span class="lang-en hidden">I am a Ph.D. student in the field of Computer Science, currently studying Computer Information Systems at the <a href="https://www.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">University of Aizu</a> in Japan. My research focuses on federated learning, machine learning, and data analysis, with particular attention to privacy protection and the design and implementation of distributed intelligent systems.</span>
+                </p>
+                <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                    <span class="lang-zh">在攻读博士学位之前，我获得了<a href="https://www.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">会津大学</a>计算机信息系统硕士学位和<a href="https://www.zzu.edu.cn/" target="_blank" class="text-primary hover:underline">郑州大学</a>计算机信息管理学士学位。拥有实际工程项目经验，曾参与多个机器学习和数据分析相关的研究项目，并在国际学术会议和期刊上发表论文。</span>
+                    <span class="lang-en hidden">Before pursuing my Ph.D., I earned a Master's degree in Computer Information Systems from the <a href="https://www.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">University of Aizu</a> and a Bachelor's degree in Computer Information Management from <a href="https://www.zzu.edu.cn/" target="_blank" class="text-primary hover:underline">Zhengzhou University</a>. I have practical engineering project experience, having participated in several research projects related to machine learning and data analysis, and have published papers in international academic conferences and journals.</span>
+                    </p>
+                <p class="text-gray-700 text-lg leading-relaxed">
+                    <span class="lang-zh">我的目标是通过研究和创新，推动人工智能技术在保护用户隐私的前提下，实现更广泛的应用和发展。我相信技术的进步应该与社会的需求和伦理标准相结合，创造出真正有益于人类的智能系统。</span>
+                    <span class="lang-en hidden">My goal is to promote the wider application and development of artificial intelligence technology while protecting user privacy through research and innovation. I believe that technological progress should be combined with social needs and ethical standards to create intelligent systems that truly benefit humanity.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育经历 -->
+    <section id="education" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark inline-block">
+                    <span class="lang-zh">教育经历</span>
+                    <span class="lang-en hidden">Education</span>
+                </h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- 博士 -->
+                <div class="bg-white rounded-xl shadow-md p-8 mb-8 card-hover">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="md:w-1/4 mb-6 md:mb-0">
+                            <div class="bg-primary/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto md:mx-0">
+                                <i class="fa fa-graduation-cap text-primary text-4xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-3/4 md:pl-8">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
+                                <h3 class="text-xl font-bold text-dark">
+                                    <span class="lang-zh">博士，计算机信息系统</span>
+                                    <span class="lang-en hidden">Ph.D., Computer Information Systems</span>
+                                </h3>
+                                <span class="text-primary font-medium">2023年10月 – 至今</span>
+                            </div>
+                            <p class="text-gray-700 mb-3">
+                                <span class="lang-zh"><a href="https://www.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">会津大学</a></span>
+                                <span class="lang-zh"><a href="https://sulab-sever.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">SU-Lab</a></span>
+
+                                </p>
+                            <p class="text-gray-600">
+                                <span class="lang-zh">研究方向：联邦学习、机器学习、数据分析</span>
+                                <span class="lang-en hidden">Research focus: Federated Learning, Machine Learning, Data Analysis</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 硕士 -->
+                <div class="bg-white rounded-xl shadow-md p-8 mb-8 card-hover">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="md:w-1/4 mb-6 md:mb-0">
+                            <div class="bg-primary/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto md:mx-0">
+                                <i class="fa fa-book text-primary text-4xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-3/4 md:pl-8">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
+                                <h3 class="text-xl font-bold text-dark">
+                                    <span class="lang-zh">硕士，计算机信息系统</span>
+                                    <span class="lang-en hidden">Master's, Computer Information Systems</span>
+                                </h3>
+                                <span class="text-primary font-medium">2021年10月 – 2023年10月</span>
+                            </div>
+                            <p class="text-gray-700 mb-3">
+                                <span class="lang-zh"><a href="https://www.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">会津大学</a></span>
+
+                                <span class="lang-zh"><a href="https://bitlab.u-aizu.ac.jp/" target="_blank" class="text-primary hover:underline">BIT-Lab</a></span>
+
+                            </p>
+                            <p class="text-gray-600">
+                                <span class="lang-zh">研究方向：机器学习在疾病检测中的应用</span>
+                                <span class="lang-en hidden">Research focus: Application of Machine Learning in Disease Detection</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 本科 -->
+                <div class="bg-white rounded-xl shadow-md p-8 card-hover">
+                    <div class="flex flex-col md:flex-row">
+                        <div class="md:w-1/4 mb-6 md:mb-0">
+                            <div class="bg-primary/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto md:mx-0">
+                                <i class="fa fa-university text-primary text-4xl"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-3/4 md:pl-8">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
+                                <h3 class="text-xl font-bold text-dark">
+                                    <span class="lang-zh">学士，计算机信息管理</span>
+                                    <span class="lang-en hidden">Bachelor's, Computer Information Management</span>
+                                </h3>
+                                <span class="text-primary font-medium">2017年 – 2021年</span>
+                            </div>
+                            <p class="text-gray-700 mb-3">
+                                <span class="lang-zh"><a href="https://www.zzu.edu.cn/" target="_blank" class="text-primary hover:underline">郑州大学</a></span>
+                                <span class="lang-en hidden"><a href="https://www.zzu.edu.cn/" target="_blank" class="text-primary hover:underline">Zhengzhou University</a>, China</span>
+                            </p>
+                            <p class="text-gray-600">
+                                <span class="lang-zh">主修课程：计算机科学、信息管理、数据库系统</span>
+                                <span class="lang-en hidden">Major courses: Computer Science, Information Management, Database Systems</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section id="experience" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark inline-block">
+                    <span class="lang-zh">工作经历</span>
+                    <span class="lang-en hidden">Work Experience</span>
+                </h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- EyesJapan -->
+                <div class="bg-white rounded-xl shadow-md p-8 mb-8 border-l-4 border-primary card-hover">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-dark">
+                                <span class="lang-zh">兼职开发工程师</span>
+                                <span class="lang-en hidden">Part-time Software Engineer</span>
+                            </h3>
+                            <p class="text-primary font-medium mt-1">
+                                <span class="lang-zh"><a href="https://www.eyes-japan.com/" target="_blank" class="text-primary hover:underline">EyesJapan</a>（日本）</span>
+                                <span class="lang-en hidden"><a href="https://www.eyes-japan.com/" target="_blank" class="text-primary hover:underline">EyesJapan</a> (Japan)</span>
+                            </p>
+                        </div>
+                        <span class="text-gray-500 mt-2 md:mt-0">2023年10月 – 至今</span>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                            <span class="lang-zh">负责公司网站和Web应用的开发与维护</span>
+                            <span class="lang-en hidden">Responsible for developing and maintaining company websites and web applications</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                            <span class="lang-zh">设计并实现前后端系统，优化用户体验</span>
+                            <span class="lang-en hidden">Design and implement front-end and back-end systems to optimize user experience</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                            <span class="lang-zh">开发数据库解决方案，提高数据处理效率</span>
+                            <span class="lang-en hidden">Develop database solutions to improve data processing efficiency</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 保险公司 -->
+                <div class="bg-white rounded-xl shadow-md p-8 border-l-4 border-primary card-hover">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-dark">
+                                <span class="lang-zh">数据实习工程师</span>
+                                <span class="lang-en hidden">Data Intern Engineer</span>
+                            </h3>
+                            <p class="text-primary font-medium mt-1">
+                                <span class="lang-zh"><a href="#" class="text-primary hover:underline">上海某保险公司</a>数据中心</span>
+                                <span class="lang-en hidden"><a href="#" class="text-primary hover:underline">An Insurance Company</a>, Shanghai Data Center</span>
+                            </p>
+                        </div>
+                        <span class="text-gray-500 mt-2 md:mt-0">2021年4月 – 2022年8月</span>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                            <span class="lang-zh">参与数据分析项目，处理和分析大规模保险数据</span>
+                            <span class="lang-en hidden">Participated in data analysis projects, processing and analyzing large-scale insurance data</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                            <span class="lang-zh">开发数据可视化报表，支持业务决策</span>
+                            <span class="lang-en hidden">Developed data visualization reports to support business decision-making</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa fa-check-circle text-primary mt-1 mr-2"></i>
+                            <span class="lang-zh">协助构建数据处理流水线，提高数据处理效率</span>
+                            <span class="lang-en hidden">Assisted in building data processing pipelines to improve data processing efficiency</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究兴趣 -->
+    <section id="research" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark inline-block">
+                    <span class="lang-zh">研究兴趣</span>
+                    <span class="lang-en hidden">Research Interests</span>
+                </h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 联邦学习 -->
+                <div class="bg-white rounded-xl shadow-md p-8 text-center card-hover">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-sitemap text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-4">
+                        <span class="lang-zh">联邦学习</span>
+                        <span class="lang-en hidden">Federated Learning</span>
+                    </h3>
+                    <p class="text-gray-600">
+                        <span class="lang-zh">研究分布式机器学习框架，开发保护数据隐私的联邦学习算法，特别关注异构环境下的联邦学习系统设计。</span>
+                        <span class="lang-en hidden">Researching distributed machine learning frameworks, developing privacy-preserving federated learning algorithms, with a focus on system design for heterogeneous environments.</span>
+                    </p>
+                </div>
+                
+                <!-- 机器学习 -->
+                <div class="bg-white rounded-xl shadow-md p-8 text-center card-hover">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-cogs text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-4">
+                        <span class="lang-zh">机器学习</span>
+                        <span class="lang-en hidden">Machine Learning</span>
+                    </h3>
+                    <p class="text-gray-600">
+                        <span class="lang-zh">探索先进的机器学习算法和模型，包括深度学习、强化学习等，应用于实际问题解决和系统优化。</span>
+                        <span class="lang-en hidden">Exploring advanced machine learning algorithms and models, including deep learning and reinforcement learning, applied to practical problem solving and system optimization.</span>
+                    </p>
+                </div>
+                
+                <!-- 数据分析 -->
+                <div class="bg-white rounded-xl shadow-md p-8 text-center card-hover">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa fa-bar-chart text-primary text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-dark mb-4">
+                        <span class="lang-zh">数据分析</span>
+                        <span class="lang-en hidden">Data Analysis</span>
+                    </h3>
+                    <p class="text-gray-600">
+                        <span class="lang-zh">开发高效的数据分析方法，从复杂数据中提取有价值的信息，支持决策制定和系统改进。</span>
+                        <span class="lang-en hidden">Developing efficient data analysis methods to extract valuable information from complex data, supporting decision-making and system improvement.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能概览 -->
+    <section id="skills" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark inline-block">
+                    <span class="lang-zh">技能概览</span>
+                    <span class="lang-en hidden">Skills Overview</span>
+                </h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- 研究领域 -->
+                <div>
+                    <h3 class="text-xl font-bold text-dark mb-6 flex items-center">
+                        <i class="fa fa-flask text-primary mr-3"></i>
+                        <span class="lang-zh">研究领域</span>
+                        <span class="lang-en hidden">Research Areas</span>
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700 lang-zh">联邦学习</span>
+                                <span class="text-gray-700 lang-en hidden">Federated Learning</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700 lang-zh">机器学习</span>
+                                <span class="text-gray-700 lang-en hidden">Machine Learning</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700 lang-zh">数据分析</span>
+                                <span class="text-gray-700 lang-en hidden">Data Analysis</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 编程语言 -->
+                <div>
+                    <h3 class="text-xl font-bold text-dark mb-6 flex items-center">
+                        <i class="fa fa-code text-primary mr-3"></i>
+                        <span class="lang-zh">编程语言</span>
+                        <span class="lang-en hidden">Programming Languages</span>
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700">Python</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700">Java</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700">HTML/CSS</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700">JavaScript</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 数据库 -->
+                <div>
+                    <h3 class="text-xl font-bold text-dark mb-6 flex items-center">
+                        <i class="fa fa-database text-primary mr-3"></i>
+                        <span class="lang-zh">数据库</span>
+                        <span class="lang-en hidden">Databases</span>
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700">MySQL</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 系统 -->
+                <div>
+                    <h3 class="text-xl font-bold text-dark mb-6 flex items-center">
+                        <i class="fa fa-server text-primary mr-3"></i>
+                        <span class="lang-zh">系统</span>
+                        <span class="lang-en hidden">Systems</span>
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700">Windows</span>
+                            </div>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-3/5">
+                                <span class="text-gray-700">Linux</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 证书 -->
+            <div class="max-w-4xl mx-auto mt-16">
+                <h3 class="text-xl font-bold text-dark mb-6 flex items-center">
+                    <i class="fa fa-certificate text-primary mr-3"></i>
+                    <span class="lang-zh">证书</span>
+                    <span class="lang-en hidden">Certifications</span>
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center card-hover">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-graduation-cap text-primary"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-dark lang-zh">大学英语四级证书</h4>
+                            <h4 class="font-medium text-dark lang-en hidden">College English Test Band 4</h4>
+                            <p class="text-gray-500 text-sm lang-zh">2019年获得</p>
+                            <p class="text-gray-500 text-sm lang-en hidden">Obtained in 2019</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 flex items-center card-hover">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                            <i class="fa fa-car text-primary"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-dark lang-zh">C1驾驶证</h4>
+                            <h4 class="font-medium text-dark lang-en hidden">C1 Driving License</h4>
+                            <p class="text-gray-500 text-sm lang-zh">2018年获得</p>
+                            <p class="text-gray-500 text-sm lang-en hidden">Obtained in 2018</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 发表论文 -->
+    <section id="publications" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark inline-block">
+                    <span class="lang-zh">发表论文</span>
+                    <span class="lang-en hidden">Publications</span>
+                </h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- 论文1 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-lg font-bold text-dark mb-2">Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms</h3>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-blue-100 text-blue-800">SCI中科院四区</span>
+                        <span class="badge bg-green-100 text-green-800">EI检索</span>
+                    </div>
+                    <p class="text-gray-600 mb-3">Xu J, Jin L, Su C.</p>
+                    <p class="text-primary font-medium mb-4">Electronics 2025, 14(19), 3816.</p>
+                    <a href="/pdfs/Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms.pdf" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        <i class="fa fa-download mr-2"></i>
+                        <span class="lang-zh">下载论文</span>
+                        <span class="lang-en hidden">Download Paper</span>
+                    </a>
+                </div>
+                
+                <!-- 论文2 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-lg font-bold text-dark mb-2">A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing</h3>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-blue-100 text-blue-800">ESCI</span>
+                        <span class="badge bg-green-100 text-green-800">EI检索</span>
+                    </div>
+                    <p class="text-gray-600 mb-3">Xu J, Zhang C, Jin L, Su C.</p>
+                    <p class="text-primary font-medium mb-4">Journal of Cybersecurity and Privacy, 2025, 5(3): 37.</p>
+                    <a href="/pdfs/A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing.pdf" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        <i class="fa fa-download mr-2"></i>
+                        <span class="lang-zh">下载论文</span>
+                        <span class="lang-en hidden">Download Paper</span>
+                    </a>
+                </div>
+                
+                <!-- 论文3 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-lg font-bold text-dark mb-2">Data Quality-Aware Federated Learning for Fake Review Detection</h3>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-yellow-100 text-yellow-800">EI检索</span>
+                    </div>
+                    <p class="text-gray-600 mb-3">Xu J, Zhang C, Jin L, Su C.</p>
+                    <p class="text-primary font-medium mb-4">2025 7th Int. Conf. on Software Engineering and Computer Science (CSECS), IEEE, 2025: 1-6.</p>
+                    <a href="/pdfs/Data Quality-Aware Federated Learning for Fake Review Detection.pdf" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        <i class="fa fa-download mr-2"></i>
+                        <span class="lang-zh">下载论文</span>
+                        <span class="lang-en hidden">Download Paper</span>
+                    </a>
+                </div>
+                
+                <!-- 论文4 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-lg font-bold text-dark mb-2">Crowdsensing with Federated Trust Management: Adaptive Defense Against Malicious Contributions</h3>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-yellow-100 text-yellow-800">EI检索</span>
+                    </div>
+                    <p class="text-gray-600 mb-3">Xu J, Zhang C, Jin L, Su C.</p>
+                    <p class="text-primary font-medium mb-4">Blocksys 2025.</p>
+                    <a href="/pdfs/Crowdsensing_with_Federated_Trust_Management__Adaptive_Defense_Against_Malicious_Contributions.pdf" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        <i class="fa fa-download mr-2"></i>
+                        <span class="lang-zh">下载论文</span>
+                        <span class="lang-en hidden">Download Paper</span>
+                    </a>
+                </div>
+                
+                <!-- 论文5 -->
+                <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                    <h3 class="text-lg font-bold text-dark mb-2">Privacy-Enhanced Federated Data Distillation for Efficient Distributed Training and Anomaly Detection in Multi-Center Healthcare</h3>
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-yellow-100 text-yellow-800">EI检索</span>
+                    </div>
+                    <p class="text-gray-600 mb-3">Xu J, Jin L, Su C.</p>
+                    <p class="text-primary font-medium mb-4">AIBlock 2025.</p>
+                    <a href="/pdfs/Privacy_Enhanced_Federated_Data_Distillation_for_Efficient_Distributed_Training_and_Anomaly_Detection_in_Multi_Center_Healthcare.pdf" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        <i class="fa fa-download mr-2"></i>
+                        <span class="lang-zh">下载论文</span>
+                        <span class="lang-en hidden">Download Paper</span>
+                    </a>
+                </div>
+                
+                <!-- 更多论文按钮 -->
+                <div class="text-center mt-8">
+                    <button id="show-more-papers" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                        <span class="lang-zh">显示更多论文</span>
+                        <span class="lang-en hidden">Show More Papers</span>
+                    </button>
+                </div>
+                
+                <!-- 更多论文（默认隐藏） -->
+                <div id="more-papers" class="hidden space-y-6">
+                    <!-- 论文6 -->
+                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                        <h3 class="text-lg font-bold text-dark mb-2">VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification</h3>
+                        <div class="flex flex-wrap gap-2 mb-2">
+                        <span class="badge bg-yellow-100 text-yellow-800">EI检索</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Liang Y, Huang H, Wang B, et al.</p>
+                        <p class="text-primary font-medium mb-4">IEEE MCSoC 2024, 70-77.</p>
+                        <a href="/pdfs/VLC-UNIT-Unsupervised%20Image-to-Image%20Translation%20with%20Vision-Language%20Classification.pdf" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                            <i class="fa fa-download mr-2"></i>
+                            <span class="lang-zh">下载论文</span>
+                            <span class="lang-en hidden">Download Paper</span>
+                        </a>
+                    </div>
+                    
+                    <!-- 论文7 -->
+                    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+                        <h3 class="text-lg font-bold text-dark mb-2">P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition</h3>
+                        <div class="flex flex-wrap gap-2 mb-2">
+                            <span class="badge bg-blue-100 text-blue-800">SCI中科院四区</span>
+                            <span class="badge bg-green-100 text-green-800">EI检索</span>
+                        </div>
+                        <p class="text-gray-600 mb-3">Wang H, Chen Q, Zhang C, et al.</p>
+                        <p class="text-primary font-medium mb-4">Mathematics, 2024, 12(16): 2587.</p>
+                        <a href="/pdfs/P-CA- Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition.pdf" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                            <i class="fa fa-download mr-2"></i>
+                            <span class="lang-zh">下载论文</span>
+                            <span class="lang-en hidden">Download Paper</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-dark inline-block">
+                    <span class="lang-zh">联系方式</span>
+                    <span class="lang-en hidden">Contact Me</span>
+                </h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <div class="bg-gray-50 rounded-xl p-8 h-full">
+                        <h3 class="text-xl font-bold text-dark mb-6">
+                            <span class="lang-zh">联系信息</span>
+                            <span class="lang-en hidden">Contact Information</span>
+                        </h3>
+                        <ul class="space-y-6">
+                            <li class="flex items-start">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-dark mb-1">
+                                        <span class="lang-zh">邮箱</span>
+                                        <span class="lang-en hidden">Email</span>
+                                    </h4>
+                                    <p class="text-gray-600">xujiantao9510@gmail.com</p>
+                                </div>
+                            </li>
+
+                            <li class="flex items-start cursor-pointer" id="wechat-contact">
+                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-weixin text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-dark mb-1">
+                                        <span class="lang-zh">微信</span>
+                                        <span class="lang-en hidden">WeChat</span>
+                                    </h4>
+                                    <p class="text-gray-600">963345284</p>
+                                    <p class="text-primary text-sm mt-1">
+                                        <span class="lang-zh">点击查看二维码</span>
+                                        <span class="lang-en hidden">Click to view QR code</span>
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-medium text-dark mb-4">
+                                <span class="lang-zh">社交媒体</span>
+                                <span class="lang-en hidden">Social Media</span>
+                            </h4>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/xu-jiantao" target="_blank" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                                <a href="https://xu-jiantao.github.io" target="_blank" class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-globe"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-primary rounded-xl p-8 text-white h-full">
+                        <h3 class="text-xl font-bold mb-6">
+                            <span class="lang-zh">发送消息</span>
+                            <span class="lang-en hidden">Send a Message</span>
+                        </h3>
+                        <form id="contact-form">
+                            <div class="mb-6">
+                                <label for="name" class="block mb-2 text-white/90">
+                                    <span class="lang-zh">您的姓名</span>
+                                    <span class="lang-en hidden">Your Name</span>
+                                </label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Name">
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block mb-2 text-white/90">
+                                    <span class="lang-zh">您的邮箱</span>
+                                    <span class="lang-en hidden">Your Email</span>
+                                </label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="xxx@xxx.com">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block mb-2 text-white/90">
+                                    <span class="lang-zh">您的消息</span>
+                                    <span class="lang-en hidden">Your Message</span>
+                                </label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/50" placeholder="Hello..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full px-6 py-3 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors font-medium">
+                                <span class="lang-zh">发送消息</span>
+                                <span class="lang-en hidden">Send Message</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 微信二维码模态框 -->
+    <div id="wechat-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 max-w-md mx-4">
+            <div class="text-center">
+                <h3 class="text-xl font-bold text-dark mb-4">
+                    <span class="lang-zh">微信二维码</span>
+                    <span class="lang-en hidden">WeChat QR Code</span>
+                </h3>
+                <div class="bg-gray-100 p-4 inline-block rounded-lg mb-4">
+                    <img src="wechatID.jpg" alt="微信二维码" class="w-48 h-48">
+                </div>
+                <p class="text-gray-600 mb-6">
+                    <span class="lang-zh">扫描二维码添加微信联系</span>
+                    <span class="lang-en hidden">Scan the QR code to add WeChat contact</span>
+                </p>
+                <button id="close-wechat-modal" class="px-6 py-2 bg-primary text-white rounded-lg hover:bg-secondary transition-colors">
+                    <span class="lang-zh">关闭</span>
+                    <span class="lang-en hidden">Close</span>
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <i class="fa fa-user-circle-o mr-2"></i>
+                            <span class="lang-zh">徐建涛</span>
+                            <span class="lang-en hidden">Xu Jiantao</span>
+                        </h3>
+                        <p class="text-gray-400 mt-2 max-w-md">
+                            <span class="lang-zh">专注于联邦学习、机器学习和数据分析领域的研究，致力于开发隐私保护和高效的分布式智能系统。</span>
+                            <span class="lang-en hidden">Specializing in federated learning, machine learning, and data analysis, committed to developing privacy-preserving and efficient distributed intelligent systems.</span>
+                        </p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/xu-jiantao" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+                            <i class="fa fa-github"></i>
+                        </a>
+                        <a href="https://xu-jiantao.github.io" target="_blank" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+                            <i class="fa fa-globe"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 pt-8 text-center">
+                    <p class="text-gray-400">
+                        <span class="lang-zh">&copy; 2025 徐建涛. 保留所有权利.</span>
+                        <span class="lang-en hidden">&copy; 2025 Xu Jiantao. All rights reserved.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <script src="script.js"></script>
+    <!-- JavaScript -->
+    <script>
+        // 语言切换功能
+        document.getElementById('lang-zh-btn').addEventListener('click', function() {
+            document.querySelectorAll('.lang-zh').forEach(el => {
+                el.classList.remove('hidden');
+                el.classList.add('transition-lang');
+            });
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('transition-lang');
+            });
+            this.classList.add('text-primary');
+            this.classList.remove('text-dark', 'hover:text-primary');
+            document.getElementById('lang-en-btn').classList.remove('text-primary');
+            document.getElementById('lang-en-btn').classList.add('text-dark', 'hover:text-primary');
+        });
+        
+        document.getElementById('lang-en-btn').addEventListener('click', function() {
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.remove('hidden');
+                el.classList.add('transition-lang');
+            });
+            document.querySelectorAll('.lang-zh').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('transition-lang');
+            });
+            this.classList.add('text-primary');
+            this.classList.remove('text-dark', 'hover:text-primary');
+            document.getElementById('lang-zh-btn').classList.remove('text-primary');
+            document.getElementById('lang-zh-btn').classList.add('text-dark', 'hover:text-primary');
+        });
+        
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+                navbar.classList.remove('shadow-sm');
+            } else {
+                navbar.classList.remove('shadow-md');
+                navbar.classList.add('shadow-sm');
+            }
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 如果是移动端，点击后关闭菜单
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // 显示更多论文
+        document.getElementById('show-more-papers').addEventListener('click', function() {
+            const morePapers = document.getElementById('more-papers');
+            const button = document.getElementById('show-more-papers');
+            
+            if (morePapers.classList.contains('hidden')) {
+                morePapers.classList.remove('hidden');
+                button.innerHTML = '<span class="lang-zh">显示更少论文</span><span class="lang-en hidden">Show Less Papers</span>';
+            } else {
+                morePapers.classList.add('hidden');
+                button.innerHTML = '<span class="lang-zh">显示更多论文</span><span class="lang-en hidden">Show More Papers</span>';
+            }
+        });
+        
+        // 表单提交
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 这里可以添加表单验证和提交逻辑
+            alert('感谢您的留言！这是一个静态网站，表单功能尚未实现。');
+            this.reset();
+        });
+        
+        // 微信二维码模态框
+        const wechatModal = document.getElementById('wechat-modal');
+        const wechatContact = document.getElementById('wechat-contact');
+        const closeWechatModal = document.getElementById('close-wechat-modal');
+        
+        wechatContact.addEventListener('click', function() {
+            wechatModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // 防止背景滚动
+        });
+        
+        closeWechatModal.addEventListener('click', function() {
+            wechatModal.classList.add('hidden');
+            document.body.style.overflow = ''; // 恢复背景滚动
+        });
+        
+        // 点击模态框外部关闭
+        wechatModal.addEventListener('click', function(e) {
+            if (e.target === wechatModal) {
+                wechatModal.classList.add('hidden');
+                document.body.style.overflow = ''; // 恢复背景滚动
+            }
+        });
+        
+        // 论文下载按钮
+        document.querySelectorAll('[href="#"]').forEach(link => {
+            if (link.querySelector('.fa-download')) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('论文下载功能尚未实现。');
+                });
+            }
+        });
+    </script>
 </body>
 </html>
