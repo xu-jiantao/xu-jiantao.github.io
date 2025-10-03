@@ -45,30 +45,34 @@ xujiantao9510@gmail.com
 - 联邦学习、机器学习、数据分析
 
 ###  编程语言
-- Python, Java, HTML
+- Python, Java, HTML, CSS, JavaScript
 
 ###  数据库
 - MySQL
 
 ###  系统
-- Linux服务器运维  
+- Windows, Linux  
 
 ---
 
 ##  证书
 
 - 大学英语四级证书  
-- 中国机动车驾驶证  
+- C1驾驶证  
 
 ---
 
 ##  发表论文
 
-- **Xu J, Zhang C, Jin L, et al.**  
+- **Xu J, Jin L, Su C.**  
+  *Privacy-Preserving Federated Review Analytics with Data Quality Optimization for Heterogeneous IoT Platforms*  
+  *Electronics 2025, 14(19), 3816.
+
+- **Xu J, Zhang C, Jin L, Su C.**  
   *A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing*  
   *Journal of Cybersecurity and Privacy*, 2025, 5(3): 37.
 
-- **Xu J, Zhang C, Jin L, et al.**  
+- **Xu J, Zhang C, Jin L, Su C.**  
   *Data Quality-Aware Federated Learning for Fake Review Detection*  
   *2025 7th Int. Conf. on Software Engineering and Computer Science (CSECS)*, IEEE, 2025: 1-6.
 

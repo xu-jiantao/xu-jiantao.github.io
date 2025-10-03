@@ -1,145 +1,1143 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-<title>徐建涛 - 个人简历 / Resume</title>
-<style>
-    :root{
-        --accent:#0077cc;
-        --bg:#f8f9fa;
-        --text:#222;
-    }
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;background:var(--bg);color:var(--text);}
-    header{background:var(--accent);color:#fff;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-    nav{display:flex;gap:1rem;flex-wrap:wrap}
-    nav a{color:#fff;text-decoration:none;font-weight:bold}
-    nav a:hover{text-decoration:underline}
-    .lang-switch{cursor:pointer;border:1px solid #fff;padding:2px 6px;border-radius:4px;font-size:.9rem}
-    main{max-width:960px;margin:2rem auto;padding:0 1rem}
-    section{display:none}
-    section.active{display:block}
-    h2{border-bottom:2px solid var(--accent);padding-bottom:.3rem;margin-top:0}
-    ul{list-style:none;padding-left:0}
-    li{margin:.4rem 0}
-    footer{text-align:center;padding:2rem 0;font-size:.8rem;color:#666}
-    @media(max-width:600px){
-        header{flex-direction:column;align-items:flex-start}
-        nav{flex-direction:column;gap:.5rem}
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>徐建涛 - 个人简历</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#475569',
+                        accent: '#0ea5e9',
+                        light: '#f8fafc',
+                        dark: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .section-fade {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            }
+            .section-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .nav-active {
+                @apply border-b-2 border-primary text-primary;
+            }
+        }
+    </style>
 </head>
-<body>
-<header>
-    <h1 id="name">徐建涛 / Xu Jiantao</h1>
-    <nav>
-        <a href="#about" data-en="About" data-zh="关于我">关于我</a>
-        <a href="#education" data-en="Education" data-zh="教育经历">教育经历</a>
-        <a href="#experience" data-en="Experience" data-zh="工作经历">工作经历</a>
-        <a href="#research" data-en="Research" data-zh="研究方向">研究方向</a>
-        <a href="#skills" data-en="Skills" data-zh="技能概览">技能概览</a>
-        <a href="#publications" data-en="Publications" data-zh="发表论文">发表论文</a>
-        <a href="#contact" data-en="Contact" data-zh="联系方式">联系方式</a>
-        <span class="lang-switch" onclick="toggleLang()">EN | 中</span>
-    </nav>
-</header>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- 导航栏 -->
+    <header class="fixed top-0 left-0 right-0 bg-white shadow-md z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
+            <div class="flex items-center">
+                <h1 class="text-xl font-bold text-primary" data-i18n="name">徐建涛</h1>
+            </div>
 
-<main>
-    <!-- 关于我 -->
-    <section id="about" class="active">
-        <h2 data-en="About Me" data-zh="关于我">关于我</h2>
-        <p data-en="I am currently a Ph.D. student majoring in Computer Information Systems at Aizu University, Japan. My research focuses on Federated Learning and Machine Learning."
-           data-zh="目前在日本会津大学攻读计算机信息系统博士学位，研究方向为联邦学习与机器学习。"></p>
-    </section>
+            <!-- 语言切换 -->
+            <div class="flex items-center mr-4">
+                <button id="lang-zh" class="px-3 py-1 rounded-md bg-primary text-white">中文</button>
+                <button id="lang-en" class="px-3 py-1 rounded-md bg-gray-200 text-gray-700 ml-2">English</button>
+            </div>
 
-    <!-- 教育经历 -->
-    <section id="education">
-        <h2 data-en="Education" data-zh="教育经历">教育经历</h2>
-        <ul>
-            <li><strong data-en="Ph.D. in Computer Information Systems, Aizu University (Japan)" data-zh="博士，计算机信息系统 — 会津大学（日本）"></strong><br>2023.10 – Present</li>
-            <li><strong data-en="M.S. in Computer Information Systems, Aizu University (Japan)" data-zh="硕士，计算机信息系统 — 会津大学（日本）"></strong><br>2021.10 – 2023.10</li>
-            <li><strong data-en="B.S. in Computer Information Management, Zhengzhou University (China)" data-zh="学士，计算机信息管理 — 郑州大学（中国）"></strong><br>2017 – 2021</li>
-        </ul>
-    </section>
+            <!-- 桌面导航 -->
+            <nav class="hidden md:flex space-x-6">
+                <a href="#home" class="nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.home">首页</a>
+                <a href="#education" class="nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.education">教育背景</a>
+                <a href="#experience" class="nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.experience">工作经历</a>
+                <a href="#research" class="nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.research">研究成果</a>
+                <a href="#skills" class="nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.skills">技能</a>
+                <a href="#contact" class="nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.contact">联系方式</a>
+            </nav>
 
-    <!-- 工作经历 -->
-    <section id="experience">
-        <h2 data-en="Work Experience" data-zh="工作经历">工作经历</h2>
-        <ul>
-            <li><strong data-en="Part-time Developer Engineer @ EyesJapan (Japan)" data-zh="兼职开发工程师 @ EyesJapan（日本）"></strong><br>2023.10 – Present<br><span data-en="Web development, Front-end & Back-end, Database." data-zh="网页开发 / 前后端 / 数据库"></span></li>
-            <li><strong data-en="Data Intern Engineer @ Insurance Company Data Center (Shanghai)" data-zh="数据实习工程师 @ 某保险公司数据中心（上海）"></strong><br>2021.4 – 2022.8</li>
-        </ul>
-    </section>
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
 
-    <!-- 研究方向 -->
-    <section id="research">
-        <h2 data-en="Research Interests" data-zh="研究方向">研究方向</h2>
-        <ul>
-            <li data-en="Federated Learning" data-zh="联邦学习"></li>
-            <li data-en="Machine Learning" data-zh="机器学习"></li>
-            <li data-en="Data Analysis" data-zh="数据分析"></li>
-        </ul>
-    </section>
+        <!-- 移动端导航菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#home" class="mobile-nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.home">首页</a>
+                <a href="#education" class="mobile-nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.education">教育背景</a>
+                <a href="#experience" class="mobile-nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.experience">工作经历</a>
+                <a href="#research" class="mobile-nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.research">研究成果</a>
+                <a href="#skills" class="mobile-nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.skills">技能</a>
+                <a href="#contact" class="mobile-nav-link py-2 font-medium hover:text-primary transition-colors" data-i18n="nav.contact">联系方式</a>
+            </div>
+        </div>
+    </header>
 
-    <!-- 技能概览 -->
-    <section id="skills">
-        <h2 data-en="Skills" data-zh="技能概览">技能概览</h2>
-        <ul>
-            <li data-en="Research: Federated Learning, Machine Learning, Data Analysis" data-zh="研究领域：联邦学习、机器学习、数据分析"></li>
-            <li data-en="Languages: Python, Java, HTML" data-zh="编程语言：Python、Java、HTML"></li>
-            <li data-en="Database: MySQL" data-zh="数据库：MySQL"></li>
-            <li data-en="Systems: Linux Server Maintenance" data-zh="系统：Linux 服务器运维"></li>
-            <li data-en="Certificates: CET-4, Chinese Driving License" data-zh="证书：大学英语四级、中国机动车驾驶证"></li>
-        </ul>
-    </section>
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <!-- 首页/个人简介 -->
+        <section id="home" class="py-12 section-fade">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <div class="relative">
+                        <div class="w-64 h-64 md:w-80 md:h-80 mx-auto rounded-full overflow-hidden border-4 border-primary shadow-xl">
+                            <img src="https://picsum.photos/id/1005/400/400" alt="徐建涛的照片" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-3 -right-3 bg-primary text-white p-3 rounded-lg shadow-lg hidden md:block">
+                            <span data-i18n="researcher">研究人员</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-800" data-i18n="home.title">徐建涛</h2>
+                    <p class="text-xl text-gray-600 mb-6" data-i18n="home.subtitle">联邦学习 · 机器学习 · 数据分析</p>
 
-    <!-- 发表论文 -->
-    <section id="publications">
-        <h2 data-en="Publications" data-zh="发表论文">发表论文</h2>
-        <ul>
-            <li><strong data-en="A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing" data-zh="A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing"></strong><br><em>Journal of Cybersecurity and Privacy</em>, 2025, 5(3): 37.</li>
-            <li><strong data-en="Data Quality-Aware Federated Learning for Fake Review Detection" data-zh="Data Quality-Aware Federated Learning for Fake Review Detection"></strong><br><em>2025 7th Int. Conf. on Software Engineering and Computer Science (CSECS)</em>, IEEE, 2025: 1-6.</li>
-            <li><strong data-en="VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification" data-zh="VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification"></strong><br><em>IEEE MCSoC 2024</em>, 70-77.</li>
-            <li><strong data-en="P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition" data-zh="P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition"></strong><br><em>Mathematics</em>, 2024, 12(16): 2587.</li>
-        </ul>
-    </section>
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <a href="mailto:xujiantao9510@gmail.com" class="flex items-center px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fa fa-envelope text-primary mr-2"></i>
+                            <span>xujiantao9510@gmail.com</span>
+                        </a>
+                        <a href="tel:+8617633908831" class="flex items-center px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fa fa-phone text-primary mr-2"></i>
+                            <span>176-3390-8831</span>
+                        </a>
+                        <a href="https://xu-jiantao.github.io" target="_blank" class="flex items-center px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fa fa-globe text-primary mr-2"></i>
+                            <span data-i18n="home.website">个人网站</span>
+                        </a>
+                    </div>
 
-    <!-- 联系方式 -->
-    <section id="contact">
-        <h2 data-en="Contact" data-zh="联系方式">联系方式</h2>
-        <ul>
-            <li>Email: <a href="mailto:xujiantao9510@gmail.com">xujiantao9510@gmail.com</a></li>
-            <li data-en="Location" data-zh="位置">位置: Fukushima, Japan</li>
-            <li>WeChat: 963345284</li>
-            <li><a href="https://github.com/xu-jiantao" target="_blank">GitHub</a> | <a href="https://xu-jiantao.github.io" target="_blank">Personal Website</a></li>
-        </ul>
-    </section>
-</main>
+                    <p class="text-gray-700 mb-6 leading-relaxed" data-i18n="home.description">
+                        博士研究生，专注于联邦学习、机器学习和数据分析领域的研究。拥有丰富的学术研究和软件开发经验，曾参与多个医疗与生物信息系统的开发项目，擅长将研究成果转化为实际应用。
+                    </p>
 
-<footer>
-    &copy; 2025 Xu Jiantao
-</footer>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors shadow-md hover:shadow-lg">
+                            <i class="fa fa-handshake-o mr-2"></i>
+                            <span data-i18n="home.contactMe">联系我</span>
+                        </a>
+                        <a href="#research" class="px-6 py-3 bg-white text-primary border border-primary rounded-lg hover:bg-gray-50 transition-colors shadow-sm hover:shadow">
+                            <i class="fa fa-flask mr-2"></i>
+                            <span data-i18n="home.myResearch">我的研究</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<script>
-/* 多语言支持 */
-let lang = 'zh';          // 默认中文
-function toggleLang(){
-    lang = (lang==='zh') ? 'en' : 'zh';
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-zh][data-en]').forEach(el=>{
-        el.textContent = el.dataset[lang];
-    });
-}
+        <!-- 教育背景 -->
+        <section id="education" class="py-12 section-fade">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" data-i18n="education.title">教育背景</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
 
-/* 单页路由 */
-function route(){
-    const hash = location.hash.slice(1) || 'about';
-    document.querySelectorAll('section').forEach(sec=>sec.classList.remove('active'));
-    const target = document.getElementById(hash);
-    if(target) target.classList.add('active');
-}
-window.addEventListener('hashchange', route);
-window.addEventListener('load', route);
-</script>
+            <div class="max-w-3xl mx-auto">
+                <div class="relative">
+                    <!-- 时间线 -->
+                    <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 transform md:translate-x-px"></div>
+
+                    <!-- 博士 -->
+                    <div class="relative mb-10">
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/2 md:pr-8 md:text-right mb-6 md:mb-0">
+                                <h3 class="text-xl font-bold text-primary" data-i18n="education.phd">博士 | 计算机与信息系统</h3>
+                                <p class="text-gray-700 font-medium">会津大学，日本</p>
+                                <p class="text-gray-500">2023.10 – 至今</p>
+                            </div>
+                            <div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 md:translate-x-0 md:-translate-x-1/2 shadow-lg"></div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <p class="text-gray-600" data-i18n="education.phdDesc">
+                                    专注于联邦学习、机器学习和数据分析领域的研究，参与多项科研项目，发表多篇学术论文。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 硕士 -->
+                    <div class="relative mb-10">
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/2 md:pr-8 md:text-right mb-6 md:mb-0 md:order-1 order-2">
+                                <p class="text-gray-600" data-i18n="education.mscDesc">
+                                    研究方向为分布式系统与机器学习，担任助教，负责课堂讲解和作业批改。
+                                </p>
+                            </div>
+                            <div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 md:translate-x-0 md:-translate-x-1/2 shadow-lg"></div>
+                            <div class="md:w-1/2 md:pl-8 md:order-2 order-1">
+                                <h3 class="text-xl font-bold text-primary" data-i18n="education.msc">硕士 | 计算机与信息系统</h3>
+                                <p class="text-gray-700 font-medium">会津大学，日本</p>
+                                <p class="text-gray-500">2021.10 – 2023.10</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 学士 -->
+                    <div class="relative">
+                        <div class="flex flex-col md:flex-row items-start">
+                            <div class="md:w-1/2 md:pr-8 md:text-right mb-6 md:mb-0">
+                                <h3 class="text-xl font-bold text-primary" data-i18n="education.bsc">学士 | 计算机信息管理</h3>
+                                <p class="text-gray-700 font-medium">郑州大学，中国</p>
+                                <p class="text-gray-500">2017 – 2021</p>
+                            </div>
+                            <div class="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 md:translate-x-0 md:-translate-x-1/2 shadow-lg"></div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <p class="text-gray-600" data-i18n="education.bscDesc">
+                                    学习计算机基础理论与应用知识，参与多个课程设计项目，奠定了扎实的计算机科学基础。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section id="experience" class="py-12 section-fade">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" data-i18n="experience.title">工作与科研经历</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- EyesJapan 兼职开发工程师 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">EyesJapan（日本）</h3>
+                                <p class="text-primary font-medium" data-i18n="experience.engineer">兼职开发工程师</p>
+                            </div>
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">2023.10 – 至今</span>
+                        </div>
+
+                        <p class="text-gray-600 mb-4" data-i18n="experience.techStack">技术栈：</p>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">React</span>
+                            <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">FastAPI</span>
+                            <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">MySQL</span>
+                            <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Python</span>
+                            <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Docker</span>
+                        </div>
+
+                        <h4 class="font-bold text-gray-700 mb-2" data-i18n="experience.responsibilities">职责：</h4>
+                        <ul class="list-disc pl-5 text-gray-600 mb-4 space-y-1">
+                            <li data-i18n="experience.resp1">参与公司医疗与生物信息相关系统的开发，负责前端交互设计、后端接口实现和数据库结构优化。</li>
+                            <li data-i18n="experience.resp2">与多学科团队（医生、研究员、系统运维人员）协作，将需求转化为可落地的软件系统。</li>
+                            <li data-i18n="experience.resp3">提供代码文档与技术说明，支持系统测试与迭代升级。</li>
+                        </ul>
+
+                        <h4 class="font-bold text-gray-700 mb-2" data-i18n="experience.projects">项目经验：</h4>
+                        <div class="mb-3">
+                            <p class="font-medium" data-i18n="experience.project1">1. 手术视频转录分析系统</p>
+                            <ul class="list-circle pl-5 text-gray-600 text-sm space-y-1 mt-1">
+                                <li data-i18n="experience.proj1_1">负责整体架构设计与前后端开发，构建医生手术过程数据上传与管理平台。</li>
+                                <li data-i18n="experience.proj1_2">集成ChatGPT API，实现手术过程的自动总结与分析，生成结构化报告文档。</li>
+                                <li data-i18n="experience.proj1_3">负责数据库表设计与优化，确保视频转录数据与分析结果的高效存储与检索。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-medium" data-i18n="experience.project2">2. 抗体滴定记录 App</p>
+                            <ul class="list-circle pl-5 text-gray-600 text-sm space-y-1 mt-1">
+                                <li data-i18n="experience.proj2_1">负责前端页面的部分开发与功能实现，包括数据录入界面与交互设计。</li>
+                                <li data-i18n="experience.proj2_2">与后端工程师配合完成API对接与调试，提升系统的稳定性与用户体验。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 保险公司数据中心 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">上海某保险公司数据中心（中国）</h3>
+                                <p class="text-primary font-medium" data-i18n="experience.dataIntern">数据实习工程师</p>
+                            </div>
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">2021.04 – 2022.08</span>
+                        </div>
+
+                        <h4 class="font-bold text-gray-700 mb-2" data-i18n="experience.responsibilities">职责：</h4>
+                        <ul class="list-disc pl-5 text-gray-600 mb-6 space-y-1">
+                            <li data-i18n="experience.resp4">参与公司核心数据平台的日常维护与优化，保障数据处理的高可用性与安全性。</li>
+                            <li data-i18n="experience.resp5">负责大数据客户端及文件传输系统的安装、配置和故障排查。</li>
+                            <li data-i18n="experience.resp6">维护大数据集群平台，定期检查集群健康状态，提升数据处理效率。</li>
+                            <li data-i18n="experience.resp7">参与数据仓库的数据更新与清理，确保数据的完整性与一致性。</li>
+                        </ul>
+
+                        <h4 class="font-bold text-gray-700 mb-2" data-i18n="experience.achievements">成果：</h4>
+                        <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                            <li data-i18n="experience.ach1">提升了公司数据中心的运维效率，降低了系统宕机风险。</li>
+                            <li data-i18n="experience.ach2">积累了大数据运维与企业数据仓库管理的实战经验。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 教学与科研经历 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden md:col-span-2">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800" data-i18n="experience.teaching">教学与科研经历</h3>
+                            </div>
+                            <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm">2021.10 – 至今</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-gray-700 mb-2 flex items-center">
+                                    <i class="fa fa-graduation-cap text-primary mr-2"></i>
+                                    <span data-i18n="experience.teachingAssist">助教 (TA)</span>
+                                </h4>
+                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                    <li data-i18n="experience.ta1">负责本科及研究生课程的课堂讲解与辅导。</li>
+                                    <li data-i18n="experience.ta2">批改作业、组织讨论并解答学生疑问。</li>
+                                    <li data-i18n="experience.ta3">协助教授进行课程设计与教学材料准备。</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-700 mb-2 flex items-center">
+                                    <i class="fa fa-flask text-primary mr-2"></i>
+                                    <span data-i18n="experience.researchAssist">研究助理 (RA)</span>
+                                </h4>
+                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
+                                    <li data-i18n="experience.ra1">积极参与科研项目，负责实验设计与实施。</li>
+                                    <li data-i18n="experience.ra2">撰写学术论文并参与学术会议交流。</li>
+                                    <li data-i18n="experience.ra3">参与期刊论文的审稿工作，提升学术视野。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 研究成果 -->
+        <section id="research" class="py-12 section-fade">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" data-i18n="research.title">研究兴趣与发表论文</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+                <!-- 研究兴趣 -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-md p-6 h-full">
+                        <h3 class="text-xl font-bold mb-6 text-primary flex items-center">
+                            <i class="fa fa-lightbulb-o mr-3 text-xl"></i>
+                            <span data-i18n="research.interests">研究兴趣</span>
+                        </h3>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fa fa-sitemap text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">联邦学习 (Federated Learning)</h4>
+                                    <p class="text-gray-600 text-sm mt-1" data-i18n="research.flDesc">研究联邦学习中的激励机制、信任管理和隐私保护技术，专注于异构环境下的模型训练与优化。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fa fa-cogs text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">机器学习 (Machine Learning)</h4>
+                                    <p class="text-gray-600 text-sm mt-1" data-i18n="research.mlDesc">探索机器学习算法在医疗数据、文本分析等领域的应用，研究高效的模型训练与推理方法。</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fa fa-bar-chart text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-800">数据分析 (Data Analysis)</h4>
+                                    <p class="text-gray-600 text-sm mt-1" data-i18n="research.daDesc">研究大规模数据的处理与分析技术，关注数据质量评估与提升方法，以及在实际场景中的应用。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 发表论文 -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-6 text-primary flex items-center">
+                            <i class="fa fa-file-text-o mr-3 text-xl"></i>
+                            <span data-i18n="research.papers">发表论文</span>
+                        </h3>
+
+                        <div class="space-y-6">
+                            <div class="border-l-4 border-primary pl-4 py-1">
+                                <p class="font-medium">Xu J, Zhang C, Jin L, Su C. A Trust-Aware Incentive Mechanism for Federated Learning with Heterogeneous Clients in Edge Computing.</p>
+                                <p class="text-gray-600 text-sm mt-1">Journal of Cybersecurity and Privacy, 2025, 5(3): 37. (EI收录)</p>
+                            </div>
+
+                            <div class="border-l-4 border-primary pl-4 py-1">
+                                <p class="font-medium">Cai Y., Xu J., Lian Z., Brian K.C.W., Li Y., Xu J. A Reputation-Aware Defense Framework for Strategic Behaviors in Federated Learning.</p>
+                                <p class="text-gray-600 text-sm mt-1">Telecom, 2025, 6: 60. (中科院四区, EI收录, IF 2.7)</p>
+                            </div>
+
+                            <div class="border-l-4 border-primary pl-4 py-1">
+                                <p class="font-medium">Xu J, Zhang C, Jin L, Su C. Data Quality-Aware Federated Learning for Fake Review Detection.</p>
+                                <p class="text-gray-600 text-sm mt-1">2025 IEEE CSECS, pp.1-6. (EI收录)</p>
+                            </div>
+
+                            <div class="border-l-4 border-primary pl-4 py-1">
+                                <p class="font-medium">Xu J, Zhang C, Jin L, Su C. Crowdsensing with Federated Trust Management: Adaptive Defense Against Malicious Contributions.</p>
+                                <p class="text-gray-600 text-sm mt-1">BlockSys 2025. (EI收录)</p>
+                            </div>
+
+                            <button id="show-more-papers" class="text-primary hover:text-primary/80 font-medium flex items-center transition-colors">
+                                <span data-i18n="research.showMore">显示更多</span>
+                                <i class="fa fa-chevron-down ml-1"></i>
+                            </button>
+
+                            <div id="more-papers" class="hidden space-y-6">
+                                <div class="border-l-4 border-primary pl-4 py-1">
+                                    <p class="font-medium">Xu J, Jin L, Su C. Privacy-Enhanced Federated Data Distillation for Efficient Distributed Training and Anomaly Detection in Multi-Center Healthcare.</p>
+                                    <p class="text-gray-600 text-sm mt-1">AIBlock 2025. (EI收录)</p>
+                                </div>
+
+                                <div class="border-l-4 border-primary pl-4 py-1">
+                                    <p class="font-medium">Liang Y., Huang H., Wang B., Zhao L., Xu J, Zhang C. VLC-UNIT: Unsupervised Image-to-Image Translation with Vision-Language Classification.</p>
+                                    <p class="text-gray-600 text-sm mt-1">IEEE MCSoC 2024, pp.70-77. (EI收录)</p>
+                                </div>
+
+                                <div class="border-l-4 border-primary pl-4 py-1">
+                                    <p class="font-medium">Wang H., Chen Q., Zhang C., Xu J, Su C. P-CA: Privacy-Preserving Convolutional Autoencoder-Based Edge–Cloud Collaborative Computing for Human Behavior Recognition.</p>
+                                    <p class="text-gray-600 text-sm mt-1">Mathematics, 2024, 12(16): 2587. (中科院四区, EI收录, IF 2.2)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技能 -->
+        <section id="skills" class="py-12 section-fade">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" data-i18n="skills.title">技能与证书</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- 技能 -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-6 text-primary" data-i18n="skills.skills">专业技能</h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium" data-i18n="skills.researchArea">研究方向</span>
+                                <span>联邦学习、机器学习、数据分析</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium" data-i18n="skills.programming">编程语言</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div class="flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 90%"></div>
+                                    </div>
+                                    <span class="ml-2 text-sm">Python</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                    <span class="ml-2 text-sm">Java</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                    <span class="ml-2 text-sm">HTML/CSS</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                        <div class="bg-primary h-2.5 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                    <span class="ml-2 text-sm">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium" data-i18n="skills.databases">数据库</span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+                                </div>
+                                <span class="ml-2 text-sm">MySQL</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium" data-i18n="skills.frameworks">框架与工具</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">React</span>
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">FastAPI</span>
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Docker</span>
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Git</span>
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">TensorFlow</span>
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">PyTorch</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium" data-i18n="skills.systems">系统环境</span>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Windows</span>
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">Linux</span>
+                                <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">macOS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 证书与语言 -->
+                <div class="grid grid-cols-1 gap-8">
+                    <!-- 证书 -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-6 text-primary" data-i18n="skills.certificates">证书</h3>
+
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fa fa-certificate text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium" data-i18n="skills.english4">大学英语四级证书</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fa fa-certificate text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium" data-i18n="skills.mandarin">普通话二级甲等证书</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                    <i class="fa fa-certificate text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium" data-i18n="skills.driving">C1驾驶证</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 语言能力 -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-6 text-primary" data-i18n="skills.languages">语言能力</h3>
+
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">中文</span>
+                                    <span data-i18n="skills.native">母语</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-primary h-2.5 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">英语</span>
+                                    <span data-i18n="skills.good">良好</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-primary h-2.5 rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">日语</span>
+                                    <span data-i18n="skills.basic">一般</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                    <div class="bg-primary h-2.5 rounded-full" style="width: 50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 自我评价 -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-6 text-primary" data-i18n="skills.selfEval">自我评价</h3>
+
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span data-i18n="skills.eval1">思维严谨，学习与适应能力强</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span data-i18n="skills.eval2">具备良好的协作精神与团队意识</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span data-i18n="skills.eval3">工作主动，责任心强，执行力高，能承受压力</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span data-i18n="skills.eval4">具备问题分析与解决能力，职业态度认真踏实</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 联系方式 -->
+        <section id="contact" class="py-12 section-fade">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" data-i18n="contact.title">联系方式</h2>
+                <div class="w-20 h-1 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                <div class="md:col-span-2">
+                    <div class="bg-white rounded-xl shadow-md p-6 h-full">
+                        <h3 class="text-xl font-bold mb-6 text-primary" data-i18n="contact.getInTouch">与我联系</h3>
+
+                        <p class="text-gray-600 mb-6" data-i18n="contact.description">
+                            无论您是想讨论研究合作、工作机会，还是有其他问题，都欢迎与我联系。我会尽快回复您的消息。
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-envelope text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm" data-i18n="contact.email">电子邮件</p>
+                                    <p class="font-medium">xujiantao9510@gmail.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-phone text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm" data-i18n="contact.phone">电话</p>
+                                    <p class="font-medium">176-3390-8831</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-weixin text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm" data-i18n="contact.wechat">微信</p>
+                                    <p class="font-medium">963345284</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fa fa-globe text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500 text-sm" data-i18n="contact.website">个人网站</p>
+                                    <p class="font-medium">https://xu-jiantao.github.io</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <h4 class="font-bold mb-4" data-i18n="contact.followMe">关注我</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-primary hover:text-white transition-colors">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-6 text-primary" data-i18n="contact.sendMessage">发送消息</h3>
+
+                        <form id="contact-form" class="space-y-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.yourName">您的姓名</label>
+                                    <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.yourEmail">您的邮箱</label>
+                                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" required>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="subject" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.subject">主题</label>
+                                <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" required>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-i18n="contact.message">消息内容</label>
+                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors" required></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full md:w-auto px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors shadow-md hover:shadow-lg">
+                                <i class="fa fa-paper-plane mr-2"></i>
+                                <span data-i18n="contact.send">发送消息</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-2" data-i18n="name">徐建涛</h3>
+                    <p class="text-gray-400" data-i18n="footer.subtitle">联邦学习 · 机器学习 · 数据分析</p>
+                </div>
+
+                <div class="text-gray-400 text-sm" data-i18n="footer.copyright">
+                    © 2025 徐建涛. 保留所有权利.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-primary text-white shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-primary/90">
+        <i class="fa fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // 国际化支持
+        const translations = {
+            en: {
+                name: "Xu Jiantao",
+                "nav.home": "Home",
+                "nav.education": "Education",
+                "nav.experience": "Experience",
+                "nav.research": "Research",
+                "nav.skills": "Skills",
+                "nav.contact": "Contact",
+                "researcher": "Researcher",
+                "home.title": "Xu Jiantao",
+                "home.subtitle": "Federated Learning · Machine Learning · Data Analysis",
+                "home.website": "Personal Website",
+                "home.description": "Ph.D. student specializing in federated learning, machine learning, and data analysis. With rich experience in academic research and software development, having participated in multiple medical and bioinformatics system development projects, skilled in translating research results into practical applications.",
+                "home.contactMe": "Contact Me",
+                "home.myResearch": "My Research",
+                "education.title": "Education Background",
+                "education.phd": "Ph.D. | Computer and Information Systems",
+                "education.phdDesc": "Focus on research in federated learning, machine learning, and data analysis. Participate in multiple research projects and publish several academic papers.",
+                "education.msc": "M.Sc. | Computer and Information Systems",
+                "education.mscDesc": "Research direction is distributed systems and machine learning. Served as a teaching assistant, responsible for classroom lectures and homework correction.",
+                "education.bsc": "B.Sc. | Computer Information Management",
+                "education.bscDesc": "Studied computer basic theory and application knowledge, participated in multiple course design projects, and laid a solid foundation in computer science.",
+                "experience.title": "Work & Research Experience",
+                "experience.engineer": "Part-time Software Engineer",
+                "experience.techStack": "Tech Stack:",
+                "experience.responsibilities": "Responsibilities:",
+                "experience.resp1": "Participated in the development of medical and bioinformatics related systems, responsible for front-end interaction design, back-end interface implementation, and database structure optimization.",
+                "experience.resp2": "Collaborated with multidisciplinary teams (doctors, researchers, system operations personnel) to transform requirements into implementable software systems.",
+                "experience.resp3": "Provided code documentation and technical descriptions to support system testing and iterative upgrades.",
+                "experience.projects": "Project Experience:",
+                "experience.project1": "1. Surgical Video Transcription and Analysis System",
+                "experience.proj1_1": "Responsible for overall architecture design and front-end/back-end development, building a platform for doctors to upload and manage surgical process data.",
+                "experience.proj1_2": "Integrated ChatGPT API to realize automatic summary and analysis of surgical processes, generating structured report documents.",
+                "experience.proj1_3": "Responsible for database table design and optimization to ensure efficient storage and retrieval of video transcription data and analysis results.",
+                "experience.project2": "2. Antibody Titration Record App",
+                "experience.proj2_1": "Responsible for partial development and function implementation of front-end pages, including data entry interface and interaction design.",
+                "experience.proj2_2": "Cooperated with back-end engineers to complete API docking and debugging, improving system stability and user experience.",
+                "experience.dataIntern": "Data Intern Engineer",
+                "experience.resp4": "Participated in the daily maintenance and optimization of the company's core data platform to ensure high availability and security of data processing.",
+                "experience.resp5": "Responsible for installation, configuration, and troubleshooting of big data clients and file transfer systems.",
+                "experience.resp6": "Maintained big data cluster platform, regularly checked cluster health status, and improved data processing efficiency.",
+                "experience.resp7": "Participated in data warehouse updates and cleaning to ensure data integrity and consistency.",
+                "experience.achievements": "Achievements:",
+                "experience.ach1": "Improved the operation and maintenance efficiency of the company's data center and reduced the risk of system downtime.",
+                "experience.ach2": "Accumulated practical experience in big data operation and maintenance and enterprise data warehouse management.",
+                "experience.teaching": "Teaching & Research Experience",
+                "experience.teachingAssist": "Teaching Assistant (TA)",
+                "experience.ta1": "Responsible for classroom lectures and tutoring for undergraduate and graduate courses.",
+                "experience.ta2": "Corrected homework, organized discussions, and answered students' questions.",
+                "experience.ta3": "Assisted professors in course design and preparation of teaching materials.",
+                "experience.researchAssist": "Research Assistant (RA)",
+                "experience.ra1": "Actively participated in research projects, responsible for experimental design and implementation.",
+                "experience.ra2": "Wrote academic papers and participated in academic conference exchanges.",
+                "experience.ra3": "Participated in the review of journal papers to broaden academic horizons.",
+                "research.title": "Research Interests & Publications",
+                "research.interests": "Research Interests",
+                "research.flDesc": "Research on incentive mechanisms, trust management, and privacy protection technologies in federated learning, focusing on model training and optimization in heterogeneous environments.",
+                "research.mlDesc": "Exploring the application of machine learning algorithms in medical data, text analysis and other fields, researching efficient model training and inference methods.",
+                "research.daDesc": "Research on large-scale data processing and analysis technologies, focusing on data quality assessment and improvement methods, and their applications in practical scenarios.",
+                "research.papers": "Publications",
+                "research.showMore": "Show More",
+                "skills.title": "Skills & Certificates",
+                "skills.skills": "Professional Skills",
+                "skills.researchArea": "Research Areas",
+                "skills.programming": "Programming Languages",
+                "skills.databases": "Databases",
+                "skills.frameworks": "Frameworks & Tools",
+                "skills.systems": "System Environments",
+                "skills.certificates": "Certificates",
+                "skills.english4": "College English Test Band 4",
+                "skills.mandarin": "Mandarin Proficiency Test Level 2A",
+                "skills.driving": "C1 Driving License",
+                "skills.languages": "Language Proficiency",
+                "skills.native": "Native",
+                "skills.good": "Good",
+                "skills.basic": "Basic",
+                "skills.selfEval": "Self-evaluation",
+                "skills.eval1": "Rigorous thinking, strong learning and adaptability",
+                "skills.eval2": "Good teamwork spirit and sense of collaboration",
+                "skills.eval3": "Proactive, strong sense of responsibility, high execution, able to work under pressure",
+                "skills.eval4": "Possess problem analysis and solving abilities, with a serious and down-to-earth professional attitude",
+                "contact.title": "Contact Information",
+                "contact.getInTouch": "Get In Touch",
+                "contact.description": "Whether you want to discuss research cooperation, job opportunities, or have other questions, please feel free to contact me. I will reply to your message as soon as possible.",
+                "contact.email": "Email",
+                "contact.phone": "Phone",
+                "contact.wechat": "WeChat",
+                "contact.website": "Website",
+                "contact.followMe": "Follow Me",
+                "contact.sendMessage": "Send a Message",
+                "contact.yourName": "Your Name",
+                "contact.yourEmail": "Your Email",
+                "contact.subject": "Subject",
+                "contact.message": "Message",
+                "contact.send": "Send Message",
+                "footer.subtitle": "Federated Learning · Machine Learning · Data Analysis",
+                "footer.copyright": "© 2025 Xu Jiantao. All rights reserved."
+            },
+            zh: {
+                name: "徐建涛",
+                "nav.home": "首页",
+                "nav.education": "教育背景",
+                "nav.experience": "工作经历",
+                "nav.research": "研究成果",
+                "nav.skills": "技能",
+                "nav.contact": "联系方式",
+                "researcher": "研究人员",
+                "home.title": "徐建涛",
+                "home.subtitle": "联邦学习 · 机器学习 · 数据分析",
+                "home.website": "个人网站",
+                "home.description": "博士研究生，专注于联邦学习、机器学习和数据分析领域的研究。拥有丰富的学术研究和软件开发经验，曾参与多个医疗与生物信息系统的开发项目，擅长将研究成果转化为实际应用。",
+                "home.contactMe": "联系我",
+                "home.myResearch": "我的研究",
+                "education.title": "教育背景",
+                "education.phd": "博士 | 计算机与信息系统",
+                "education.phdDesc": "专注于联邦学习、机器学习和数据分析领域的研究，参与多项科研项目，发表多篇学术论文。",
+                "education.msc": "硕士 | 计算机与信息系统",
+                "education.mscDesc": "研究方向为分布式系统与机器学习，担任助教，负责课堂讲解和作业批改。",
+                "education.bsc": "学士 | 计算机信息管理",
+                "education.bscDesc": "学习计算机基础理论与应用知识，参与多个课程设计项目，奠定了扎实的计算机科学基础。",
+                "experience.title": "工作与科研经历",
+                "experience.engineer": "兼职开发工程师",
+                "experience.techStack": "技术栈：",
+                "experience.responsibilities": "职责：",
+                "experience.resp1": "参与公司医疗与生物信息相关系统的开发，负责前端交互设计、后端接口实现和数据库结构优化。",
+                "experience.resp2": "与多学科团队（医生、研究员、系统运维人员）协作，将需求转化为可落地的软件系统。",
+                "experience.resp3": "提供代码文档与技术说明，支持系统测试与迭代升级。",
+                "experience.projects": "项目经验：",
+                "experience.project1": "1. 手术视频转录分析系统",
+                "experience.proj1_1": "负责整体架构设计与前后端开发，构建医生手术过程数据上传与管理平台。",
+                "experience.proj1_2": "集成ChatGPT API，实现手术过程的自动总结与分析，生成结构化报告文档。",
+                "experience.proj1_3": "负责数据库表设计与优化，确保视频转录数据与分析结果的高效存储与检索。",
+                "experience.project2": "2. 抗体滴定记录 App",
+                "experience.proj2_1": "负责前端页面的部分开发与功能实现，包括数据录入界面与交互设计。",
+                "experience.proj2_2": "与后端工程师配合完成API对接与调试，提升系统的稳定性与用户体验。",
+                "experience.dataIntern": "数据实习工程师",
+                "experience.resp4": "参与公司核心数据平台的日常维护与优化，保障数据处理的高可用性与安全性。",
+                "experience.resp5": "负责大数据客户端及文件传输系统的安装、配置和故障排查。",
+                "experience.resp6": "维护大数据集群平台，定期检查集群健康状态，提升数据处理效率。",
+                "experience.resp7": "参与数据仓库的数据更新与清理，确保数据的完整性与一致性。",
+                "experience.achievements": "成果：",
+                "experience.ach1": "提升了公司数据中心的运维效率，降低了系统宕机风险。",
+                "experience.ach2": "积累了大数据运维与企业数据仓库管理的实战经验。",
+                "experience.teaching": "教学与科研经历",
+                "experience.teachingAssist": "助教 (TA)",
+                "experience.ta1": "负责本科及研究生课程的课堂讲解与辅导。",
+                "experience.ta2": "批改作业、组织讨论并解答学生疑问。",
+                "experience.ta3": "协助教授进行课程设计与教学材料准备。",
+                "experience.researchAssist": "研究助理 (RA)",
+                "experience.ra1": "积极参与科研项目，负责实验设计与实施。",
+                "experience.ra2": "撰写学术论文并参与学术会议交流。",
+                "experience.ra3": "参与期刊论文的审稿工作，提升学术视野。",
+                "research.title": "研究兴趣与发表论文",
+                "research.interests": "研究兴趣",
+                "research.flDesc": "研究联邦学习中的激励机制、信任管理和隐私保护技术，专注于异构环境下的模型训练与优化。",
+                "research.mlDesc": "探索机器学习算法在医疗数据、文本分析等领域的应用，研究高效的模型训练与推理方法。",
+                "research.daDesc": "研究大规模数据的处理与分析技术，关注数据质量评估与提升方法，以及在实际场景中的应用。",
+                "research.papers": "发表论文",
+                "research.showMore": "显示更多",
+                "skills.title": "技能与证书",
+                "skills.skills": "专业技能",
+                "skills.researchArea": "研究方向",
+                "skills.programming": "编程语言",
+                "skills.databases": "数据库",
+                "skills.frameworks": "框架与工具",
+                "skills.systems": "系统环境",
+                "skills.certificates": "证书",
+                "skills.english4": "大学英语四级证书",
+                "skills.mandarin": "普通话二级甲等证书",
+                "skills.driving": "C1驾驶证",
+                "skills.languages": "语言能力",
+                "skills.native": "母语",
+                "skills.good": "良好",
+                "skills.basic": "一般",
+                "skills.selfEval": "自我评价",
+                "skills.eval1": "思维严谨，学习与适应能力强",
+                "skills.eval2": "具备良好的协作精神与团队意识",
+                "skills.eval3": "工作主动，责任心强，执行力高，能承受压力",
+                "skills.eval4": "具备问题分析与解决能力，职业态度认真踏实",
+                "contact.title": "联系方式",
+                "contact.getInTouch": "与我联系",
+                "contact.description": "无论您是想讨论研究合作、工作机会，还是有其他问题，都欢迎与我联系。我会尽快回复您的消息。",
+                "contact.email": "电子邮件",
+                "contact.phone": "电话",
+                "contact.wechat": "微信",
+                "contact.website": "个人网站",
+                "contact.followMe": "关注我",
+                "contact.sendMessage": "发送消息",
+                "contact.yourName": "您的姓名",
+                "contact.yourEmail": "您的邮箱",
+                "contact.subject": "主题",
+                "contact.message": "消息内容",
+                "contact.send": "发送消息",
+                "footer.subtitle": "联邦学习 · 机器学习 · 数据分析",
+                "footer.copyright": "© 2025 徐建涛. 保留所有权利."
+            }
+        };
+
+        // 当前语言
+        let currentLang = 'zh';
+
+        // 切换语言
+        function setLanguage(lang) {
+            if (lang === currentLang) return;
+
+            currentLang = lang;
+            const elements = document.querySelectorAll('[data-i18n]');
+
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // 更新语言按钮样式
+            document.getElementById('lang-zh').className = lang === 'zh'
+                ? 'px-3 py-1 rounded-md bg-primary text-white'
+                : 'px-3 py-1 rounded-md bg-gray-200 text-gray-700 ml-2';
+
+            document.getElementById('lang-en').className = lang === 'en'
+                ? 'px-3 py-1 rounded-md bg-primary text-white ml-2'
+                : 'px-3 py-1 rounded-md bg-gray-200 text-gray-700 ml-2';
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 语言切换事件
+            document.getElementById('lang-zh').addEventListener('click', () => setLanguage('zh'));
+            document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
+
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                const icon = menuToggle.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+
+            // 导航链接点击事件 - 关闭移动菜单
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // 更新导航激活状态
+                        updateActiveNav(targetId);
+                    }
+                });
+            });
+
+            // 更新导航激活状态
+            function updateActiveNav(targetId) {
+                document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
+                    link.classList.remove('nav-active');
+                    if (link.getAttribute('href') === targetId) {
+                        link.classList.add('nav-active');
+                    }
+                });
+            }
+
+            // 滚动监听 - 显示/隐藏返回顶部按钮
+            const backToTopButton = document.getElementById('back-to-top');
+            const header = document.querySelector('header');
+
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                    header.classList.add('py-2');
+                    header.classList.remove('py-3');
+                } else {
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    header.classList.remove('py-2');
+                    header.classList.add('py-3');
+                }
+
+                // 滚动时更新导航激活状态
+                const sections = document.querySelectorAll('section[id]');
+                let currentSection = '';
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+
+                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+
+                updateActiveNav(`#${currentSection}`);
+
+                // 滚动动画
+                const fadeElements = document.querySelectorAll('.section-fade');
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('section-visible');
+                    }
+                });
+            });
+
+            // 返回顶部按钮点击事件
+            backToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // 论文显示更多/收起
+            const showMoreBtn = document.getElementById('show-more-papers');
+            const morePapers = document.getElementById('more-papers');
+
+            showMoreBtn.addEventListener('click', function() {
+                morePapers.classList.toggle('hidden');
+
+                const textSpan = showMoreBtn.querySelector('span');
+                const icon = showMoreBtn.querySelector('i');
+
+                if (morePapers.classList.contains('hidden')) {
+                    textSpan.textContent = translations[currentLang]['research.showMore'];
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    textSpan.textContent = currentLang === 'zh' ? '收起' : 'Show Less';
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
+
+            // 表单提交处理
+            const contactForm = document.getElementById('contact-form');
+
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // 在实际应用中，这里会有表单提交逻辑
+                alert(currentLang === 'zh' ? '消息发送成功！' : 'Message sent successfully!');
+                contactForm.reset();
+            });
+
+            // 初始化页面动画
+            setTimeout(() => {
+                const firstSection = document.querySelector('.section-fade');
+                if (firstSection) {
+                    firstSection.classList.add('section-visible');
+                }
+            }, 100);
+        });
+    </script>
 </body>
 </html>
