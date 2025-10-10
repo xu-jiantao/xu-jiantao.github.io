@@ -890,6 +890,29 @@
             document.getElementById('lang-en-btn').classList.remove('text-primary');
             document.getElementById('lang-en-btn').classList.add('text-dark', 'hover:text-primary');
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // 确保默认显示英文内容
+            document.querySelectorAll('.lang-en').forEach(el => {
+                el.classList.remove('hidden');
+                el.classList.add('transition-lang');
+            });
+            document.querySelectorAll('.lang-zh').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('transition-lang');
+            });
+
+            // 激活英文按钮
+            const langEnBtn = document.getElementById('lang-en-btn');
+            langEnBtn.classList.add('text-primary');
+            langEnBtn.classList.remove('text-dark', 'hover:text-primary');
+
+            // 激活中文按钮为未选中状态
+            const langZhBtn = document.getElementById('lang-zh-btn');
+            langZhBtn.classList.remove('text-primary');
+            langZhBtn.classList.add('text-dark', 'hover:text-primary');
+        });
+
         
         document.getElementById('lang-en-btn').addEventListener('click', function() {
             document.querySelectorAll('.lang-en').forEach(el => {
