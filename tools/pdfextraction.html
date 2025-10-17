@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超声报告 PDF 数据提取系统(演示)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Helvetica Neue', 'Arial', sans-serif; }
+        .progress-bar-inner {
+            transition: width 0.3s ease-in-out;
+        }
+        .table-container {
+            max-height: calc(100vh - 420px);
+        }
+        /* 自定义滚动条样式 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 antialiased">
+
+    <!-- 登录界面 -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-md">
+            <div>
+                <svg class="mx-auto h-12 w-auto text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    登录您的账户
+                </h2>
+                <p class="mt-2 text-center text-sm text-gray-600">
+                    超声报告 PDF 数据提取系统(演示)
+                </p>
+            </div>
+            <form id="login-form" class="mt-8 space-y-6">
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <div>
+                        <label for="username" class="sr-only">用户名</label>
+                        <input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="用户名 (默认: admin)">
+                    </div>
+                    <div>
+                        <label for="password" class="sr-only">密码</label>
+                        <input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="密码 (默认: password)">
+                    </div>
+                </div>
+                <p id="login-error" class="text-red-500 text-sm hidden">用户名或密码错误。</p>
+                <div>
+                    <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        登 录
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 主程序界面 -->
+    <div id="main-app" class="hidden min-h-screen p-4 sm:p-6 lg:p-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- 顶部栏 -->
+            <header class="flex justify-between items-center bg-white p-4 rounded-xl shadow-md mb-6">
+                <div class="flex items-center space-x-3">
+                     <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <h1 class="text-xl font-bold text-gray-800">超声报告 PDF 数据提取系统(演示)</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="user-display" class="text-sm font-medium text-gray-600"></span>
+                    <button id="logout-button" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">退出</button>
+                </div>
+            </header>
+
+            <!-- 控制面板 -->
+            <div class="bg-white p-6 rounded-xl shadow-md mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 文件选择 -->
+                    <div class="md:col-span-2">
+                        <label for="pdf-folder-input" class="block text-sm font-medium text-gray-700 mb-2">1. 选择包含 PDF 报告的文件夹</label>
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                            <div class="space-y-1 text-center">
+                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="pdf-folder-input-real" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                        <span>点击选择文件夹</span>
+                                        <input id="pdf-folder-input-real" name="pdf-folder-input-real" type="file" class="sr-only" webkitdirectory directory multiple>
+                                    </label>
+                                </div>
+                                <p id="folder-info" class="text-xs text-gray-500">未选择文件夹</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 操作按钮 -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">2. 开始处理</label>
+                        <div class="space-y-3">
+                            <button id="start-button" disabled class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed">开始提取</button>
+                            <button id="stop-button" disabled class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-300 disabled:cursor-not-allowed">停止处理</button>
+                            <button id="export-button" disabled class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400 disabled:cursor-not-allowed">导出为 Excel</button>
+                        </div>
+                    </div>
+                </div>
+                 <!-- 进度条 -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700">处理进度</label>
+                    <div class="mt-2 bg-gray-200 rounded-full h-4 overflow-hidden">
+                        <div id="progress-bar" class="progress-bar-inner bg-indigo-600 h-4 rounded-full" style="width: 0%;"></div>
+                    </div>
+                    <p id="progress-text" class="text-sm text-gray-600 mt-2 text-center">等待开始...</p>
+                </div>
+            </div>
+
+            <!-- 数据展示表格 -->
+            <div class="bg-white p-6 rounded-xl shadow-md">
+                 <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">提取结果预览</h3>
+                 <div class="table-container overflow-auto border border-gray-200 rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50 sticky top-0">
+                            <tr>
+
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">检查日期</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">姓名</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">检查编号</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">性别</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">年龄</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">科别</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">临床诊断</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">文件名</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">状态</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-table" class="bg-white divide-y divide-gray-200">
+                           <!-- 动态生成数据行 -->
+                        </tbody>
+                    </table>
+                 </div>
+                 <p id="table-placeholder" class="py-10 text-center text-gray-500">暂无数据</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 配置PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js`;
+
+        // DOM 元素
+        const loginScreen = document.getElementById('login-screen');
+        const mainApp = document.getElementById('main-app');
+        const loginForm = document.getElementById('login-form');
+        const loginError = document.getElementById('login-error');
+        const userDisplay = document.getElementById('user-display');
+        const logoutButton = document.getElementById('logout-button');
+
+        const folderInput = document.getElementById('pdf-folder-input-real');
+        const folderInfo = document.getElementById('folder-info');
+        const startButton = document.getElementById('start-button');
+        const stopButton = document.getElementById('stop-button');
+        const exportButton = document.getElementById('export-button');
+
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        const resultsTable = document.getElementById('results-table');
+        const tablePlaceholder = document.getElementById('table-placeholder');
+
+        // 应用状态
+        let currentUser = null;
+        let pdfFiles = [];
+        let extractedData = [];
+        let isProcessing = false;
+
+        // 模拟用户数据库
+        const users = {
+            'admin': 'password',
+            'user': '123456'
+        };
+
+        // --- 1. 认证逻辑 ---
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = loginForm.username.value;
+            const password = loginForm.password.value;
+
+            if (users[username] && users[username] === password) {
+                currentUser = username;
+                loginScreen.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+                userDisplay.textContent = `欢迎, ${currentUser}`;
+                loginError.classList.add('hidden');
+            } else {
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        logoutButton.addEventListener('click', () => {
+            currentUser = null;
+            loginScreen.classList.remove('hidden');
+            mainApp.classList.add('hidden');
+            loginForm.reset();
+            resetAppState();
+        });
+
+        function resetAppState() {
+            pdfFiles = [];
+            extractedData = [];
+            isProcessing = false;
+            folderInfo.textContent = '未选择文件夹';
+            resultsTable.innerHTML = '';
+            tablePlaceholder.classList.remove('hidden');
+            updateButtonsState();
+            updateProgress(0, 0);
+        }
+
+        // --- 2. 文件选择与状态更新 ---
+        folderInput.addEventListener('change', (e) => {
+            pdfFiles = Array.from(e.target.files).filter(file => file.type === 'application/pdf');
+            if (pdfFiles.length > 0) {
+                folderInfo.textContent = `已选择 ${pdfFiles.length} 个 PDF 文件`;
+                extractedData = [];
+                resultsTable.innerHTML = '';
+                tablePlaceholder.classList.remove('hidden');
+            } else {
+                folderInfo.textContent = '选择的文件夹中没有 PDF 文件';
+            }
+            updateButtonsState();
+        });
+
+        function updateButtonsState() {
+            const hasFiles = pdfFiles.length > 0;
+            const hasData = extractedData.length > 0;
+
+            startButton.disabled = !hasFiles || isProcessing;
+            stopButton.disabled = !isProcessing;
+            exportButton.disabled = !hasData || isProcessing;
+        }
+
+        function updateProgress(processedCount, totalCount) {
+            if (totalCount === 0) {
+                progressBar.style.width = '0%';
+                progressText.textContent = '等待开始...';
+                return;
+            }
+            const percentage = Math.round((processedCount / totalCount) * 100);
+            progressBar.style.width = `${percentage}%`;
+            progressText.textContent = `正在处理: ${processedCount} / ${totalCount} (${percentage}%)`;
+            if (processedCount === totalCount) {
+                 progressText.textContent = `处理完成！共提取 ${processedCount} 个文件。`;
+            }
+        }
+
+        // --- 3. PDF 处理核心逻辑 ---
+        startButton.addEventListener('click', async () => {
+            if (isProcessing) return;
+            isProcessing = true;
+            extractedData = [];
+            resultsTable.innerHTML = '';
+            tablePlaceholder.classList.add('hidden');
+            updateButtonsState();
+
+            let processedCount = 0;
+            const totalCount = pdfFiles.length;
+
+            for (const file of pdfFiles) {
+                if (!isProcessing) {
+                    progressText.textContent = `处理已由用户停止。已处理 ${processedCount} 个文件。`;
+                    break;
+                }
+
+                let data = { '文件名': file.name };
+                try {
+                    const extracted = await processPdf(file);
+                    data = { ...data, ...extracted, '状态': '成功' };
+                    addResultRow(data, 'bg-green-50');
+                } catch (error) {
+                    console.error(`处理文件 ${file.name} 失败:`, error);
+                    data = { ...data, '状态': '失败' };
+                    addResultRow(data, 'bg-red-50');
+                }
+
+                extractedData.push(data);
+                processedCount++;
+                updateProgress(processedCount, totalCount);
+
+                // 短暂延时以保持UI响应
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+
+            isProcessing = false;
+            updateButtonsState();
+        });
+
+        stopButton.addEventListener('click', () => {
+            isProcessing = false;
+            updateButtonsState();
+        });
+
+        async function processPdf(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            let fullText = '';
+
+            // 提取所有页面的文本
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+
+                // 按照Y坐标排序文本项,以保持正确的阅读顺序
+                const sortedItems = textContent.items.sort((a, b) => {
+                    const yDiff = Math.abs(a.transform[5] - b.transform[5]);
+                    if (yDiff < 5) { // 同一行
+                        return a.transform[4] - b.transform[4]; // 按X坐标排序
+                    }
+                    return b.transform[5] - a.transform[5]; // 按Y坐标降序
+                });
+
+                // 将同一行的文本组合起来
+                let currentLine = '';
+                let lastY = null;
+
+                sortedItems.forEach(item => {
+                    const y = item.transform[5];
+                    if (lastY !== null && Math.abs(y - lastY) > 5) {
+                        fullText += currentLine + '\n';
+                        currentLine = '';
+                    }
+                    currentLine += item.str + ' ';
+                    lastY = y;
+                });
+                fullText += currentLine + '\n';
+            }
+
+            // 根据实际PDF格式优化的正则表达式
+            const patterns = {
+                '检查日期': /检查日期\s*[：:]\s*(\d{4}[-\s]\d{2}[-\s]\d{2})/i,
+                '检查编号': /检查编号\s*[：:]\s*(\d+)/i,
+                '机型': /机型\s*[：:]\s*([^\s\r\n]+)/i,
+                '姓名': /姓名\s*[：:]\s*([^\s]+?)(?=\s+性别)/i,
+                '性别': /性别\s*[：:]\s*(男|女)/i,
+                '年龄': /年龄\s*[：:]\s*(\d+)\s*岁?/i,
+                '科别': /科别\s*[：:]\s*([^\r\n]+?)(?=\s+送检医师)/i,
+                '送检医师': /送检医师\s*[：:]\s*([^\r\n]+?)(?=\s+医嘱号)/i,
+                '医嘱号': /医嘱号\s*[：:]\s*([^\r\n]+?)(?=\s+住院号)/i,
+                '住院号': /住院号\s*[：:]\s*([^\r\n]+?)(?=\s+床号)/i,
+                '床号': /床号\s*[：:]\s*([^\r\n]+?)(?=\s+临床)/i,
+                '临床初步诊断': /临床初步诊断\s*[：:]\s*([^\r\n]+?)(?=\s+部位)/is,
+                '部位': /部位\s*[：:]\s*([^\r\n]*?)(?=\s|$)/i,
+                '检查所见': /检查所见\s*[：:]\s*([\s\S]+?)(?=\s+检查提示\s*[：:])/i,
+                '检查提示': /检查提示\s*[：:]\s*([\s\S]+?)(?=\s+打印时间\s*[：:])/i,
+                '打印时间': /打印时间\s*[：:]\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})/i,
+                '检查医师': /(?:检查医师|校对医师)\s*[：:]\s*([^\r\n]+?)(?=\s+录入员|签名|$)/i,
+                '录入员': /录入员\s*[：:]\s*([^\r\n]+?)(?=\s+签名|备注|$)/i,
+                '备注': /备注\s*[：:]\s*([\s\S]+?)(?=\s+签名|$)/i
+            };
+
+            const extracted = {};
+
+            // 调试:输出前1000字符以便查看格式
+            console.log('=== PDF文本内容(前1000字符) ===');
+            console.log(fullText.substring(0, 1000));
+            console.log('=== 开始提取字段 ===');
+
+            // 提取各字段
+            for (const [key, pattern] of Object.entries(patterns)) {
+                const match = fullText.match(pattern);
+                if (match && match[1]) {
+                    let value = match[1].trim();
+
+                    // 对于多行字段保留格式,其他字段压缩空格
+                    if (!['检查所见', '检查提示', '部位', '临床初步诊断', '备注'].includes(key)) {
+                        value = value.replace(/\s+/g, ' ');
+                    } else {
+                        // 多行字段:保留换行但去除每行首尾空格
+                        value = value.split('\n').map(line => line.trim()).filter(line => line).join('\n');
+                    }
+
+                    extracted[key] = value;
+
+                    // 显示提取结果(多行字段只显示前100字符)
+                    const preview = value.length > 100 ? value.substring(0, 100) + '...' : value;
+                    console.log(`✓ ${key}: ${preview}`);
+                } else {
+                    extracted[key] = '未提取';
+                    console.log(`✗ ${key}: 未匹配到`);
+                }
+            }
+
+            console.log('=== 提取完成 ===');
+
+            return extracted;
+        }
+
+        function addResultRow(data, bgColorClass) {
+            const row = document.createElement('tr');
+            row.className = bgColorClass;
+            row.innerHTML = `
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${data['检查日期'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${data['姓名'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${data['检查编号'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${data['性别'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${data['年龄'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">${data['科别'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600 truncate max-w-sm">${data['临床初步诊断'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-800">${data['文件名'] || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold ${data['状态'] === '成功' ? 'text-green-600' : 'text-red-600'}">${data['状态'] || ''}</td>
+            `;
+            resultsTable.appendChild(row);
+        }
+
+        // --- 4. Excel 导出逻辑 ---
+        exportButton.addEventListener('click', () => {
+            if (extractedData.length === 0) {
+                // 在现代UI中，避免使用alert()
+                exportButton.textContent = '没有可导出的数据!';
+                setTimeout(() => { exportButton.textContent = '导出为 Excel'; }, 2000);
+                return;
+            }
+
+            // 确保所有需要的字段都在导出列表中
+            const exportHeaders = [
+                '检查日期', '检查编号', '机型', '姓名', '性别', '年龄', '科别',
+                '送检医师', '医嘱号', '住院号', '床号', '临床初步诊断', '部位',
+                '检查所见', '检查提示', '打印时间', '检查医师', '录入员', '备注',
+                '文件名', '状态'
+            ];
+
+            const dataToExport = extractedData.map(item => {
+                const row = {};
+                exportHeaders.forEach(header => {
+                    // 如果原型中没有提取该字段，则留空
+                    row[header] = item[header] || '';
+                });
+                return row;
+            });
+
+            // 使用 SheetJS 创建工作簿
+            const worksheet = XLSX.utils.json_to_sheet(dataToExport, { header: exportHeaders });
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, '提取结果');
+
+            // 写入文件并触发下载
+            XLSX.writeFile(workbook, '超声报告提取结果.xlsx');
+        });
+
+    });
+    </script>
+</body>
+</html>
+
