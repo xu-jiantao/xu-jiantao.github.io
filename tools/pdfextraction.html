@@ -107,7 +107,7 @@
                         <div class="space-y-3">
                             <button id="start-button" disabled class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed">开始提取</button>
                             <button id="stop-button" disabled class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-300 disabled:cursor-not-allowed">停止处理</button>
-                            <button id="export-button" disabled class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400 disabled:cursor-not-allowed">导出为 Excel</button>
+                            <button id="export-button" disabled class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400 disabled:cursor-not-allowed">导出为 Excel/CSV</button>
                         </div>
                     </div>
                 </div>
@@ -423,7 +423,7 @@
             if (extractedData.length === 0) {
                 // 在现代UI中，避免使用alert()
                 exportButton.textContent = '没有可导出的数据!';
-                setTimeout(() => { exportButton.textContent = '导出为 Excel'; }, 2000);
+                setTimeout(() => { exportButton.textContent = '导出为 Excel/CSV'; }, 2000);
                 return;
             }
 
@@ -450,11 +450,10 @@
             XLSX.utils.book_append_sheet(workbook, worksheet, '提取结果');
 
             // 写入文件并触发下载
-            XLSX.writeFile(workbook, '超声报告提取结果.xlsx');
+            XLSX.writeFile(workbook, '超声报告提取结果.csv');
         });
 
     });
     </script>
 </body>
 </html>
-
