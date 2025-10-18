@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>超声报告 PDF 数据提取系统(演示123)</title>
+    <title>超声报告PDF数据结构化系统</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -36,7 +36,7 @@
                     登录您的账户
                 </h2>
                 <p class="mt-2 text-center text-sm text-gray-600">
-                    超声报告 PDF 数据提取系统(演示123)
+                    超声报告PDF数据结构化系统
                 </p>
             </div>
             <form id="login-form" class="mt-8 space-y-6">
@@ -74,7 +74,7 @@
                      <svg class="h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
-                    <h1 class="text-xl font-bold text-gray-800">超声报告 PDF 数据提取系统(演示123)</h1>
+                    <h1 class="text-xl font-bold text-gray-800">超声报告PDF数据结构化系统</h1>
                 </div>
                 <div class="flex items-center space-x-4">
                     <span id="user-display" class="text-sm font-medium text-gray-600"></span>
@@ -87,7 +87,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- 文件选择 -->
                     <div class="md:col-span-2">
-                        <label for="pdf-folder-input" class="block text-sm font-medium text-gray-700 mb-2">1. 选择包含 PDF 报告的文件夹</label>
+                        <label for="pdf-folder-input" class="block text-sm font-medium text-gray-700 mb-2">1. 请选择PDF报告所在的文件夹</label>
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                             <div class="space-y-1 text-center">
                                 <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true"><path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
@@ -103,7 +103,7 @@
                     </div>
                     <!-- 操作按钮 -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">2. 开始处理</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">2. 开始结构化处理</label>
                         <div class="space-y-3">
                             <button id="start-button" disabled class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed">开始提取</button>
                             <button id="stop-button" disabled class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-300 disabled:cursor-not-allowed">停止处理</button>
@@ -347,9 +347,12 @@
                 '检查编号': /检查编号\s*[：:]\s*(\d+)/i,
                 '机型': /机型\s*[：:]\s*([^\s\r\n]+)/i,
                 '姓名': /姓名\s*[：:]\s*([^\s]+?)(?=\s+性别)/i,
+                
                 '性别': /性别\s*[：:]\s*(男|女)/i,
                 '年龄': /年龄\s*[：:]\s*(\d+)\s*岁?/i,
+                
                 '科别': /科别\s*[：:]\s*([^\r\n]+?)(?=\s+送检医师)/i,
+                
                 '送检医师': /送检医师\s*[：:]\s*([^\r\n]+?)(?=\s+医嘱号)/i,
                 '医嘱号': /医嘱号\s*[：:]\s*([^\r\n]+?)(?=\s+住院号)/i,
                 '住院号': /住院号\s*[：:]\s*([^\r\n]+?)(?=\s+床号)/i,
@@ -357,7 +360,12 @@
                 '临床初步诊断': /临床初步诊断\s*[：:]\s*([^\r\n]+?)(?=\s+部位)/is,
                 '部位': /部位\s*[：:]\s*([^\r\n]*?)(?=\s|$)/i,
                 '检查所见': /检查所见\s*[：:]\s*([\s\S]+?)(?=\s+检查提示\s*[：:])/i,
+    
+                '超声测值（单位mm)：': /超声测值（单位mm)：\s*[：:]\s*([\s\S]+?)(?=\s+超声测值（单位mm)：\s*[：:])/i,
+
+            
                 '检查提示': /检查提示\s*[：:]\s*([\s\S]+?)(?=\s+打印时间\s*[：:])/i,
+                
                 '打印时间': /打印时间\s*[：:]\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2})/i,
                 '检查医师': /(?:检查医师|校对医师)\s*[：:]\s*([^\r\n]+?)(?=\s+录入员|签名|$)/i,
                 '录入员': /录入员\s*[：:]\s*([^\r\n]+?)(?=\s+签名|备注|$)/i,
@@ -423,7 +431,7 @@
             if (extractedData.length === 0) {
                 // 在现代UI中，避免使用alert()
                 exportButton.textContent = '没有可导出的数据!';
-                setTimeout(() => { exportButton.textContent = '导出为 Excel/CSV'; }, 2000);
+                setTimeout(() => { exportButton.textContent = '导出为 Excel'; }, 2000);
                 return;
             }
 
