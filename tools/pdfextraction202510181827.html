@@ -42,11 +42,11 @@
                 <div class="rounded-md shadow-sm -space-y-px">
                     <div>
                         <label for="username" class="sr-only">用户名</label>
-                        <input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="用户名 (默认: admin)">
+                        <input id="username" name="username" type="text" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="用户名 (默认: user)">
                     </div>
                     <div>
                         <label for="password" class="sr-only">密码</label>
-                        <input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="密码 (默认: password)">
+                        <input id="password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="密码 (默认: 123456)">
                     </div>
                 </div>
                 <p id="login-error" class="text-red-500 text-sm hidden">用户名或密码错误。</p>
@@ -212,13 +212,33 @@
             tablePlaceholder.classList.remove('hidden');
             updateButtonsState();
             updateProgress(0, 0);
+            folderInput.value = ''; // 重置文件输入
         }
 
         // --- 2. 文件选择与状态更新 ---
         folderInput.addEventListener('change', (e) => {
-            pdfFiles = Array.from(e.target.files).filter(file => file.type === 'application/pdf');
+            // 首先获取所有选择的PDF文件
+            let allFiles = Array.from(e.target.files).filter(file => file.type === 'application/pdf');
+
+            // --- 新增：检查用户并限制文件数量 ---
+            if (currentUser === 'user' && allFiles.length > 5) {
+                alert('普通用户最多只能选择 5 个文件。将只处理前 5 个文件。');
+                // 截取前5个文件
+                pdfFiles = allFiles.slice(0, 5);
+            } else {
+                pdfFiles = allFiles;
+            }
+            // --- 修改结束 ---
+
             if (pdfFiles.length > 0) {
-                folderInfo.textContent = `已选择 ${pdfFiles.length} 个 PDF 文件`;
+                // --- 修改：更新提示信息 ---
+                if (currentUser === 'user' && allFiles.length > 5) {
+                     folderInfo.textContent = `已选择 5 个 PDF 文件 (达到用户上限)`;
+                } else {
+                     folderInfo.textContent = `已选择 ${pdfFiles.length} 个 PDF 文件`;
+                }
+                // --- 修改结束 ---
+
                 extractedData = [];
                 resultsTable.innerHTML = '';
                 tablePlaceholder.classList.remove('hidden');
@@ -284,8 +304,16 @@
                 processedCount++;
                 updateProgress(processedCount, totalCount);
 
-                // 短暂延时以保持UI响应
-                await new Promise(resolve => setTimeout(resolve, 10));
+                // --- 修改：为 admin 用户添加批处理逻辑 ---
+                if (currentUser === 'admin' && processedCount % 10 === 0 && processedCount < totalCount) {
+                    // 每处理10个文件, 暂停 2 秒
+                    progressText.textContent = `已完成 ${processedCount} / ${totalCount}。批处理暂停2秒...`;
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                } else {
+                    // 默认的短暂延时以保持UI响应
+                    await new Promise(resolve => setTimeout(resolve, 10));
+                }
+                // --- 修改结束 ---
             }
 
             isProcessing = false;
